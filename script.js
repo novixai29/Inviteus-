@@ -64,7 +64,7 @@ const number = value => new Intl.NumberFormat('ar-IQ').format(value);
 const categoryName = id => CATEGORIES.find(category => category.id === id)?.name || id;
 const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const previewLink = template => template.previewUrl || template.previewPath;
-const mockupLink = template => template.mockupUrl || previewLink(template);
+const mockupLink = template => template.mockupUrl || template.previewPath || previewLink(template);
 const heartIcon = '<svg class="heart-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 42 5.8 24.7C-1.2 18 1.4 6.8 10 4.8c5.6-1.3 10.7 1.2 14 6.2 3.3-5 8.4-7.5 14-6.2 8.6 2 11.2 13.2 4.2 19.9L24 42Z"/></svg>';
 const storageKey = 'inviteus-favorites-v2';
 let favorites = new Set();
@@ -73,24 +73,146 @@ try {
   if (Array.isArray(saved)) favorites = new Set(saved.filter(id => TEMPLATES.some(template => template.id === id)));
 } catch { /* المفضلة تظل متاحة لهذه الزيارة. */ }
 
-const state = { category:'all', collection:'all' };
+const PAGE_SIZE = 8;
+const state = { category:'all', collection:'all', page:1 };
 let selectedTemplate = null;
 let previousFocus = null;
 let toastTimer = null;
 let mockupObserver;
 
 function mockupMarkup(template) {
-  return `<div class="mockup-stage">
+  return `<div class="mockup-stage" data-mockup-id="${escapeHTML(template.id)}">
     <span class="mockup-loading" aria-hidden="true">${escapeHTML(template.name)}</span>
     <iframe data-mockup-src="${escapeHTML(mockupLink(template))}" title="معاينة دعوة ${escapeHTML(template.name)}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+    ${template.mockupVideoUrl ? `<video class="mockup-video" data-video-src="${escapeHTML(template.mockupVideoUrl)}" muted playsinline loop preload="none" aria-hidden="true"></video>` : ''}
+    <span class="mockup-cue" aria-hidden="true">حرّك المعاينة لتشوف التفاصيل</span>
   </div>`;
+}
+
+const demoOpeners = { 'ENG-001':'.open-prompt', 'ENG-002':'#openInvitationButton', 'ENG-003':'#startStoryButton', 'ENG-004':'#openPaperButton', 'ENG-005':'#enterMovieButton', 'ENG-007':'#enterInvitationButton', 'ENG-008':'#openGardenButton', 'ENG-010':'#enterButton' };
+function previewScroller(frame) {
+  try {
+    const doc = frame.contentDocument;
+    if (!doc || doc.location?.origin !== location.origin) return null;
+    doc.querySelectorAll('audio, video').forEach(media => { media.muted = true; });
+    const candidates = [doc.scrollingElement, ...doc.querySelectorAll('main, [class*="scroll"], [class*="page"]')].filter(Boolean);
+    return candidates.reduce((best, node) => node.scrollHeight - node.clientHeight > (best?.scrollHeight - best?.clientHeight || 0) ? node : best, null);
+  } catch { return null; }
+}
+function stopMockup(stage) {
+  cancelAnimationFrame(stage._tourFrame);
+  clearTimeout(stage._openTimer);
+  clearTimeout(stage._touchStopTimer);
+  clearInterval(stage._pageTimer);
+  stage._tourFrame = 0;
+  stage.classList.remove('is-previewing', 'manual-preview');
+  const video = stage.querySelector('video');
+  if (video) { video.pause(); video.currentTime = 0; }
+  const scroller = previewScroller(stage.querySelector('iframe'));
+  if (scroller) scroller.scrollTop = 0;
+  stage.querySelector('iframe').style.pointerEvents = '';
+}
+function startMockup(stage) {
+  if (stage._tourFrame || stage.classList.contains('is-previewing')) return;
+  const frame = stage.querySelector('iframe');
+  if (!frame.classList.contains('loaded')) return;
+  const video = stage.querySelector('video');
+  if (video) {
+    if (!video.src) video.src = video.dataset.videoSrc;
+    video.play().then(() => stage.classList.add('is-previewing')).catch(() => {});
+    return;
+  }
+  let scroller = previewScroller(frame);
+  if (!scroller) {
+    stage.classList.add('manual-preview');
+    stage.querySelector('.mockup-cue').textContent = 'تصفّح الدعوة داخل البطاقة';
+    frame.style.pointerEvents = 'auto'; // روابط خارجية: التصفح اليدوي يبقى حقيقياً داخل البطاقة.
+    return;
+  }
+  stage.querySelector('.mockup-cue').textContent = 'حرّك المعاينة لتشوف التفاصيل';
+  stage.classList.add('is-previewing');
+  if (stage.dataset.mockupId === 'ENG-006') {
+    stage._pageDirection = stage._pageDirection || 1;
+    stage._pageTimer = setInterval(() => {
+      try {
+        const next = frame.contentDocument.querySelector('#nextPage');
+        const previous = frame.contentDocument.querySelector('#prevPage');
+        if (stage._pageDirection > 0 && next?.disabled) stage._pageDirection = -1;
+        if (stage._pageDirection < 0 && previous?.disabled) stage._pageDirection = 1;
+        (stage._pageDirection > 0 ? next : previous)?.click();
+      } catch { clearInterval(stage._pageTimer); }
+    }, 1800);
+  }
+  const opener = demoOpeners[stage.dataset.mockupId];
+  if (opener && !stage._opened) {
+    let attempts = 0;
+    const openScene = () => {
+      try {
+        const button = frame.contentDocument.querySelector(opener);
+        if (button && !button.disabled) { button.click(); stage._opened = true; }
+      } catch { /* تظل المعاينة على مشهدها الأول. */ }
+      if (!stage._opened && ++attempts < 10 && stage.classList.contains('is-previewing')) stage._openTimer = setTimeout(openScene, 700);
+    };
+    stage._openTimer = setTimeout(openScene, 850);
+  }
+  const began = performance.now();
+  const tour = now => {
+    if (!stage.isConnected || !stage.classList.contains('is-previewing')) return;
+    const max = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+    const progress = Math.max(0, (now - began - 1100) / 9500);
+    const wave = progress % 2;
+    scroller.scrollTop = max * (wave <= 1 ? wave : 2 - wave);
+    stage._tourFrame = requestAnimationFrame(tour);
+  };
+  stage._tourFrame = requestAnimationFrame(tour);
+}
+
+function attachMockupInteraction(stage) {
+  stage.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') startMockup(stage); });
+  stage.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') stopMockup(stage); });
+  stage.addEventListener('pointerdown', event => {
+    if (event.pointerType !== 'touch') return;
+    stage._touchX = event.clientX;
+    stage._touchStartScroll = previewScroller(stage.querySelector('iframe'))?.scrollTop || 0;
+    stage._dragged = false;
+    startMockup(stage);
+  });
+  stage.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'touch' || stage._touchX == null) return;
+    const delta = stage._touchX - event.clientX;
+    if (Math.abs(delta) < 12) return;
+    stage._dragged = true;
+    cancelAnimationFrame(stage._tourFrame);
+    stage._tourFrame = 0;
+    stage.classList.remove('is-previewing');
+    const video = stage.querySelector('video');
+    if (video?.duration) video.currentTime = Math.max(0, Math.min(video.duration, video.currentTime + delta / 190));
+    else {
+      const scroller = previewScroller(stage.querySelector('iframe'));
+      if (scroller) { scroller.scrollTop = stage._touchStartScroll + delta * 3; stage._touchStartScroll = scroller.scrollTop; }
+    }
+    stage._touchX = event.clientX;
+  });
+  stage.addEventListener('pointerup', event => {
+    if (event.pointerType !== 'touch') return;
+    stage._touchX = null;
+    clearTimeout(stage._touchStopTimer);
+    stage._touchStopTimer = setTimeout(() => stopMockup(stage), 8000);
+  });
+  stage.closest('a')?.addEventListener('click', event => {
+    if (stage._dragged) { event.preventDefault(); stage._dragged = false; }
+  });
 }
 
 function activateMockups(root = document, immediate = false) {
   const frames = [...root.querySelectorAll('iframe[data-mockup-src]')];
   frames.forEach(frame => frame.addEventListener('load', () => {
-    if (frame.getAttribute('src') === frame.dataset.mockupSrc) frame.classList.add('loaded');
+    if (frame.getAttribute('src') === frame.dataset.mockupSrc) {
+      frame.classList.add('loaded');
+      if (frame.closest('.mockup-stage').matches(':hover')) startMockup(frame.closest('.mockup-stage'));
+    }
   }));
+  frames.forEach(frame => attachMockupInteraction(frame.closest('.mockup-stage')));
   if (immediate || !('IntersectionObserver' in window)) {
     frames.forEach(frame => { frame.src = frame.dataset.mockupSrc; });
     return;
@@ -102,6 +224,7 @@ function activateMockups(root = document, immediate = false) {
       if (entry.isIntersecting && frame.getAttribute('src') !== frame.dataset.mockupSrc) {
         frame.src = frame.dataset.mockupSrc;
       } else if (!entry.isIntersecting && frame.getAttribute('src') === frame.dataset.mockupSrc) {
+        stopMockup(frame.closest('.mockup-stage'));
         frame.classList.remove('loaded');
         frame.src = 'about:blank';
       }
@@ -130,7 +253,17 @@ function filteredTemplates() {
     if (state.category !== 'all' && template.category !== state.category) return false;
     if (state.collection === 'favorites' && !favorites.has(template.id)) return false;
     return true;
-  }).sort((a, b) => a.id.localeCompare(b.id));
+  }).reverse(); // ترتيب catalog.json هو ترتيب الإضافة؛ آخر دعوة مضافة تظهر أولاً.
+}
+
+function paginationMarkup(total, page, label) {
+  if (!total) return '';
+  const pages = Math.ceil(total / PAGE_SIZE);
+  const buttons = Array.from({ length:pages }, (_, index) => {
+    const value = index + 1;
+    return `<button type="button" data-page="${value}" aria-label="صفحة ${number(value)}" ${value === page ? 'aria-current="page"' : ''}>${number(value)}</button>`;
+  }).join('');
+  return `<span class="page-summary">${label} ${number(page)} من ${number(pages)}</span><div class="page-buttons"><button type="button" data-page="${page - 1}" ${page === 1 ? 'disabled' : ''} aria-label="الصفحة السابقة">‹</button>${buttons}<button type="button" data-page="${page + 1}" ${page === pages ? 'disabled' : ''} aria-label="الصفحة التالية">›</button></div>`;
 }
 
 function cardMarkup(template) {
@@ -158,10 +291,17 @@ function cardMarkup(template) {
 function renderGallery() {
   renderCategories();
   const templates = filteredTemplates();
-  $('#template-grid').innerHTML = templates.map(cardMarkup).join('');
+  const pages = Math.max(1, Math.ceil(templates.length / PAGE_SIZE));
+  state.page = Math.min(Math.max(state.page, 1), pages);
+  const visible = templates.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
+  const pagination = paginationMarkup(templates.length, state.page, 'صفحة');
+  $('#gallery-pages-top').innerHTML = pagination;
+  $('#gallery-pages-bottom').innerHTML = pagination;
+  $$('#template-grid .mockup-stage').forEach(stopMockup);
+  $('#template-grid').innerHTML = visible.map(cardMarkup).join('');
   activateMockups($('#template-grid'));
   const labels = { all:'كل التصاميم', favorites:'المفضلة' };
-  $('#result-count').textContent = `${labels[state.collection]} · ${number(templates.length)} تصاميم حقيقية`;
+  $('#result-count').textContent = `${labels[state.collection]} · ${number(templates.length)} تصاميم حقيقية · المعروض هسه ${number(visible.length)}`;
   $('#favorite-count').textContent = number(favorites.size);
   $('#favorite-nav').setAttribute('aria-label', `عرض المفضلة: ${number(favorites.size)} تصاميم`);
   $('#favorite-nav').classList.toggle('has-favorites', favorites.size > 0);
@@ -176,13 +316,14 @@ function renderGallery() {
 }
 
 function resetFilters() {
-  Object.assign(state, { category:'all', collection:'all' });
+  Object.assign(state, { category:'all', collection:'all', page:1 });
   renderGallery();
 }
 
 function jumpCollection(collection) {
   resetFilters();
   state.collection = collection;
+  state.page = 1;
   renderGallery();
   $('#gallery').scrollIntoView({ behavior:'smooth' });
 }
@@ -282,8 +423,15 @@ document.addEventListener('click', event => {
   if (!button) return;
   if (button.dataset.category) {
     state.category = button.dataset.category;
+    state.page = 1;
     renderGallery();
     $(`[data-category="${state.category}"]`)?.focus({ preventScroll:true });
+  } else if (button.dataset.page) {
+    const page = Number(button.dataset.page);
+    if (!Number.isInteger(page) || page < 1 || page > Math.ceil(filteredTemplates().length / PAGE_SIZE)) return;
+    state.page = page;
+    renderGallery();
+    $('#gallery-pages-top').scrollIntoView({ behavior:'smooth', block:'start' });
   } else if (button.dataset.favorite) {
     toggleFavorite(button.dataset.favorite);
   } else if (button.dataset.preview) {
@@ -307,6 +455,7 @@ $$('#main-nav a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
 $('#preview-dialog').addEventListener('close', () => {
   document.body.classList.remove('modal-open');
+  $$('#preview-content .mockup-stage').forEach(stopMockup);
   $('#preview-content').replaceChildren();
   previousFocus?.isConnected && previousFocus.focus({ preventScroll:true });
 });
@@ -336,7 +485,8 @@ function validCatalogTemplate(template) {
     const link = new URL(template.previewUrl);
     if (link.protocol !== 'https:') return false;
     const mockup = new URL(template.mockupUrl || template.previewUrl);
-    return mockup.protocol === 'https:';
+    const video = template.mockupVideoUrl ? new URL(template.mockupVideoUrl) : null;
+    return mockup.protocol === 'https:' && (!video || video.protocol === 'https:');
   } catch { return false; }
 }
 async function refreshCatalog() {
