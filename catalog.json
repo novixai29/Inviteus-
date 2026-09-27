@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "ENG-001",
+      "name": "الوعد الكلاسيكي",
+      "englishName": "Classic Promise",
+      "category": "engagement",
+      "styles": [
+        "classic",
+        "romantic"
+      ],
+      "description": "ظرف تفاعلي يفتح حكاية أنس وآية، مع الصور والعدّ التنازلي وموقع القاعة.",
+      "features": [
+        "photos",
+        "countdown",
+        "maps",
+        "audio"
+      ],
+      "previewPath": "templates/engagement-a/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-a/",
+      "image": "previews/engagement-a.webp",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-002",
+      "name": "خطوبة ملكية",
+      "englishName": "Royal Engagement",
+      "category": "engagement",
+      "styles": [
+        "luxury",
+        "classic"
+      ],
+      "description": "ستارة افتتاحية سوداء ولمسات ذهبية تمنح دعوة علي وزهراء حضوراً ملكياً.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar",
+        "audio"
+      ],
+      "previewPath": "templates/engagement-b/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-b/",
+      "image": "previews/engagement-b.webp",
+      "trending": true,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-003",
+      "name": "حكايتنا",
+      "englishName": "Our Story",
+      "category": "engagement",
+      "styles": [
+        "romantic"
+      ],
+      "description": "رحلة يوسف ومريم تُروى بمشاهد وصور شخصية ومعرض يمكن تصفّحه.",
+      "features": [
+        "photos",
+        "maps",
+        "audio"
+      ],
+      "previewPath": "templates/engagement-c/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-c/",
+      "image": "previews/engagement-c.webp",
+      "trending": true,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-004",
+      "name": "صحيفة الخطوبة",
+      "englishName": "The Engagement Times",
+      "category": "engagement",
+      "styles": [
+        "creative",
+        "classic"
+      ],
+      "description": "خبر خطوبة عمر وليان على صفحات صحيفة تفاعلية مع صور ووضع داكن.",
+      "features": [
+        "photos",
+        "maps",
+        "calendar",
+        "darkMode"
+      ],
+      "previewPath": "templates/engagement-d/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-d/",
+      "image": "previews/engagement-d.webp",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-005",
+      "name": "فيلم خطوبتنا",
+      "englishName": "Our Engagement Movie",
+      "category": "engagement",
+      "styles": [
+        "creative",
+        "romantic"
+      ],
+      "description": "دعوة كريم ونور بصيغة فيلم: مقدمة سينمائية وملصق ومشاهد مصوّرة مع صوت النسخة الأصلية.",
+      "features": [
+        "photos",
+        "countdown",
+        "maps",
+        "calendar",
+        "audio"
+      ],
+      "previewPath": "templates/engagement-e/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-e/",
+      "image": "previews/engagement-e.webp",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-006",
+      "name": "ألبوم الذكريات",
+      "englishName": "Scrapbook",
+      "category": "engagement",
+      "styles": [
+        "creative",
+        "romantic"
+      ],
+      "description": "دفتر ذكريات زيد وسارة، بصور وصفحات تشبه الألبوم الشخصي.",
+      "features": [
+        "photos",
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewPath": "templates/engagement-f/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-f/",
+      "image": "previews/engagement-f.webp",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-007",
+      "name": "تحت النجوم",
+      "englishName": "Under The Stars",
+      "category": "engagement",
+      "styles": [
+        "romantic",
+        "luxury"
+      ],
+      "description": "سماء ليلية هادئة تحيط بدعوة يوسف وزهراء ومشهدها البصري وعدّها التنازلي.",
+      "features": [
+        "photos",
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewPath": "templates/engagement-g/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-g/",
+      "image": "previews/engagement-g.webp",
+      "trending": true,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-008",
+      "name": "الحديقة النباتية",
+      "englishName": "Botanical Garden",
+      "category": "engagement",
+      "styles": [
+        "romantic",
+        "classic"
+      ],
+      "description": "رسوم نباتية وبوابة أنيقة لخطوبة سيف وجنى بتفاصيل ناعمة.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewPath": "templates/engagement-h/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-h/",
+      "image": "previews/engagement-h.webp",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-009",
+      "name": "ترف هادئ",
+      "englishName": "Minimal Luxury",
+      "category": "engagement",
+      "styles": [
+        "minimal",
+        "luxury"
+      ],
+      "description": "خطوط نظيفة وصور ووضع داكن، مع خيار العربية والإنجليزية لدعوة رامي ولينا.",
+      "features": [
+        "photos",
+        "bilingual",
+        "countdown",
+        "maps",
+        "calendar",
+        "darkMode"
+      ],
+      "previewPath": "templates/engagement-i/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-i/",
+      "image": "previews/engagement-i.webp",
+      "trending": true,
+      "newArrival": true
+    },
+    {
+      "id": "ENG-010",
+      "name": "رحلة العمر",
+      "englishName": "Boarding Pass",
+      "category": "engagement",
+      "styles": [
+        "creative",
+        "modern"
+      ],
+      "description": "دعوة مروان وزينة على هيئة بطاقة صعود للطائرة، بتفاصيل الرحلة وموعد الإقلاع.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewPath": "templates/engagement-j/index.html",
+      "previewUrl": "https://novixai29.github.io/engagement-j/",
+      "image": "previews/engagement-j.webp",
+      "trending": false,
+      "newArrival": true
+    }
+  ]
+}

@@ -45,7 +45,7 @@ const FEATURES = {
 };
 
 // كل عنصر أدناه دعوة موجودة فعلاً. يمكن إضافة الفئات الأخرى بالطريقة نفسها لاحقاً.
-const TEMPLATES = [
+let TEMPLATES = [
   { id:'ENG-001', name:'الوعد الكلاسيكي', englishName:'Classic Promise', category:'engagement', styles:['classic','romantic'], description:'ظرف تفاعلي يفتح حكاية أنس وآية، مع الصور والعدّ التنازلي وموقع القاعة.', features:['photos','countdown','maps','audio'], previewPath:'templates/engagement-a/index.html', previewUrl:'https://novixai29.github.io/engagement-a/', image:'previews/engagement-a.webp', trending:false, newArrival:true },
   { id:'ENG-002', name:'خطوبة ملكية', englishName:'Royal Engagement', category:'engagement', styles:['luxury','classic'], description:'ستارة افتتاحية سوداء ولمسات ذهبية تمنح دعوة علي وزهراء حضوراً ملكياً.', features:['countdown','maps','calendar','audio'], previewPath:'templates/engagement-b/index.html', previewUrl:'https://novixai29.github.io/engagement-b/', image:'previews/engagement-b.webp', trending:true, newArrival:true },
   { id:'ENG-003', name:'حكايتنا', englishName:'Our Story', category:'engagement', styles:['romantic'], description:'رحلة يوسف ومريم تُروى بمشاهد وصور شخصية ومعرض يمكن تصفّحه.', features:['photos','maps','audio'], previewPath:'templates/engagement-c/index.html', previewUrl:'https://novixai29.github.io/engagement-c/', image:'previews/engagement-c.webp', trending:true, newArrival:true },
@@ -104,8 +104,8 @@ function cardMarkup(template) {
   const saved = favorites.has(template.id);
   return `<article class="template-card">
     <div class="card-cover">
-      <a class="cover-link" href="${previewLink(template)}" target="_blank" rel="noopener noreferrer" aria-label="شاهد دعوة ${escapeHTML(template.name)} كاملة">
-        <img src="${template.image}" alt="لقطة فعلية من دعوة ${escapeHTML(template.name)}" width="640" height="640" loading="lazy">
+      <a class="cover-link" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer" aria-label="شاهد دعوة ${escapeHTML(template.name)} كاملة">
+        <img src="${escapeHTML(template.image)}" alt="لقطة فعلية من دعوة ${escapeHTML(template.name)}" width="640" height="640" loading="lazy">
         <span class="cover-open">شاهد الدعوة كاملة ↗</span>
       </a>
       <span class="card-badge">${categoryName(template.category)}</span>
@@ -117,7 +117,7 @@ function cardMarkup(template) {
       <h3>${escapeHTML(template.name)}</h3><span class="english-name" lang="en" dir="ltr">${escapeHTML(template.englishName)}</span>
       <p>${escapeHTML(template.description)}</p>
       <div class="card-features">${template.features.slice(0, 3).map(feature => `<span>${FEATURES[feature]}</span>`).join('')}${template.features.length > 3 ? `<span>+ ${number(template.features.length - 3)}</span>` : ''}</div>
-      <div class="card-actions"><button type="button" class="button secondary" data-preview="${template.id}">تفاصيل التصميم</button><a class="button" href="${previewLink(template)}" target="_blank" rel="noopener noreferrer">جرّب الدعوة ↗</a></div>
+      <div class="card-actions"><button type="button" class="button secondary" data-preview="${template.id}">تفاصيل التصميم</button><a class="button" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer">جرّب الدعوة ↗</a></div>
     </div>
   </article>`;
 }
@@ -169,7 +169,7 @@ function openDetails(id) {
   const dialog = $('#preview-dialog');
   previousFocus = document.activeElement;
   $('#preview-content').innerHTML = `<div class="preview-layout">
-    <div class="preview-art"><img src="${template.image}" alt="لقطة من دعوة ${escapeHTML(template.name)}" width="640" height="640"></div>
+    <div class="preview-art"><img src="${escapeHTML(template.image)}" alt="لقطة من دعوة ${escapeHTML(template.name)}" width="640" height="640"></div>
     <div class="preview-details">
       <p class="eyebrow">${categoryName(template.category)} · ${template.id}</p>
       <h2 id="preview-title">${escapeHTML(template.name)}</h2>
@@ -178,7 +178,7 @@ function openDetails(id) {
       <h3>تفاصيل موجودة في الدعوة</h3>
       <ul>${template.features.map(feature => `<li>${FEATURES[feature]}</li>`).join('')}</ul>
       <p class="preview-note">الدعوة تفتح من موقعها الأصلي بكل التفاصيل والصوت إن كان موجوداً. بعدها تقدر ترجع هنا وتتواصل ويانا.</p>
-      <div class="preview-actions"><a class="button" href="${previewLink(template)}" target="_blank" rel="noopener noreferrer">افتح الدعوة كاملة ↗</a><button type="button" class="button secondary" data-contact="${template.id}">تواصل بشأن هذا التصميم</button></div>
+      <div class="preview-actions"><a class="button" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer">افتح الدعوة كاملة ↗</a><button type="button" class="button secondary" data-contact="${template.id}">تواصل بشأن هذا التصميم</button></div>
     </div>
   </div>`;
   dialog.showModal();
@@ -284,6 +284,49 @@ window.addEventListener('storage', event => {
   } catch { /* لا حاجة للتعامل مع بيانات خارجية غير صالحة. */ }
 });
 
+// بيانات المعرض تُحدَّث من المستودع مباشرة، بينما تبقى النسخة المضمّنة احتياطاً عند انقطاع الاتصال.
+const catalogApi = 'https://api.github.com/repos/novixai29/Inviteus-/contents/catalog.json';
+function decodeCatalog(content) {
+  const bytes = Uint8Array.from(atob(content.replace(/\s/g, '')), char => char.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+function validCatalogTemplate(template) {
+  if (!template || typeof template !== 'object') return false;
+  if (!/^[A-Z]{3}-\d{3,}$/.test(template.id || '')) return false;
+  if (!CATEGORIES.some(category => category.id === template.category && category.id !== 'all')) return false;
+  if (!template.name || !template.description) return false;
+  if (!Array.isArray(template.styles) || !Array.isArray(template.features)) return false;
+  try {
+    const link = new URL(template.previewUrl);
+    if (link.protocol !== 'https:') return false;
+    const image = new URL(template.image, location.href);
+    return ['https:', 'http:'].includes(image.protocol);
+  } catch { return false; }
+}
+async function refreshCatalog() {
+  try {
+    const response = await fetch(`${catalogApi}?ref=main&v=${Math.floor(Date.now() / 30000)}`, { cache:'no-store', headers:{ Accept:'application/vnd.github+json' } });
+    if (!response.ok) return;
+    const file = await response.json();
+    const catalog = file.content ? decodeCatalog(file.content) : file;
+    if (!Array.isArray(catalog.templates) || !catalog.templates.every(validCatalogTemplate)) return;
+    TEMPLATES = catalog.templates;
+    favorites = new Set([...favorites].filter(id => TEMPLATES.some(template => template.id === id)));
+    if (selectedTemplate && !TEMPLATES.some(template => template.id === selectedTemplate.id)) {
+      selectedTemplate = null;
+      $('#selected-template').hidden = true;
+    }
+    renderGallery();
+  } catch { /* تبقى آخر بيانات متاحة ظاهرة للزائر. */ }
+}
+if ('BroadcastChannel' in window) {
+  const catalogChannel = new BroadcastChannel('inviteus-catalog');
+  catalogChannel.addEventListener('message', event => { if (event.data === 'updated') refreshCatalog(); });
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshCatalog(); });
+setInterval(refreshCatalog, 180000);
+
 renderGallery();
 renderSocials();
+refreshCatalog();
 $('#year').textContent = new Intl.NumberFormat('ar-IQ', { useGrouping:false }).format(new Date().getFullYear());
