@@ -137,6 +137,21 @@ async function uploadImage(file, id) {
   });
   return `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${path}`;
 }
+function ownedPreviewPath(template) {
+  const prefix = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/previews/`;
+  if (!template?.image?.startsWith(prefix)) return '';
+  const file = template.image.slice(prefix.length);
+  return new RegExp(`^${template.id.toLowerCase()}-\\d+\\.(png|jpg|webp)$`).test(file) ? `previews/${file}` : '';
+}
+async function removeUnusedPreview(template) {
+  const path = ownedPreviewPath(template);
+  if (!path || catalog.templates.some(item => item.image === template.image)) return;
+  const file = await api(`repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=main`);
+  await api(`repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+    method:'DELETE', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ message:`Remove unused preview for ${template.id}`, sha:file.sha, branch:'main' })
+  });
+}
 async function saveCatalog(nextCatalog, message) {
   const latest = await readCatalog();
   if (latest.sha !== catalogSha) throw new Error('تغيّرت القائمة من مكان آخر. اضغط «تحديث القائمة» قبل الحفظ.');
@@ -207,6 +222,10 @@ $('#template-form').addEventListener('submit', async event => {
     const nextIds = original ? catalog.nextIds : { ...catalog.nextIds, [category]:Number(id.split('-')[1]) + 1 };
     await saveCatalog({ ...catalog, nextIds, templates }, `${original ? 'Update' : 'Add'} invitation ${id}`);
     resetForm();
+    if (original && imageFile) {
+      try { await removeUnusedPreview(original); }
+      catch { status(`انحفظت الدعوة، لكن تعذّر تنظيف صورة العرض القديمة.`, true); return; }
+    }
     status(`انحفظت دعوة «${template.name}» بنجاح. افتح الموقع أو حدّثه حتى تشوفها.`);
   } catch (error) { status(error.message, true); }
   finally { setBusy(false); }
@@ -223,6 +242,8 @@ $('#admin-cards').addEventListener('click', async event => {
   try {
     await saveCatalog({ ...catalog, templates:catalog.templates.filter(item => item.id !== template.id) }, `Remove invitation ${template.id}`);
     if ($('#template-id').value === template.id) resetForm();
+    try { await removeUnusedPreview(template); }
+    catch { status(`انحذفت البطاقة، لكن تعذّر تنظيف صورة عرضها.`, true); return; }
     status(`انحذفت بطاقة «${template.name}» من المعرض.`);
   } catch (error) { status(error.message, true); }
   finally { setBusy(false); }
