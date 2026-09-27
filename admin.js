@@ -89,7 +89,8 @@ function publishedFromRepo(url) {
 function newId(category) {
   const prefix = CATEGORY_CODES[category];
   const numbers = catalog.templates.filter(item => item.id.startsWith(`${prefix}-`)).map(item => Number(item.id.split('-')[1]) || 0);
-  return `${prefix}-${String(Math.max(0, ...numbers) + 1).padStart(3, '0')}`;
+  const next = Math.max(catalog.nextIds?.[category] || 1, Math.max(0, ...numbers) + 1);
+  return `${prefix}-${String(next).padStart(3, '0')}`;
 }
 function resetForm() {
   $('#template-form').reset();
@@ -203,7 +204,8 @@ $('#template-form').addEventListener('submit', async event => {
     };
     if (!template.name || !template.description) throw new Error('اكتب اسم التصميم وتفاصيله.');
     const templates = original ? catalog.templates.map(item => item.id === originalId ? template : item) : [...catalog.templates, template];
-    await saveCatalog({ ...catalog, templates }, `${original ? 'Update' : 'Add'} invitation ${id}`);
+    const nextIds = original ? catalog.nextIds : { ...catalog.nextIds, [category]:Number(id.split('-')[1]) + 1 };
+    await saveCatalog({ ...catalog, nextIds, templates }, `${original ? 'Update' : 'Add'} invitation ${id}`);
     resetForm();
     status(`انحفظت دعوة «${template.name}» بنجاح. افتح الموقع أو حدّثه حتى تشوفها.`);
   } catch (error) { status(error.message, true); }

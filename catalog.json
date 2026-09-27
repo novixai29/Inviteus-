@@ -1,5 +1,6 @@
 {
   "version": 1,
+  "nextIds": { "engagement": 11, "henna": 1, "wedding": 1, "conferences": 1, "openings": 1 },
   "templates": [
     {
       "id": "ENG-001",
