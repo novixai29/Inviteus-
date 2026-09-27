@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#050505"
+  >
+
+  <title>
+    كريم ونور — Our Engagement Movie
+  </title>
+
+  <meta
+    name="description"
+    content="دعوة حفل خطوبة كريم ونور بأسلوب سينمائي"
+  >
+
+
+  <!-- الخطوط -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- Font Awesome -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- ==========================================
+       الموسيقى
+  =========================================== -->
+
+  <audio
+    id="bgMusic"
+    loop
+    preload="auto"
+  >
+
+    <source
+      src="cinematic-music.mp3"
+      type="audio/mpeg"
+    >
+
+  </audio>
+
+
+
+  <!-- ==========================================
+       مؤثرات السينما
+  =========================================== -->
+
+  <div
+    class="film-grain"
+    aria-hidden="true"
+  ></div>
+
+
+  <div
+    class="film-vignette"
+    aria-hidden="true"
+  ></div>
+
+
+
+  <!-- ==========================================
+       شاشة المقدمة السينمائية
+  =========================================== -->
+
+  <section
+    id="cinemaIntro"
+    class="cinema-intro"
+  >
+
+
+    <div
+      class="letterbox top-bar"
+    ></div>
+
+
+    <div
+      class="letterbox bottom-bar"
+    ></div>
+
+
+
+    <div
+      id="introSequence"
+      class="intro-sequence"
+    >
+
+
+      <!-- المشهد الأول -->
+
+      <div
+        class="intro-title intro-step active"
+        data-step="1"
+      >
+
+        <p>
+          قريبا...
+        </p>
+
+      </div>
+
+
+
+      <!-- المشهد الثاني -->
+
+      <div
+        class="intro-title intro-step"
+        data-step="2"
+      >
+
+        <p>
+          قصة بدأت بشخصين
+        </p>
+
+      </div>
+
+
+
+      <!-- المشهد الثالث -->
+
+      <div
+        class="intro-title intro-step"
+        data-step="3"
+      >
+
+        <p>
+          وجمعت بينهما لحظة
+        </p>
+
+      </div>
+
+
+
+      <!-- العنوان -->
+
+      <div
+        class="intro-title intro-step intro-main-title"
+        data-step="4"
+      >
+
+
+        <span class="small-credit">
+          A LOVE STORY
+        </span>
+
+
+        <h1>
+
+          كريم
+
+          <span>
+            &
+          </span>
+
+          نور
+
+        </h1>
+
+
+        <p>
+          OUR ENGAGEMENT MOVIE
+        </p>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- زر الدخول -->
+
+    <button
+      id="enterMovieButton"
+      class="enter-movie-button"
+      type="button"
+    >
+
+      <i class="fa-solid fa-play"></i>
+
+      <span>
+        ابدأ العرض
+      </span>
+
+    </button>
+
+
+  </section>
+
+
+
+  <!-- ==========================================
+       زر الموسيقى
+  =========================================== -->
+
+  <div
+    id="musicControl"
+    class="music-control"
+  >
+
+    <button
+      id="musicToggle"
+      class="music-button"
+      type="button"
+      aria-label="تشغيل أو إيقاف الموسيقى"
+    >
+
+      <i
+        id="musicIcon"
+        class="fa-solid fa-volume-high"
+      ></i>
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       المحتوى
+  =========================================== -->
+
+  <main
+    id="movieContent"
+    class="movie-content"
+  >
+
+
+
+    <!-- ==========================================
+         البوستر الرئيسي
+    =========================================== -->
+
+    <section class="poster-section">
+
+
+      <img
+        class="poster-background"
+        src="movie-poster.jpg"
+        alt="كريم ونور"
+      >
+
+
+      <div class="poster-overlay"></div>
+
+
+
+      <div class="poster-content">
+
+
+        <span class="poster-presents">
+          PRESENTS
+        </span>
+
+
+        <h2>
+
+          كريم
+
+          <span>
+            &
+          </span>
+
+          نور
+
+        </h2>
+
+
+        <p class="poster-tagline">
+
+          قصة بدأت بلقاء
+          <br>
+          وتستعد الآن لفصلها الأجمل
+
+        </p>
+
+
+
+        <div class="poster-release">
+
+          <small>
+            PREMIERE
+          </small>
+
+          <strong>
+            19 DECEMBER 2026
+          </strong>
+
+        </div>
+
+
+
+        <div class="scroll-indicator">
+
+          <span>
+            مرر لمشاهدة القصة
+          </span>
+
+          <i class="fa-solid fa-chevron-down"></i>
+
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         بطولة
+    =========================================== -->
+
+    <section class="starring-section reveal">
+
+
+      <p class="section-label">
+        STARRING
+      </p>
+
+
+      <h3>
+        بطولة
+      </h3>
+
+
+
+      <div class="starring-names">
+
+
+        <div class="star-name">
+
+          <span>
+            THE GROOM
+          </span>
+
+          <strong>
+            كريم
+          </strong>
+
+        </div>
+
+
+
+        <div class="starring-x">
+          ×
+        </div>
+
+
+
+        <div class="star-name">
+
+          <span>
+            THE BRIDE
+          </span>
+
+          <strong>
+            نور
+          </strong>
+
+        </div>
+
+
+      </div>
+
+
+
+      <p class="starring-text">
+
+        في قصة كتب لها أن تبدأ اليوم
+        أمام من نحب
+
+      </p>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         عنوان المشاهد
+    =========================================== -->
+
+    <section class="scenes-intro reveal">
+
+
+      <span>
+        THREE SCENES
+      </span>
+
+
+      <h3>
+        من مشاهد الحكاية
+      </h3>
+
+
+      <p>
+
+        ثلاثة مشاهد
+        كانت كافية لتبدأ قصة العمر
+
+      </p>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         المشاهد
+    =========================================== -->
+
+    <section class="scenes-section">
+
+
+
+      <!-- المشهد الأول -->
+
+      <article class="cinema-scene reveal">
+
+
+        <div class="scene-image">
+
+          <img
+            src="scene1.jpg"
+            alt="المشهد الأول من قصة كريم ونور"
+          >
+
+
+          <span class="scene-number">
+            SCENE 01
+          </span>
+
+        </div>
+
+
+
+        <div class="scene-text">
+
+
+          <small>
+            THE BEGINNING
+          </small>
+
+
+          <h3>
+            بداية المشهد
+          </h3>
+
+
+          <p>
+
+            لم تكن هناك كاميرات
+            ولا سيناريو مكتوب
+            لكن اللحظة كانت كافية
+            لتبدأ القصة
+
+          </p>
+
+
+        </div>
+
+
+      </article>
+
+
+
+      <!-- فاصل -->
+
+      <div class="cinematic-divider reveal">
+
+        <span></span>
+
+        <i class="fa-solid fa-diamond"></i>
+
+        <span></span>
+
+      </div>
+
+
+
+      <!-- المشهد الثاني -->
+
+      <article class="cinema-scene reverse reveal">
+
+
+        <div class="scene-image">
+
+          <img
+            src="scene2.jpg"
+            alt="المشهد الثاني من قصة كريم ونور"
+          >
+
+
+          <span class="scene-number">
+            SCENE 02
+          </span>
+
+        </div>
+
+
+
+        <div class="scene-text">
+
+
+          <small>
+            THE STORY
+          </small>
+
+
+          <h3>
+            وأصبحت الحكاية حقيقة
+          </h3>
+
+
+          <p>
+
+            يوما بعد يوم
+            أصبح واضحا أن هذه القصة
+            لم تكن مجرد مشهد عابر
+
+          </p>
+
+
+        </div>
+
+
+      </article>
+
+
+
+      <!-- فاصل -->
+
+      <div class="cinematic-divider reveal">
+
+        <span></span>
+
+        <i class="fa-solid fa-diamond"></i>
+
+        <span></span>
+
+      </div>
+
+
+
+      <!-- المشهد الثالث -->
+
+      <article class="cinema-scene reveal">
+
+
+        <div class="scene-image">
+
+          <img
+            src="scene3.jpg"
+            alt="المشهد الثالث من قصة كريم ونور"
+          >
+
+
+          <span class="scene-number">
+            SCENE 03
+          </span>
+
+        </div>
+
+
+
+        <div class="scene-text">
+
+
+          <small>
+            THE NEXT CHAPTER
+          </small>
+
+
+          <h3>
+            الفصل الجديد
+          </h3>
+
+
+          <p>
+
+            واليوم ندعوكم
+            لتكونوا معنا
+            في بداية المشهد الأجمل
+
+          </p>
+
+
+        </div>
+
+
+      </article>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         الاقتباس
+    =========================================== -->
+
+    <section class="movie-quote reveal">
+
+
+      <span class="quote-icon">
+        “
+      </span>
+
+
+      <p>
+
+        كل قصة جميلة تستحق
+        أن يشاهد بدايتها من نحب
+
+      </p>
+
+
+      <strong>
+        كريم & نور
+      </strong>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         العداد
+    =========================================== -->
+
+    <section class="premiere-countdown">
+
+
+      <div class="countdown-box reveal">
+
+
+        <span class="countdown-label">
+          UNTIL THE PREMIERE
+        </span>
+
+
+        <h3>
+          حتى العرض الأول
+        </h3>
+
+
+
+        <div class="countdown-grid">
+
+
+          <div class="countdown-item">
+
+            <strong id="days">
+              00
+            </strong>
+
+            <span>
+              يوم
+            </span>
+
+          </div>
+
+
+
+          <div class="countdown-item">
+
+            <strong id="hours">
+              00
+            </strong>
+
+            <span>
+              ساعة
+            </span>
+
+          </div>
+
+
+
+          <div class="countdown-item">
+
+            <strong id="minutes">
+              00
+            </strong>
+
+            <span>
+              دقيقة
+            </span>
+
+          </div>
+
+
+
+          <div class="countdown-item">
+
+            <strong id="seconds">
+              00
+            </strong>
+
+            <span>
+              ثانية
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+
+        <p
+          id="countdownMessage"
+          class="countdown-message"
+        >
+
+          العرض يبدأ قريبا
+
+        </p>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         تفاصيل العرض
+    =========================================== -->
+
+    <section class="premiere-section">
+
+
+      <div class="premiere-card reveal">
+
+
+        <div
+          class="ticket-cut ticket-cut-left"
+        ></div>
+
+
+        <div
+          class="ticket-cut ticket-cut-right"
+        ></div>
+
+
+
+        <p class="ticket-label">
+          OFFICIAL PREMIERE
+        </p>
+
+
+        <h3>
+          العرض الأول
+        </h3>
+
+
+
+        <div class="premiere-date">
+
+
+          <span class="day">
+            19
+          </span>
+
+
+          <div>
+
+            <strong>
+              ديسمبر
+            </strong>
+
+            <small>
+              2026
+            </small>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="premiere-info">
+
+
+          <div>
+
+            <i class="fa-regular fa-clock"></i>
+
+            <span>
+              الساعة 7:00 مساء
+            </span>
+
+          </div>
+
+
+
+          <div>
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            <span>
+              قاعة لافندر
+            </span>
+
+          </div>
+
+
+
+          <div>
+
+            <i class="fa-solid fa-city"></i>
+
+            <span>
+              الموصل - نينوى
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+
+        <a
+          class="premiere-map-button"
+          href="https://www.google.com/maps/search/?api=1&query=Lavender+Hall+Mosul"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <i class="fa-solid fa-location-arrow"></i>
+
+          <span>
+            عرض موقع القاعة
+          </span>
+
+        </a>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         الأزرار
+    =========================================== -->
+
+    <section class="movie-actions reveal">
+
+
+      <button
+        id="calendarButton"
+        class="movie-action"
+        type="button"
+      >
+
+        <i class="fa-regular fa-calendar-plus"></i>
+
+        <span>
+          أضف موعد العرض للتقويم
+        </span>
+
+      </button>
+
+
+
+      <button
+        id="shareButton"
+        class="movie-action"
+        type="button"
+      >
+
+        <i class="fa-solid fa-share-nodes"></i>
+
+        <span>
+          مشاركة الدعوة
+        </span>
+
+      </button>
+
+
+
+      <p
+        id="shareMessage"
+        class="share-message"
+      ></p>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         النهاية السينمائية
+    =========================================== -->
+
+    <footer class="credits-section">
+
+
+      <div class="credits-inner reveal">
+
+
+        <p class="credits-small">
+          A FILM BY DESTINY
+        </p>
+
+
+
+        <h3>
+
+          كريم
+
+          <span>
+            &
+          </span>
+
+          نور
+
+        </h3>
+
+
+
+        <div class="credit-line">
+
+          <small>
+            STARRING
+          </small>
+
+          <strong>
+            KARIM & NOOR
+          </strong>
+
+        </div>
+
+
+
+        <div class="credit-line">
+
+          <small>
+            PREMIERE DATE
+          </small>
+
+          <strong>
+            19 DECEMBER 2026
+          </strong>
+
+        </div>
+
+
+
+        <div class="credit-line">
+
+          <small>
+            LOCATION
+          </small>
+
+          <strong>
+            LAVENDER HALL
+          </strong>
+
+        </div>
+
+
+
+        <div class="credits-final">
+
+          <span>
+            AND THE STORY CONTINUES...
+          </span>
+
+          <p>
+            والقصة ما زالت في بدايتها
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+    </footer>
+
+
+  </main>
+
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

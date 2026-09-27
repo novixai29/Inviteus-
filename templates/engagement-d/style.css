@@ -1,0 +1,2578 @@
+:root {
+
+  --paper:
+    #eee6d5;
+
+  --paper-light:
+    #f7f1e5;
+
+  --paper-dark:
+    #d5c8ae;
+
+  --ink:
+    #24211c;
+
+  --ink-soft:
+    #544f46;
+
+  --muted:
+    #777064;
+
+  --red:
+    #833631;
+
+  --line:
+    #8d8474;
+
+  --font-arabic:
+    "Amiri",
+    serif;
+
+  --font-title:
+    "Aref Ruqaa",
+    serif;
+
+  --font-body:
+    "Cairo",
+    sans-serif;
+
+  --font-news:
+    "Playfair Display",
+    serif;
+
+}
+
+
+/* ==========================================
+   الأساس
+========================================== */
+
+* {
+
+  box-sizing:
+    border-box;
+
+}
+
+
+html {
+
+  scroll-behavior:
+    smooth;
+
+}
+
+
+body {
+
+  margin:
+    0;
+
+  min-height:
+    100vh;
+
+  overflow-x:
+    hidden;
+
+  background:
+    #302c26;
+
+  color:
+    var(--ink);
+
+  font-family:
+    var(--font-body);
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+
+button,
+a {
+
+  font-family:
+    inherit;
+
+}
+
+
+button {
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+
+/* ==========================================
+   شاشة البداية
+========================================== */
+
+.newspaper-intro {
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    1000;
+
+  padding:
+    25px 15px;
+
+  overflow:
+    auto;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  perspective:
+    1800px;
+
+  background:
+
+    radial-gradient(
+      circle at center,
+      #675f52,
+      #39342d 60%,
+      #24211e
+    );
+
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+
+}
+
+
+.newspaper-intro.hidden {
+
+  opacity:
+    0;
+
+  visibility:
+    hidden;
+
+  pointer-events:
+    none;
+
+}
+
+
+.intro-desk {
+
+  width:
+    min(
+      390px,
+      100%
+    );
+
+  text-align:
+    center;
+
+  perspective:
+    1800px;
+
+}
+
+
+.newspaper-cover {
+
+  width:
+    100%;
+
+  min-height:
+    590px;
+
+  padding:
+    19px;
+
+  position:
+    relative;
+
+  transform-origin:
+    left center;
+
+  transform-style:
+    preserve-3d;
+
+  background:
+
+    repeating-linear-gradient(
+      0deg,
+      rgba(60, 50, 35, 0.025) 0,
+      rgba(60, 50, 35, 0.025) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+
+    var(--paper);
+
+  border:
+    1px solid
+    #c4b79d;
+
+  box-shadow:
+
+    0 30px 70px
+    rgba(0, 0, 0, 0.42),
+
+    7px 6px 0
+    rgba(218, 208, 187, 0.85),
+
+    13px 11px 0
+    rgba(190, 178, 154, 0.6);
+
+  transition:
+    transform
+    1.35s
+    cubic-bezier(
+      0.72,
+      0,
+      0.2,
+      1
+    );
+
+}
+
+
+.newspaper-cover.page-turn {
+
+  transform:
+    rotateY(-115deg)
+    translateX(-20px);
+
+}
+
+
+.cover-top-line {
+
+  padding-bottom:
+    6px;
+
+  border-bottom:
+    1px solid
+    var(--ink);
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    10px;
+
+  letter-spacing:
+    3px;
+
+}
+
+
+.cover-logo {
+
+  margin:
+    12px 0 6px;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    clamp(
+      27px,
+      8vw,
+      39px
+    );
+
+  line-height:
+    1;
+
+  letter-spacing:
+    -1px;
+
+}
+
+
+.cover-meta {
+
+  padding:
+    6px 0;
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  gap:
+    5px;
+
+  border-top:
+    3px double
+    var(--ink);
+
+  border-bottom:
+    3px double
+    var(--ink);
+
+  font-size:
+    8px;
+
+}
+
+
+.cover-breaking {
+
+  width:
+    fit-content;
+
+  margin:
+    14px auto 8px;
+
+  padding:
+    4px 12px;
+
+  background:
+    var(--red);
+
+  color:
+    var(--paper-light);
+
+  font-weight:
+    700;
+
+  font-size:
+    11px;
+
+}
+
+
+.newspaper-cover h2 {
+
+  margin:
+    7px 0 13px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    35px;
+
+  line-height:
+    1.35;
+
+}
+
+
+.cover-photo {
+
+  width:
+    100%;
+
+  height:
+    265px;
+
+  overflow:
+    hidden;
+
+  border:
+    1px solid
+    #5b554b;
+
+  filter:
+    grayscale(100%)
+    contrast(1.04);
+
+}
+
+
+.cover-photo img {
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  display:
+    block;
+
+  object-fit:
+    cover;
+
+}
+
+
+.cover-caption {
+
+  margin:
+    10px auto;
+
+  max-width:
+    310px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    14px;
+
+  line-height:
+    1.6;
+
+}
+
+
+.cover-bottom {
+
+  margin-top:
+    10px;
+
+  padding-top:
+    8px;
+
+  border-top:
+    1px solid
+    var(--ink);
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.open-paper-button {
+
+  margin-top:
+    32px;
+
+  padding:
+    13px 23px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.4);
+
+  background:
+    rgba(25, 23, 20, 0.76);
+
+  color:
+    #f8f1e5;
+
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0, 0, 0, 0.2);
+
+  transition:
+    0.3s ease;
+
+}
+
+
+.open-paper-button:hover {
+
+  transform:
+    translateY(-2px);
+
+}
+
+
+/* ==========================================
+   صفحة الجريدة
+========================================== */
+
+.newspaper-page {
+
+  width:
+    min(
+      100%,
+      760px
+    );
+
+  min-height:
+    100vh;
+
+  margin:
+    0 auto;
+
+  padding:
+    25px 21px 50px;
+
+  position:
+    relative;
+
+  background:
+
+    repeating-linear-gradient(
+      0deg,
+      rgba(70, 60, 45, 0.018) 0,
+      rgba(70, 60, 45, 0.018) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+
+    radial-gradient(
+      circle at 15% 5%,
+      rgba(130, 115, 85, 0.09),
+      transparent 30%
+    ),
+
+    var(--paper);
+
+  box-shadow:
+    0 0 60px
+    rgba(0, 0, 0, 0.38);
+
+}
+
+
+/* ==========================================
+   رأس الجريدة
+========================================== */
+
+.paper-header {
+
+  text-align:
+    center;
+
+}
+
+
+.edition-row {
+
+  padding-bottom:
+    5px;
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  gap:
+    7px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    10px;
+
+}
+
+
+.paper-header h1 {
+
+  margin:
+    7px 0 5px;
+
+  padding:
+    10px 0;
+
+  border-top:
+    1px solid
+    var(--ink);
+
+  border-bottom:
+    1px solid
+    var(--ink);
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    clamp(
+      33px,
+      8vw,
+      57px
+    );
+
+  line-height:
+    1;
+
+  letter-spacing:
+    -2px;
+
+}
+
+
+.paper-subtitle {
+
+  padding:
+    4px 0;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    12px;
+
+}
+
+
+.double-line {
+
+  height:
+    5px;
+
+  margin-top:
+    5px;
+
+  border-top:
+    1px solid
+    var(--ink);
+
+  border-bottom:
+    1px solid
+    var(--ink);
+
+}
+
+
+/* ==========================================
+   BREAKING
+========================================== */
+
+.breaking-strip {
+
+  margin:
+    12px 0 23px;
+
+  display:
+    flex;
+
+  align-items:
+    stretch;
+
+  direction:
+    ltr;
+
+  border:
+    1px solid
+    var(--ink);
+
+}
+
+
+.breaking-label {
+
+  padding:
+    8px 10px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  background:
+    var(--ink);
+
+  color:
+    var(--paper-light);
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    1px;
+
+}
+
+
+.breaking-text {
+
+  flex:
+    1;
+
+  padding:
+    7px 10px;
+
+  direction:
+    rtl;
+
+  text-align:
+    right;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    12px;
+
+}
+
+
+/* ==========================================
+   الخبر الرئيسي
+========================================== */
+
+.lead-story {
+
+  padding-bottom:
+    28px;
+
+  border-bottom:
+    3px double
+    var(--ink);
+
+}
+
+
+.story-kicker {
+
+  margin:
+    0;
+
+  text-align:
+    center;
+
+  color:
+    var(--red);
+
+  font-size:
+    11px;
+
+  font-weight:
+    700;
+
+}
+
+
+.lead-story h2 {
+
+  max-width:
+    650px;
+
+  margin:
+    5px auto 7px;
+
+  text-align:
+    center;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    clamp(
+      35px,
+      8vw,
+      54px
+    );
+
+  line-height:
+    1.2;
+
+}
+
+
+.lead-subtitle {
+
+  max-width:
+    520px;
+
+  margin:
+    0 auto 10px;
+
+  text-align:
+    center;
+
+  color:
+    var(--ink-soft);
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    17px;
+
+  line-height:
+    1.6;
+
+}
+
+
+.byline {
+
+  margin-bottom:
+    17px;
+
+  text-align:
+    center;
+
+  color:
+    var(--muted);
+
+  font-size:
+    8px;
+
+}
+
+
+.lead-photo {
+
+  margin:
+    0 0 16px;
+
+}
+
+
+.lead-photo img {
+
+  width:
+    100%;
+
+  max-height:
+    550px;
+
+  display:
+    block;
+
+  object-fit:
+    cover;
+
+  filter:
+    grayscale(100%)
+    contrast(1.04);
+
+  border:
+    1px solid
+    #625d53;
+
+}
+
+
+.lead-photo figcaption {
+
+  margin-top:
+    5px;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    10px;
+
+}
+
+
+.article-columns {
+
+  column-count:
+    2;
+
+  column-gap:
+    26px;
+
+  column-rule:
+    1px solid
+    rgba(70, 65, 57, 0.32);
+
+  text-align:
+    justify;
+
+}
+
+
+.article-columns p {
+
+  margin:
+    0 0 13px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    15px;
+
+  line-height:
+    1.75;
+
+}
+
+
+.drop-cap::first-letter {
+
+  float:
+    right;
+
+  margin:
+    7px 0 0 6px;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    53px;
+
+  line-height:
+    0.65;
+
+}
+
+
+/* ==========================================
+   الاقتباس
+========================================== */
+
+.newspaper-quote {
+
+  margin:
+    30px 0;
+
+  padding:
+    27px 23px;
+
+  text-align:
+    center;
+
+  border-top:
+    1px solid
+    var(--ink);
+
+  border-bottom:
+    1px solid
+    var(--ink);
+
+}
+
+
+.newspaper-quote > span {
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:
+    55px;
+
+  line-height:
+    0.4;
+
+  color:
+    var(--red);
+
+}
+
+
+.newspaper-quote p {
+
+  max-width:
+    520px;
+
+  margin:
+    7px auto 10px;
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    clamp(
+      23px,
+      5vw,
+      34px
+    );
+
+  line-height:
+    1.5;
+
+}
+
+
+.newspaper-quote strong {
+
+  color:
+    var(--red);
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    13px;
+
+}
+
+
+/* ==========================================
+   الأخبار الجانبية
+========================================== */
+
+.news-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap:
+    15px;
+
+  margin:
+    30px 0;
+
+}
+
+
+.mini-news {
+
+  padding:
+    18px;
+
+  border:
+    1px solid
+    var(--ink);
+
+}
+
+
+.mini-heading {
+
+  padding-bottom:
+    9px;
+
+  border-bottom:
+    3px double
+    var(--ink);
+
+}
+
+
+.mini-heading span {
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.mini-heading h3 {
+
+  margin:
+    2px 0 0;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    25px;
+
+}
+
+
+.weather-news {
+
+  text-align:
+    center;
+
+}
+
+
+.weather-icon {
+
+  margin-top:
+    22px;
+
+  font-size:
+    40px;
+
+}
+
+
+.weather-percentage {
+
+  margin:
+    5px 0;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    45px;
+
+}
+
+
+.weather-news p {
+
+  margin:
+    5px 0;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    17px;
+
+}
+
+
+.weather-news small {
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-arabic);
+
+  line-height:
+    1.5;
+
+}
+
+
+.number-line {
+
+  min-height:
+    66px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    70px 1fr;
+
+  align-items:
+    center;
+
+  border-bottom:
+    1px solid
+    rgba(50, 47, 42, 0.25);
+
+}
+
+
+.number-line:last-child {
+
+  border-bottom:
+    0;
+
+}
+
+
+.number-line strong {
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    35px;
+
+}
+
+
+.number-line span {
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    16px;
+
+}
+
+
+/* ==========================================
+   تفاصيل الحفل
+========================================== */
+
+.event-news {
+
+  margin:
+    40px 0;
+
+}
+
+
+.section-rule {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+}
+
+
+.section-rule::before,
+.section-rule::after {
+
+  content:
+    "";
+
+  flex:
+    1;
+
+  height:
+    1px;
+
+  background:
+    var(--ink);
+
+}
+
+
+.section-rule span {
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.event-news > h2 {
+
+  margin:
+    8px 0 20px;
+
+  text-align:
+    center;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    33px;
+
+}
+
+
+.event-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
+  border-top:
+    1px solid
+    var(--ink);
+
+  border-bottom:
+    1px solid
+    var(--ink);
+
+}
+
+
+.event-box {
+
+  min-height:
+    150px;
+
+  padding:
+    19px 8px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  text-align:
+    center;
+
+  border-left:
+    1px solid
+    var(--ink);
+
+}
+
+
+.event-box:first-child {
+
+  border-left:
+    0;
+
+}
+
+
+.event-box i {
+
+  margin-bottom:
+    9px;
+
+  color:
+    var(--red);
+
+  font-size:
+    21px;
+
+}
+
+
+.event-box small {
+
+  color:
+    var(--muted);
+
+  font-size:
+    9px;
+
+}
+
+
+.event-box strong {
+
+  margin:
+    3px 0;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    20px;
+
+}
+
+
+.event-box span {
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    13px;
+
+}
+
+
+/* ==========================================
+   QR
+========================================== */
+
+.qr-section {
+
+  margin:
+    45px 0;
+
+  padding:
+    27px 0;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 165px;
+
+  gap:
+    30px;
+
+  align-items:
+    center;
+
+  border-top:
+    3px double
+    var(--ink);
+
+  border-bottom:
+    3px double
+    var(--ink);
+
+}
+
+
+.qr-label {
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.qr-text h3 {
+
+  margin:
+    3px 0 7px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    29px;
+
+}
+
+
+.qr-text p {
+
+  margin:
+    0 0 12px;
+
+  max-width:
+    420px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    15px;
+
+  line-height:
+    1.7;
+
+}
+
+
+.text-map-link {
+
+  color:
+    var(--red);
+
+  text-decoration:
+    none;
+
+  font-weight:
+    700;
+
+  font-size:
+    11px;
+
+}
+
+
+.text-map-link i {
+
+  margin-right:
+    5px;
+
+}
+
+
+.qr-paper {
+
+  padding:
+    12px;
+
+  text-align:
+    center;
+
+  background:
+    #ffffff;
+
+  border:
+    1px solid
+    var(--ink);
+
+  transform:
+    rotate(-2deg);
+
+  box-shadow:
+    5px 6px 0
+    rgba(53, 49, 43, 0.12);
+
+}
+
+
+#qrcode {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+}
+
+
+#qrcode img,
+#qrcode canvas {
+
+  max-width:
+    100%;
+
+  height:
+    auto !important;
+
+}
+
+
+.qr-paper span {
+
+  display:
+    block;
+
+  margin-top:
+    8px;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    3px;
+
+}
+
+
+/* ==========================================
+   كلمة التحرير
+========================================== */
+
+.editor-note {
+
+  margin:
+    45px 0;
+
+  padding:
+    28px;
+
+  position:
+    relative;
+
+  border:
+    1px solid
+    var(--ink);
+
+}
+
+
+.editor-title {
+
+  width:
+    fit-content;
+
+  margin:
+    -40px auto 16px;
+
+  padding:
+    3px 11px;
+
+  background:
+    var(--paper);
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.editor-note p {
+
+  max-width:
+    520px;
+
+  margin:
+    auto;
+
+  text-align:
+    center;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    18px;
+
+  line-height:
+    1.9;
+
+}
+
+
+.editor-signature {
+
+  margin-top:
+    18px;
+
+  text-align:
+    center;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-arabic);
+
+}
+
+
+.editor-signature strong {
+
+  display:
+    block;
+
+  color:
+    var(--red);
+
+  font-size:
+    18px;
+
+}
+
+
+/* ==========================================
+   الأزرار
+========================================== */
+
+.paper-actions {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:
+    12px;
+
+  margin:
+    40px 0;
+
+}
+
+
+.newspaper-button {
+
+  min-height:
+    72px;
+
+  padding:
+    12px 15px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    flex-start;
+
+  gap:
+    13px;
+
+  text-align:
+    right;
+
+  border:
+    1px solid
+    var(--ink);
+
+  background:
+    transparent;
+
+  color:
+    var(--ink);
+
+  cursor:
+    pointer;
+
+  transition:
+    0.25s ease;
+
+}
+
+
+.newspaper-button:hover {
+
+  transform:
+    translateY(-2px);
+
+}
+
+
+.newspaper-button i {
+
+  font-size:
+    21px;
+
+}
+
+
+.newspaper-button small {
+
+  display:
+    block;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    1px;
+
+}
+
+
+.newspaper-button span {
+
+  display:
+    block;
+
+  margin-top:
+    2px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    15px;
+
+}
+
+
+.dark-button {
+
+  background:
+    var(--ink);
+
+  color:
+    var(--paper-light);
+
+}
+
+
+/* ==========================================
+   النهاية
+========================================== */
+
+.paper-footer {
+
+  padding:
+    25px 0 10px;
+
+  text-align:
+    center;
+
+}
+
+
+.footer-rule {
+
+  height:
+    5px;
+
+  border-top:
+    1px solid
+    var(--ink);
+
+  border-bottom:
+    1px solid
+    var(--ink);
+
+}
+
+
+.paper-footer h3 {
+
+  margin:
+    20px 0 0;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    28px;
+
+}
+
+
+.paper-footer p {
+
+  margin:
+    0;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    9px;
+
+}
+
+
+.footer-names {
+
+  margin:
+    17px 0 2px;
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    29px;
+
+}
+
+
+.paper-footer > span {
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    12px;
+
+}
+
+
+.footer-code {
+
+  margin-top:
+    25px;
+
+  padding-top:
+    8px;
+
+  border-top:
+    1px solid
+    var(--ink);
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+/* ==========================================
+   بطاقة التحميل
+========================================== */
+
+.download-card {
+
+  width:
+    1080px;
+
+  height:
+    1350px;
+
+  position:
+    fixed;
+
+  top:
+    -99999px;
+
+  left:
+    -99999px;
+
+  padding:
+    75px;
+
+  background:
+    var(--paper-light);
+
+  color:
+    var(--ink);
+
+}
+
+
+.download-card-inner {
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  padding:
+    70px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  text-align:
+    center;
+
+  border:
+    5px solid
+    var(--ink);
+
+}
+
+
+.card-newspaper-name {
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    67px;
+
+  font-weight:
+    700;
+
+}
+
+
+.card-special {
+
+  margin-top:
+    12px;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    18px;
+
+  letter-spacing:
+    8px;
+
+}
+
+
+.card-line {
+
+  width:
+    100%;
+
+  height:
+    10px;
+
+  margin:
+    32px 0 75px;
+
+  border-top:
+    3px solid
+    var(--ink);
+
+  border-bottom:
+    3px solid
+    var(--ink);
+
+}
+
+
+.download-card-inner > p {
+
+  margin:
+    0;
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    25px;
+
+  letter-spacing:
+    8px;
+
+}
+
+
+.download-card-inner h2 {
+
+  margin:
+    20px 0 0;
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    100px;
+
+  font-weight:
+    400;
+
+}
+
+
+.download-card-inner h2 span {
+
+  color:
+    var(--red);
+
+  font-size:
+    55px;
+
+}
+
+
+.download-card-inner h3 {
+
+  margin:
+    -5px 0 40px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    42px;
+
+  font-weight:
+    400;
+
+}
+
+
+.card-date {
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    110px;
+
+  font-weight:
+    700;
+
+  line-height:
+    0.9;
+
+}
+
+
+.card-date span {
+
+  display:
+    block;
+
+  margin:
+    20px 0;
+
+  font-size:
+    32px;
+
+  letter-spacing:
+    10px;
+
+}
+
+
+.card-info {
+
+  margin-top:
+    60px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    32px;
+
+}
+
+
+.card-location {
+
+  margin-top:
+    22px;
+
+  font-family:
+    var(--font-arabic);
+
+  font-size:
+    33px;
+
+  line-height:
+    1.5;
+
+}
+
+
+.card-bottom-line {
+
+  width:
+    70%;
+
+  margin:
+    60px auto 20px;
+
+  border-top:
+    3px double
+    var(--ink);
+
+}
+
+
+.download-card-inner small {
+
+  font-family:
+    var(--font-news);
+
+  font-size:
+    17px;
+
+  letter-spacing:
+    6px;
+
+}
+
+
+/* ==========================================
+   الموبايل
+========================================== */
+
+@media
+(max-width: 600px) {
+
+  .newspaper-page {
+
+    padding:
+      18px 15px 40px;
+
+  }
+
+
+  .article-columns {
+
+    column-count:
+      1;
+
+  }
+
+
+  .news-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .event-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .event-box {
+
+    min-height:
+      115px;
+
+    border-left:
+      0;
+
+    border-bottom:
+      1px solid
+      var(--ink);
+
+  }
+
+
+  .event-box:last-child {
+
+    border-bottom:
+      0;
+
+  }
+
+
+  .qr-section {
+
+    grid-template-columns:
+      1fr;
+
+    text-align:
+      center;
+
+  }
+
+
+  .qr-text p {
+
+    margin-left:
+      auto;
+
+    margin-right:
+      auto;
+
+  }
+
+
+  .qr-paper {
+
+    width:
+      165px;
+
+    margin:
+      auto;
+
+  }
+
+
+  .paper-actions {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+
+  .edition-row {
+
+    font-size:
+      8px;
+
+  }
+
+
+  .breaking-strip {
+
+    display:
+      block;
+
+  }
+
+
+  .breaking-label {
+
+    justify-content:
+      center;
+
+  }
+
+
+  .breaking-text {
+
+    text-align:
+      center;
+
+  }
+
+}
+
+
+/* ==========================================
+   شاشات صغيرة
+========================================== */
+
+@media
+(max-width: 380px) {
+
+  .newspaper-cover {
+
+    min-height:
+      550px;
+
+  }
+
+
+  .cover-photo {
+
+    height:
+      225px;
+
+  }
+
+
+  .newspaper-cover h2 {
+
+    font-size:
+      30px;
+
+  }
+
+
+  .lead-subtitle {
+
+    font-size:
+      15px;
+
+  }
+
+}
+
+
+/* ==========================================
+   تقليل الحركة
+========================================== */
+
+@media
+(prefers-reduced-motion: reduce) {
+
+  * {
+
+    animation-duration:
+      0.01ms !important;
+
+    transition-duration:
+      0.01ms !important;
+
+    scroll-behavior:
+      auto !important;
+
+  }
+
+}
+
+/* ==========================================
+   تحسين صورة الخبر الرئيسية
+   Engagement Newspaper
+========================================== */
+
+.lead-photo {
+
+  width: 100%;
+
+  max-width: 680px;
+
+  margin:
+    0 auto 18px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    #625d53;
+
+  background:
+    #d8cfbd;
+
+  box-shadow:
+    0 5px 14px
+    rgba(47, 42, 34, 0.10);
+
+}
+
+
+/* الصورة نفسها */
+
+.lead-photo img {
+
+  width: 100%;
+
+  height: 430px;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position:
+    center 22%;
+
+  filter:
+    grayscale(100%)
+    contrast(1.08)
+    brightness(0.97)
+    sepia(7%);
+
+}
+
+
+/* تأثير خفيف يشبه حبر الجريدة */
+
+.lead-photo {
+
+  position: relative;
+
+}
+
+
+.lead-photo::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.12;
+
+  background:
+
+    repeating-linear-gradient(
+      0deg,
+      rgba(30, 27, 23, 0.12) 0,
+      rgba(30, 27, 23, 0.12) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+
+  mix-blend-mode: multiply;
+
+}
+
+
+/* الكابشن */
+
+.lead-photo figcaption {
+
+  position: relative;
+
+  z-index: 2;
+
+  margin: 0;
+
+  padding:
+    7px 9px;
+
+  background:
+    var(--paper);
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-arabic);
+
+  font-size: 10px;
+
+  line-height: 1.5;
+
+  border-top:
+    1px solid
+    rgba(60, 55, 48, 0.35);
+
+}
+
+
+/* ==========================================
+   التابلت
+========================================== */
+
+@media
+(max-width: 850px) {
+
+  .lead-photo {
+
+    max-width: 100%;
+
+  }
+
+
+  .lead-photo img {
+
+    height: 390px;
+
+    object-position:
+      center 20%;
+
+  }
+
+}
+
+
+/* ==========================================
+   الموبايل
+========================================== */
+
+@media
+(max-width: 600px) {
+
+  .lead-photo img {
+
+    height: 420px;
+
+    object-position:
+      center 18%;
+
+  }
+
+}
+
+
+/* ==========================================
+   الموبايل الصغير
+========================================== */
+
+@media
+(max-width: 380px) {
+
+  .lead-photo img {
+
+    height: 380px;
+
+    object-position:
+      center 18%;
+
+  }
+
+}

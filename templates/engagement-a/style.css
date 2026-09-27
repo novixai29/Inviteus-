@@ -1,0 +1,1646 @@
+:root {
+  --paper: #fcfbf7;
+  --paper-dark: #f5f1e8;
+
+  --brown: #3c342f;
+  --brown-soft: #70583f;
+
+  --gold: #b18a4d;
+  --gold-dark: #8d672f;
+
+  --green: #58674d;
+
+  --muted: #867666;
+
+  --wine: #722026;
+
+  --font-title: "Aref Ruqaa", serif;
+  --font-elegant: "Amiri", serif;
+  --font-body: "Tajawal", sans-serif;
+}
+
+
+/* =========================================
+   الأساس
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+
+  min-height: 100vh;
+
+  font-family: var(--font-body);
+
+  background:
+    radial-gradient(
+      circle at top,
+      #514941 0%,
+      #312c29 45%,
+      #211e1c 100%
+    );
+
+  color: #3f3935;
+
+  overflow-x: hidden;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button {
+  font-family: inherit;
+}
+
+
+.phone-screen {
+  width: 100%;
+  max-width: 450px;
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  position: relative;
+
+  overflow-x: hidden;
+
+  background-color: var(--paper);
+
+  background-image:
+
+    radial-gradient(
+      #e9e4dc 0.75px,
+      transparent 0.75px
+    ),
+
+    radial-gradient(
+      #ece7df 0.75px,
+      var(--paper) 0.75px
+    );
+
+  background-size: 30px 30px;
+
+  background-position:
+    0 0,
+    15px 15px;
+
+  box-shadow:
+    0 0 60px rgba(0, 0, 0, 0.32);
+}
+
+
+
+/* =========================================
+   زر الموسيقى
+========================================= */
+
+/* ==========================================
+   زر الموسيقى
+   مخفي قبل فتح الدعوة
+========================================== */
+
+.music-control {
+  position: fixed;
+
+  top: 18px;
+
+  left: max(
+    18px,
+    calc((100vw - 450px) / 2 + 18px)
+  );
+
+  z-index: 100;
+
+  /* مخفي بالبداية */
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform: translateY(-10px);
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease,
+    visibility 0.4s ease;
+}
+
+
+/* ==========================================
+   يظهر بعد فتح الدعوة
+========================================== */
+
+.music-control.visible {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform: translateY(0);
+}
+
+
+
+/* =========================================
+   شاشة الظرف
+========================================= */
+
+.envelope-section {
+  min-height: 100vh;
+
+  padding:
+    38px 25px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  position: relative;
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+
+.top-leaf {
+  width: 95px;
+
+  opacity: 0.68;
+
+  margin-bottom: 8px;
+}
+
+
+.main-names {
+  margin: 0;
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    clamp(
+      50px,
+      13vw,
+      67px
+    );
+
+  font-weight: 400;
+
+  line-height: 1.25;
+
+  color:
+    var(--brown);
+}
+
+
+.engagement-label {
+  margin-top: 2px;
+
+  margin-bottom: 30px;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 15px;
+
+  color:
+    var(--muted);
+
+  letter-spacing: 2px;
+}
+
+
+
+/* =========================================
+   الظرف
+========================================= */
+
+.envelope-wrapper {
+  width:
+    min(
+      325px,
+      85vw
+    );
+
+  height: 210px;
+
+  position: relative;
+
+  perspective: 1200px;
+
+  margin:
+    10px auto 32px;
+
+  cursor: pointer;
+}
+
+
+.envelope {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  background:
+    #eae4db;
+
+  border-radius: 4px;
+
+  box-shadow:
+    0 15px 35px
+      rgba(0, 0, 0, 0.18),
+
+    0 3px 10px
+      rgba(0, 0, 0, 0.08);
+}
+
+
+.envelope-flap {
+  position: absolute;
+
+  inset: 0;
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 0,
+      50% 58%
+    );
+
+  background:
+    #e2dbd1;
+
+  transform-origin:
+    top;
+
+  transition:
+    transform 0.85s
+    cubic-bezier(
+      0.4,
+      0,
+      0.2,
+      1
+    );
+
+  z-index: 20;
+}
+
+
+.envelope-pocket {
+  position: absolute;
+
+  inset: 0;
+
+  clip-path:
+    polygon(
+      0 100%,
+      100% 100%,
+      100% 45%,
+      50% 75%,
+      0 45%
+    );
+
+  background:
+    #ede8df;
+
+  z-index: 10;
+}
+
+
+.envelope-left {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 50%;
+  height: 100%;
+
+  clip-path:
+    polygon(
+      0 0,
+      100% 50%,
+      0 100%
+    );
+
+  background:
+    #e6dfd5;
+
+  z-index: 9;
+}
+
+
+.envelope-right {
+  position: absolute;
+
+  right: 0;
+  top: 0;
+
+  width: 50%;
+  height: 100%;
+
+  clip-path:
+    polygon(
+      100% 0,
+      0 50%,
+      100% 100%
+    );
+
+  background:
+    #e4ddd2;
+
+  z-index: 9;
+}
+
+
+.envelope.opened
+.envelope-flap {
+  transform:
+    rotateX(180deg);
+
+  z-index: 4;
+}
+
+
+
+/* =========================================
+   الختم
+========================================= */
+
+.wax-seal {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  width: 68px;
+  height: 68px;
+
+  border-radius: 50%;
+
+  z-index: 30;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at 35% 35%,
+      #d4a753,
+      #9d6f28,
+      #5f4214
+    );
+
+  box-shadow:
+
+    0 6px 14px
+      rgba(
+        60,
+        40,
+        15,
+        0.4
+      ),
+
+    inset
+    0 2px 4px
+      rgba(
+        255,
+        255,
+        255,
+        0.35
+      ),
+
+    inset
+    0 -3px 5px
+      rgba(
+        0,
+        0,
+        0,
+        0.45
+      );
+
+  transition:
+    transform 0.3s ease;
+}
+
+
+.wax-seal-inner {
+  width: 53px;
+  height: 53px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      225,
+      165,
+      0.35
+    );
+
+  font-family:
+    var(--font-title);
+
+  font-size: 20px;
+
+  color:
+    #f7e8bd;
+
+  text-shadow:
+    0 1px 2px
+    rgba(
+      0,
+      0,
+      0,
+      0.35
+    );
+}
+
+
+.envelope-wrapper:hover
+.wax-seal {
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    scale(1.06);
+}
+
+
+
+/* أوراق الظرف */
+
+.leaf-decoration {
+  position: absolute;
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+.leaf-one {
+  width: 125px;
+
+  top: -35px;
+  left: -35px;
+
+  transform:
+    rotate(-20deg);
+}
+
+
+.leaf-two {
+  width: 105px;
+
+  bottom: -25px;
+  right: -30px;
+
+  transform:
+    rotate(130deg);
+}
+
+
+
+/* =========================================
+   فتح الدعوة
+========================================= */
+
+.open-prompt {
+  color:
+    #7b6d5e;
+
+  cursor: pointer;
+
+  animation:
+    pulse
+    2.3s
+    infinite
+    ease-in-out;
+}
+
+
+.open-prompt span {
+  display: block;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 16px;
+}
+
+
+.open-prompt i {
+  margin-top: 7px;
+
+  font-size: 12px;
+}
+
+
+.music-hint {
+  margin-top: 20px;
+
+  color:
+    #9c8d7c;
+
+  font-size: 11px;
+}
+
+
+@keyframes pulse {
+
+  0%,
+  100% {
+
+    opacity: 0.62;
+
+    transform:
+      scale(1);
+
+  }
+
+
+  50% {
+
+    opacity: 1;
+
+    transform:
+      scale(1.04);
+
+  }
+
+}
+
+
+
+/* =========================================
+   محتوى الدعوة
+========================================= */
+
+.invite-content {
+  display: none;
+
+  opacity: 0;
+
+  flex-direction: column;
+
+  padding-bottom: 35px;
+
+  transition:
+    opacity 1s ease;
+}
+
+
+.invite-content.visible {
+  opacity: 1;
+}
+
+
+
+/* =========================================
+   رأس الدعوة والآية
+========================================= */
+
+.invite-header {
+  text-align: center;
+
+  padding:
+    38px 22px 18px;
+}
+
+
+.quran-verse {
+  max-width: 390px;
+
+  margin:
+    0 auto 10px;
+
+  padding:
+    0 5px;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size:
+    clamp(
+      19px,
+      5.2vw,
+      23px
+    );
+
+  line-height: 2;
+
+  font-weight: 400;
+
+  color:
+    #65584d;
+}
+
+
+.invite-header h2 {
+  margin:
+    3px 0 9px;
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    53px;
+
+  line-height: 1.2;
+
+  font-weight: 400;
+
+  color:
+    #362e2a;
+}
+
+
+.gold-line {
+  width: 80px;
+  height: 1px;
+
+  margin:
+    12px auto 0;
+
+  background:
+    #c9bfb0;
+}
+
+
+
+/* =========================================
+   بطاقة الدعوة
+========================================= */
+
+.invitation-card {
+  margin:
+    8px 22px 22px;
+
+  padding:
+    23px 18px;
+
+  text-align: center;
+
+  border:
+    1px solid
+    rgba(
+      199,
+      185,
+      163,
+      0.65
+    );
+
+  border-radius: 20px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.43
+    );
+
+  box-shadow:
+    0 8px 25px
+    rgba(
+      87,
+      72,
+      54,
+      0.06
+    );
+}
+
+
+.invitation-message {
+  padding:
+    2px 3px 20px;
+
+  margin-bottom: 18px;
+
+  border-bottom:
+    1px solid #e2dacf;
+}
+
+
+.couple-title {
+  margin-bottom: 10px;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size:
+    23px;
+
+  line-height: 1.8;
+
+  font-weight: 700;
+
+  color:
+    #3f352e;
+}
+
+
+.invitation-message p {
+  max-width: 350px;
+
+  margin:
+    0 auto;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 18px;
+
+  line-height: 1.9;
+
+  color:
+    #5c5047;
+}
+
+
+.invitation-message .will {
+  margin-top:
+    5px;
+
+  font-weight: 700;
+
+  color:
+    var(--gold-dark);
+}
+
+
+
+/* =========================================
+   والدا العريس والعروس
+========================================= */
+
+.parents-section {
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding-top: 3px;
+}
+
+
+.parent-family {
+  min-width: 0;
+
+  padding:
+    5px 3px;
+}
+
+
+.family-icon {
+  margin-bottom: 0;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 16px;
+
+  color:
+    #b29670;
+}
+
+
+.parent-family h3 {
+  margin:
+    1px 0 11px;
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    23px;
+
+  font-weight: 700;
+
+  color:
+    #513d31;
+}
+
+
+.parent-name {
+  margin:
+    6px 0;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size:
+    15px;
+
+  line-height: 1.5;
+
+  color:
+    #756657;
+}
+
+
+.parents-divider {
+  width: 1px;
+  height: 95px;
+
+  background:
+    linear-gradient(
+      transparent,
+      #d7cbbb,
+      transparent
+    );
+}
+
+
+
+/* =========================================
+   الصور
+========================================= */
+
+.collage {
+  padding:
+    12px 20px 18px;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+
+.collage-area {
+  height: 410px;
+
+  position: relative;
+
+  direction: ltr;
+}
+
+
+.polaroid {
+  position: absolute;
+
+  background:
+    #ffffff;
+
+  padding:
+    10px
+    10px
+    22px;
+
+  border-radius: 2px;
+
+  box-shadow:
+
+    0 10px 25px
+    rgba(
+      0,
+      0,
+      0,
+      0.13
+    ),
+
+    0 2px 6px
+    rgba(
+      0,
+      0,
+      0,
+      0.08
+    );
+
+  transition:
+    transform 0.3s ease;
+}
+
+
+.polaroid:hover {
+  transform:
+    rotate(0deg)
+    scale(1.03) !important;
+
+  z-index: 40;
+}
+
+
+.photo-one {
+  width: 205px;
+
+  top: 7px;
+  left: 3px;
+
+  transform:
+    rotate(-5deg);
+
+  z-index: 10;
+}
+
+
+.photo-two {
+  width: 180px;
+
+  right: 4px;
+  bottom: 3px;
+
+  transform:
+    rotate(7deg);
+
+  z-index: 15;
+}
+
+
+.polaroid img {
+  display: block;
+
+  width: 100%;
+
+  object-fit: cover;
+
+  border-radius: 2px;
+}
+
+
+.photo-one img {
+  height: 240px;
+}
+
+
+.photo-two img {
+  height: 150px;
+}
+
+
+.photo-caption {
+  direction: rtl;
+
+  margin:
+    7px 0 -5px;
+
+  text-align: center;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 13px;
+
+  color:
+    #726457;
+}
+
+
+.title-caption {
+  font-family:
+    var(--font-title);
+
+  font-size: 17px;
+
+  color:
+    #4f4339;
+}
+
+
+
+/* البطاقة الحمراء */
+
+.love-tag {
+  position: absolute;
+
+  width: 120px;
+
+  top: 105px;
+  right: 8px;
+
+  z-index: 20;
+
+  padding:
+    14px 8px;
+
+  border-radius: 6px;
+
+  border:
+    1px solid #8e3137;
+
+  background:
+    var(--wine);
+
+  color:
+    #f4e6d4;
+
+  text-align: center;
+
+  transform:
+    rotate(6deg);
+
+  box-shadow:
+    0 6px 12px
+    rgba(
+      0,
+      0,
+      0,
+      0.15
+    );
+}
+
+
+.love-tag i {
+  margin-bottom: 5px;
+
+  font-size: 12px;
+
+  color:
+    #edd59f;
+}
+
+
+.love-tag p {
+  direction: rtl;
+
+  margin: 0;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+.leaf-sticker {
+  position: absolute;
+
+  left: 35px;
+  bottom: 10px;
+
+  z-index: 20;
+
+  color:
+    #607153;
+
+  font-size: 28px;
+
+  opacity: 0.85;
+
+  transform:
+    rotate(45deg);
+}
+
+
+
+/* =========================================
+   العداد
+========================================= */
+
+.countdown-section {
+  margin:
+    18px 20px 23px;
+}
+
+
+.countdown-card {
+  padding:
+    23px 13px;
+
+  text-align: center;
+
+  border:
+    1px solid #e5ded0;
+
+  border-radius: 20px;
+
+  background:
+    rgba(
+      245,
+      241,
+      232,
+      0.86
+    );
+
+  backdrop-filter:
+    blur(5px);
+
+  box-shadow:
+    0 8px 25px
+    rgba(
+      100,
+      80,
+      55,
+      0.06
+    );
+}
+
+
+.countdown-top {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+}
+
+
+.countdown-top p {
+  margin: 0;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 16px;
+
+  color:
+    #726456;
+}
+
+
+.small-line {
+  width: 22px;
+  height: 1px;
+
+  background:
+    #b8ad9e;
+}
+
+
+.countdown-grid {
+  direction: ltr;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  margin-top: 16px;
+}
+
+
+.countdown-item {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  border-left:
+    1px solid #dfd7c8;
+}
+
+
+.countdown-item:first-child {
+  border-left: 0;
+}
+
+
+.countdown-number {
+  font-family:
+    var(--font-elegant);
+
+  font-size:
+    clamp(
+      28px,
+      8vw,
+      38px
+    );
+
+  line-height: 1;
+
+  color:
+    #362e2a;
+}
+
+
+.countdown-number.seconds {
+  color:
+    #8d5b38;
+}
+
+
+.countdown-label {
+  direction: rtl;
+
+  margin-top: 6px;
+
+  font-size: 10px;
+
+  color:
+    #887868;
+}
+
+
+.countdown-message {
+  margin:
+    16px 0 0;
+
+  font-family:
+    var(--font-title);
+
+  font-size: 21px;
+
+  font-weight: 400;
+
+  color:
+    #53463e;
+}
+
+
+
+/* =========================================
+   التفاصيل
+========================================= */
+
+.details-section {
+  padding:
+    23px 24px 25px;
+
+  text-align: center;
+}
+
+
+.details-title {
+  margin:
+    0 0 2px;
+
+  font-family:
+    var(--font-title);
+
+  font-size: 38px;
+
+  font-weight: 400;
+
+  color:
+    #38302b;
+}
+
+
+.details-subtitle {
+  margin:
+    0 0 17px;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 14px;
+
+  color:
+    #867564;
+}
+
+
+
+/* =========================================
+   خواتم زخرفية
+========================================= */
+
+.rings-decoration {
+  width: 100px;
+  height: 90px;
+
+  margin:
+    0 auto 8px;
+
+  position: relative;
+}
+
+
+.ring {
+  position: absolute;
+
+  width: 47px;
+  height: 47px;
+
+  top: 25px;
+
+  border:
+    1.7px solid
+    #8b7866;
+
+  border-radius: 50%;
+}
+
+
+.ring-one {
+  left: 21px;
+}
+
+
+.ring-two {
+  right: 21px;
+}
+
+
+.diamond {
+  position: absolute;
+
+  top: 10px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  color:
+    #b18a4d;
+
+  font-size: 19px;
+}
+
+
+
+/* =========================================
+   صفوف التاريخ والوقت
+========================================= */
+
+.detail-row {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin:
+    13px auto;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 19px;
+
+  color:
+    #483d36;
+}
+
+
+.detail-row i {
+  width: 20px;
+
+  color:
+    #786959;
+
+  font-size: 16px;
+}
+
+
+
+/* =========================================
+   القاعة
+========================================= */
+
+.venue-link {
+  display: block;
+
+  margin-top: 22px;
+
+  text-decoration: none;
+
+  color: inherit;
+}
+
+
+.venue-card {
+  padding:
+    20px 17px;
+
+  cursor: pointer;
+
+  border-top:
+    1px solid #dfd7c9;
+
+  border-bottom:
+    1px solid #dfd7c9;
+
+  transition:
+    background 0.25s ease;
+}
+
+
+.venue-card:hover {
+  background:
+    rgba(
+      235,
+      227,
+      215,
+      0.45
+    );
+}
+
+
+.venue-name {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+}
+
+
+.venue-name i {
+  font-size: 16px;
+
+  color:
+    #8c5936;
+}
+
+
+.venue-name h4 {
+  margin: 0;
+
+  font-family:
+    var(--font-title);
+
+  font-size: 27px;
+
+  font-weight: 700;
+
+  color:
+    #322a25;
+}
+
+
+.venue-card > p {
+  margin:
+    3px 0 0;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 15px;
+
+  color:
+    #7f7162;
+}
+
+
+.map-button {
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding:
+    13px 20px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border-radius: 50px;
+
+  background:
+    #3c342f;
+
+  color:
+    #f7f4ee;
+
+  font-family:
+    var(--font-body);
+
+  font-size: 13px;
+
+  box-shadow:
+    0 5px 14px
+    rgba(
+      0,
+      0,
+      0,
+      0.14
+    );
+
+  transition:
+    0.25s ease;
+}
+
+
+.venue-link:hover
+.map-button {
+  background:
+    #25201d;
+
+  transform:
+    translateY(-1px);
+}
+
+
+
+/* =========================================
+   بدء المناسبة
+========================================= */
+
+.event-started {
+  font-size:
+    27px !important;
+
+  color:
+    var(--gold-dark) !important;
+}
+
+
+
+/* =========================================
+   شاشات الموبايل الصغيرة
+========================================= */
+
+@media
+(max-width: 380px) {
+
+  .invite-header {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+
+  .quran-verse {
+    font-size: 18px;
+  }
+
+
+  .invitation-card {
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+
+
+  .parents-section {
+    gap: 6px;
+  }
+
+
+  .parent-family h3 {
+    font-size: 20px;
+  }
+
+
+  .parent-name {
+    font-size: 13px;
+  }
+
+
+  .photo-one {
+    width: 185px;
+  }
+
+
+  .photo-one img {
+    height: 220px;
+  }
+
+
+  .photo-two {
+    width: 165px;
+  }
+
+
+  .love-tag {
+    width: 105px;
+
+    right: 3px;
+  }
+
+}

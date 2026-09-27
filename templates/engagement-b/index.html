@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#080706"
+  >
+
+  <title>
+    علي وزهراء — دعوة حفل الخطوبة
+  </title>
+
+  <meta
+    name="description"
+    content="دعوة حفل خطوبة علي وزهراء"
+  >
+
+  <!-- الخطوط -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- الأيقونات -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <!-- التفريحات -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"
+  ></script>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- ========================================
+       الموسيقى
+  ========================================= -->
+
+  <audio
+    id="bgMusic"
+    loop
+    preload="auto"
+  >
+
+    <source
+      src="music.mp3"
+      type="audio/mpeg"
+    >
+
+  </audio>
+
+
+
+  <!-- ========================================
+       الذرات الذهبية
+  ========================================= -->
+
+  <div
+    id="goldParticles"
+    class="gold-particles"
+    aria-hidden="true"
+  ></div>
+
+
+
+  <!-- ========================================
+       شاشة الستارة
+  ========================================= -->
+
+  <section
+    id="curtainScreen"
+    class="curtain-screen"
+  >
+
+
+    <div
+      class="curtain curtain-left"
+    ></div>
+
+
+    <div
+      class="curtain curtain-right"
+    ></div>
+
+
+    <div
+      id="openingContent"
+      class="opening-content"
+    >
+
+
+      <div class="opening-crown">
+
+        <i class="fa-solid fa-crown"></i>
+
+      </div>
+
+
+      <div class="royal-monogram">
+
+        <div class="monogram-circle">
+
+          <span>ع</span>
+
+          <span class="monogram-divider">&</span>
+
+          <span>ز</span>
+
+        </div>
+
+      </div>
+
+
+      <p class="opening-small">
+        بكل حب وسرور
+      </p>
+
+
+      <h1>
+        علي وزهراء
+      </h1>
+
+
+      <div class="opening-line"></div>
+
+
+      <p class="opening-title">
+        دعوة حفل الخطوبة
+      </p>
+
+
+      <button
+        id="openInvitationButton"
+        class="open-button"
+        type="button"
+      >
+
+        <span>
+          افتح الدعوة
+        </span>
+
+        <i class="fa-solid fa-chevron-down"></i>
+
+      </button>
+
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ========================================
+       زر الموسيقى
+  ========================================= -->
+
+  <div
+    id="musicControl"
+    class="music-control"
+  >
+
+    <button
+      id="musicToggle"
+      class="icon-button"
+      type="button"
+      aria-label="تشغيل أو إيقاف الموسيقى"
+    >
+
+      <i
+        id="musicIcon"
+        class="fa-solid fa-volume-high"
+      ></i>
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ========================================
+       محتوى الدعوة
+  ========================================= -->
+
+  <main
+    id="inviteContent"
+    class="invite-content"
+  >
+
+
+    <!-- ========================================
+         HERO
+    ========================================= -->
+
+    <section class="hero-section">
+
+
+      <div class="royal-frame">
+
+
+        <div class="corner corner-top-right"></div>
+
+        <div class="corner corner-top-left"></div>
+
+        <div class="corner corner-bottom-right"></div>
+
+        <div class="corner corner-bottom-left"></div>
+
+
+        <div class="hero-crown">
+
+          <i class="fa-solid fa-crown"></i>
+
+        </div>
+
+
+        <div class="hero-monogram">
+
+          ع & ز
+
+        </div>
+
+
+        <p class="hero-intro">
+          بمشيئة الله تعالى
+        </p>
+
+
+        <div class="hero-divider">
+
+          <span></span>
+
+          <i class="fa-solid fa-diamond"></i>
+
+          <span></span>
+
+        </div>
+
+
+        <h2>
+
+          علي
+
+          <span>
+            &
+          </span>
+
+          زهراء
+
+        </h2>
+
+
+        <p class="hero-description">
+
+          يتشرفان بدعوتكم لمشاركتهما
+          فرحة حفل خطوبتهما
+
+        </p>
+
+
+        <p class="hero-date">
+
+          الأربعاء
+
+          <strong>
+            14 أكتوبر 2026
+          </strong>
+
+        </p>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ========================================
+         الآية
+    ========================================= -->
+
+    <section class="verse-section">
+
+
+      <div class="section-ornament">
+
+        <span></span>
+
+        <i class="fa-solid fa-diamond"></i>
+
+        <span></span>
+
+      </div>
+
+
+      <p class="verse">
+
+        ﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ
+        مِنْ أَنْفُسِكُمْ أَزْوَاجًا
+        لِتَسْكُنُوا إِلَيْهَا ﴾
+
+      </p>
+
+
+    </section>
+
+
+
+    <!-- ========================================
+         العائلتان
+    ========================================= -->
+
+    <section class="families-section">
+
+
+      <div class="section-heading">
+
+        <p>
+          بكل الفخر والسرور
+        </p>
+
+        <h3>
+          تتشرف العائلتان بدعوتكم
+        </h3>
+
+      </div>
+
+
+      <div class="families-grid">
+
+
+        <div class="family-card">
+
+          <div class="family-crown">
+            ♔
+          </div>
+
+          <h4>
+            والدا العريس
+          </h4>
+
+          <p>
+            اسم والد العريس
+          </p>
+
+          <p>
+            اسم والدة العريس
+          </p>
+
+        </div>
+
+
+        <div class="family-divider">
+
+          <span></span>
+
+          <i class="fa-solid fa-diamond"></i>
+
+          <span></span>
+
+        </div>
+
+
+        <div class="family-card">
+
+          <div class="family-crown">
+            ♔
+          </div>
+
+          <h4>
+            والدا العروس
+          </h4>
+
+          <p>
+            اسم والد العروس
+          </p>
+
+          <p>
+            اسم والدة العروس
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ========================================
+         TIMELINE
+    ========================================= -->
+
+    <section class="timeline-section">
+
+
+      <div class="section-heading">
+
+        <p>
+          حكاية جميلة
+        </p>
+
+        <h3>
+          بدأت لتكتمل بفرحتنا
+        </h3>
+
+      </div>
+
+
+      <div class="timeline">
+
+
+        <div class="timeline-line"></div>
+
+
+        <article class="timeline-item">
+
+
+          <div class="timeline-dot">
+
+            <i class="fa-solid fa-heart"></i>
+
+          </div>
+
+
+          <div class="timeline-content">
+
+            <span>
+              البداية
+            </span>
+
+            <h4>
+              تعارفنا
+            </h4>
+
+            <p>
+              وكانت البداية لحكاية كتب الله لها أن تستمر
+            </p>
+
+          </div>
+
+
+        </article>
+
+
+
+        <article class="timeline-item">
+
+
+          <div class="timeline-dot">
+
+            <i class="fa-solid fa-ring"></i>
+
+          </div>
+
+
+          <div class="timeline-content">
+
+            <span>
+              الفصل الأجمل
+            </span>
+
+            <h4>
+              تمت الخطوبة
+            </h4>
+
+            <p>
+              واتخذنا أول خطوة نحو حياة تجمعنا معا
+            </p>
+
+          </div>
+
+
+        </article>
+
+
+
+        <article class="timeline-item">
+
+
+          <div class="timeline-dot">
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+          </div>
+
+
+          <div class="timeline-content">
+
+            <span>
+              موعدنا معكم
+            </span>
+
+            <h4>
+              يوم الاحتفال
+            </h4>
+
+            <p>
+              14 أكتوبر 2026
+            </p>
+
+          </div>
+
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ========================================
+         العداد
+    ========================================= -->
+
+    <section class="countdown-section">
+
+
+      <div class="countdown-card">
+
+
+        <div class="mini-crown">
+
+          <i class="fa-solid fa-crown"></i>
+
+        </div>
+
+
+        <p class="countdown-small">
+          حتى موعد فرحتنا
+        </p>
+
+
+        <h3>
+          العد التنازلي
+        </h3>
+
+
+        <div class="countdown-grid">
+
+
+          <div class="countdown-item">
+
+            <strong id="days">
+              00
+            </strong>
+
+            <span>
+              يوم
+            </span>
+
+          </div>
+
+
+          <div class="countdown-item">
+
+            <strong id="hours">
+              00
+            </strong>
+
+            <span>
+              ساعة
+            </span>
+
+          </div>
+
+
+          <div class="countdown-item">
+
+            <strong id="minutes">
+              00
+            </strong>
+
+            <span>
+              دقيقة
+            </span>
+
+          </div>
+
+
+          <div class="countdown-item">
+
+            <strong id="seconds">
+              00
+            </strong>
+
+            <span>
+              ثانية
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+        <p
+          id="countdownMessage"
+          class="countdown-message"
+        >
+
+          ننتظر حضوركم بكل محبة
+
+        </p>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ========================================
+         التفاصيل
+    ========================================= -->
+
+    <section class="details-section">
+
+
+      <div class="section-heading">
+
+        <p>
+          تفاصيل المناسبة
+        </p>
+
+        <h3>
+          موعد لقائنا
+        </h3>
+
+      </div>
+
+
+
+      <div class="details-card">
+
+
+        <div class="detail-row">
+
+          <div class="detail-icon">
+
+            <i class="fa-regular fa-calendar"></i>
+
+          </div>
+
+
+          <div>
+
+            <small>
+              التاريخ
+            </small>
+
+            <strong>
+              الأربعاء 14 أكتوبر 2026
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="detail-row">
+
+          <div class="detail-icon">
+
+            <i class="fa-regular fa-clock"></i>
+
+          </div>
+
+
+          <div>
+
+            <small>
+              الوقت
+            </small>
+
+            <strong>
+              الساعة الرابعة عصرا
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="detail-row">
+
+          <div class="detail-icon">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+          </div>
+
+
+          <div>
+
+            <small>
+              المكان
+            </small>
+
+            <strong>
+              قاعة القمة
+            </strong>
+
+            <span>
+              الموصل - نينوى
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <a
+        class="location-button"
+        href="https://www.google.com/maps/search/?api=1&query=قاعة+القمة+الموصل"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        <i class="fa-solid fa-location-arrow"></i>
+
+        <span>
+          فتح موقع القاعة
+        </span>
+
+      </a>
+
+
+    </section>
+
+
+
+    <!-- ========================================
+         الأدوات
+    ========================================= -->
+
+    <section class="actions-section">
+
+
+      <button
+        id="calendarButton"
+        class="action-button"
+        type="button"
+      >
+
+        <i class="fa-regular fa-calendar-plus"></i>
+
+        <span>
+          أضف الموعد إلى التقويم
+        </span>
+
+      </button>
+
+
+
+      <button
+        id="shareButton"
+        class="action-button"
+        type="button"
+      >
+
+        <i class="fa-solid fa-share-nodes"></i>
+
+        <span>
+          مشاركة الدعوة
+        </span>
+
+      </button>
+
+
+      <p
+        id="shareMessage"
+        class="share-message"
+      ></p>
+
+
+    </section>
+
+
+
+    <!-- ========================================
+         النهاية
+    ========================================= -->
+
+    <footer class="royal-footer">
+
+
+      <div class="footer-crown">
+
+        <i class="fa-solid fa-crown"></i>
+
+      </div>
+
+
+      <div class="footer-monogram">
+
+        ع & ز
+
+      </div>
+
+
+      <p>
+
+        حضوركم بيننا هو أجمل ما يكتمل به
+        هذا المساء
+
+      </p>
+
+
+      <div class="footer-line"></div>
+
+
+      <span>
+        بكل الحب ننتظركم
+      </span>
+
+
+    </footer>
+
+
+  </main>
+
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

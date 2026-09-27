@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#f8f0eb"
+  >
+
+  <title>
+    يوسف ومريم — حكايتنا
+  </title>
+
+  <meta
+    name="description"
+    content="دعوة حفل خطوبة يوسف ومريم"
+  >
+
+
+  <!-- الخطوط -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- Font Awesome -->
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+
+  <!-- التنسيق -->
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body>
+
+
+  <!-- ==========================================
+       الموسيقى
+  =========================================== -->
+
+  <audio
+    id="bgMusic"
+    loop
+    preload="auto"
+  >
+
+    <source
+      src="music.mp3"
+      type="audio/mpeg"
+    >
+
+  </audio>
+
+
+
+  <!-- ==========================================
+       القلوب الخلفية
+  =========================================== -->
+
+  <div
+    id="heartsBackground"
+    class="hearts-background"
+    aria-hidden="true"
+  ></div>
+
+
+
+  <!-- ==========================================
+       زر الموسيقى
+  =========================================== -->
+
+  <div
+    id="musicControl"
+    class="music-control"
+  >
+
+    <button
+      id="musicToggle"
+      class="music-button"
+      type="button"
+      aria-label="تشغيل أو إيقاف الموسيقى"
+    >
+
+      <i
+        id="musicIcon"
+        class="fa-solid fa-volume-xmark"
+      ></i>
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       شاشة البداية
+  =========================================== -->
+
+  <section
+    id="introScreen"
+    class="intro-screen"
+  >
+
+
+    <div class="intro-paper">
+
+
+      <div class="tiny-heart">
+        ♡
+      </div>
+
+
+      <p class="intro-pretitle">
+        قصة بدأت بلحظة
+      </p>
+
+
+      <h1>
+        يوسف
+        <span>&</span>
+        مريم
+      </h1>
+
+
+      <p class="intro-text">
+
+        واليوم نفتح معكم
+        صفحة جديدة من حكايتنا
+
+      </p>
+
+
+      <div class="signature-line">
+
+        <span></span>
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span></span>
+
+      </div>
+
+
+      <button
+        id="startStoryButton"
+        class="start-story-button"
+        type="button"
+      >
+
+        <span>
+          ابدأ الحكاية
+        </span>
+
+        <i class="fa-solid fa-arrow-down"></i>
+
+      </button>
+
+
+    </div>
+
+
+    <div class="intro-flower flower-one">
+      ❀
+    </div>
+
+    <div class="intro-flower flower-two">
+      ❀
+    </div>
+
+
+  </section>
+
+
+
+  <!-- ==========================================
+       محتوى الدعوة
+  =========================================== -->
+
+  <main
+    id="storyContent"
+    class="story-content"
+  >
+
+
+    <!-- ==========================================
+         HERO
+    =========================================== -->
+
+    <section class="hero-section">
+
+
+      <div class="hero-photo-card reveal">
+
+        <img
+          src="story1.jpg"
+          alt="يوسف ومريم"
+        >
+
+        <div class="photo-tape tape-one"></div>
+
+        <div class="photo-tape tape-two"></div>
+
+      </div>
+
+
+      <div class="hero-copy reveal">
+
+
+        <span class="eyebrow">
+          OUR STORY
+        </span>
+
+
+        <h2>
+          يوسف
+          <span>&</span>
+          مريم
+        </h2>
+
+
+        <p>
+
+          بعض القصص تبدأ بكلمة
+          وبعضها تبدأ بنظرة
+          وقصتنا بدأت لتبقى
+
+        </p>
+
+
+        <div class="handwritten-note">
+          وهنا بدأت الحكاية ♡
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         الآية
+    =========================================== -->
+
+    <section class="verse-section reveal">
+
+
+      <span class="small-heart">
+        ♡
+      </span>
+
+
+      <p>
+
+        ﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ
+        مِنْ أَنْفُسِكُمْ أَزْوَاجًا
+        لِتَسْكُنُوا إِلَيْهَا
+        وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ﴾
+
+      </p>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         STORY TIMELINE
+    =========================================== -->
+
+    <section class="story-section">
+
+
+      <div class="section-heading reveal">
+
+        <span>
+          CHAPTERS
+        </span>
+
+        <h3>
+          فصول حكايتنا
+        </h3>
+
+        <p>
+          مرر للأسفل لتعيش معنا القصة
+        </p>
+
+      </div>
+
+
+
+      <div class="story-line">
+
+
+        <!-- الفصل الأول -->
+
+        <article class="story-chapter chapter-left reveal">
+
+
+          <div class="chapter-number">
+            01
+          </div>
+
+
+          <div class="chapter-photo">
+
+            <img
+              src="story2.jpg"
+              alt="بداية قصة يوسف ومريم"
+            >
+
+          </div>
+
+
+          <div class="chapter-content">
+
+            <span class="chapter-date">
+              12 فبراير 2024
+            </span>
+
+            <h4>
+              البداية
+            </h4>
+
+            <p>
+
+              في يوم عادي جدا
+              بدأت حكاية لم تكن عادية أبدا
+
+            </p>
+
+          </div>
+
+
+        </article>
+
+
+
+        <!-- القلب -->
+
+        <div class="story-heart reveal">
+          ♡
+        </div>
+
+
+
+        <!-- الفصل الثاني -->
+
+        <article class="story-chapter chapter-right reveal">
+
+
+          <div class="chapter-number">
+            02
+          </div>
+
+
+          <div class="chapter-photo">
+
+            <img
+              src="story3.jpg"
+              alt="أول لقاء"
+            >
+
+          </div>
+
+
+          <div class="chapter-content">
+
+            <span class="chapter-date">
+              8 أبريل 2024
+            </span>
+
+            <h4>
+              أول لقاء
+            </h4>
+
+            <p>
+
+              لحظة قصيرة
+              لكنها كانت كافية
+              لنفهم أن شيئاً جميلاً قد بدأ
+
+            </p>
+
+          </div>
+
+
+        </article>
+
+
+
+        <div class="story-heart reveal">
+          ♡
+        </div>
+
+
+
+        <!-- الفصل الثالث -->
+
+        <article class="story-chapter chapter-left reveal">
+
+
+          <div class="chapter-number">
+            03
+          </div>
+
+
+          <div class="chapter-paper">
+
+
+            <span class="quote-mark">
+              “
+            </span>
+
+
+            <p>
+
+              ومع كل يوم
+              أصبح الطريق أوضح
+              وأصبح المستقبل يحمل اسمينا معا
+
+            </p>
+
+
+          </div>
+
+
+          <div class="chapter-content">
+
+            <span class="chapter-date">
+              20 يناير 2026
+            </span>
+
+            <h4>
+              قررنا نكمل الطريق
+            </h4>
+
+            <p>
+
+              خطوة بعد خطوة
+              حتى جاء القرار الأجمل
+
+            </p>
+
+          </div>
+
+
+        </article>
+
+
+
+        <div class="story-heart reveal">
+          ♡
+        </div>
+
+
+
+        <!-- الفصل الرابع -->
+
+        <article class="story-chapter final-chapter reveal">
+
+
+          <div class="chapter-number">
+            04
+          </div>
+
+
+          <div class="final-story-card">
+
+
+            <p class="final-small">
+              والآن
+            </p>
+
+
+            <h4>
+              ندعوكم لتشاركونا
+              بداية فصلنا الجديد
+            </h4>
+
+
+            <div class="final-date">
+
+              21
+
+              <span>
+                نوفمبر
+              </span>
+
+              2026
+
+            </div>
+
+
+            <p>
+              حفل خطوبة يوسف ومريم
+            </p>
+
+
+          </div>
+
+
+        </article>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         كلمة من العروسين
+    =========================================== -->
+
+    <section class="couple-message-section">
+
+
+      <div class="message-card reveal">
+
+
+        <span class="message-label">
+          كلمة من يوسف ومريم
+        </span>
+
+
+        <i class="fa-solid fa-quote-right"></i>
+
+
+        <p>
+
+          لكل من شاركنا لحظاتنا الجميلة
+          ولكل قلب أحب لنا الخير
+          يسعدنا أن تكونوا معنا
+          في واحدة من أجمل ليالي العمر
+
+        </p>
+
+
+        <div class="couple-signature">
+          يوسف & مريم
+        </div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         معرض الصور
+    =========================================== -->
+
+    <section class="gallery-section">
+
+
+      <div class="section-heading reveal">
+
+        <span>
+          MEMORIES
+        </span>
+
+        <h3>
+          من ألبوم الحكاية
+        </h3>
+
+        <p>
+          اسحب الصور يميناً ويساراً
+        </p>
+
+      </div>
+
+
+
+      <div class="gallery-wrapper reveal">
+
+
+        <button
+          id="galleryPrev"
+          class="gallery-arrow gallery-prev"
+          type="button"
+          aria-label="الصورة السابقة"
+        >
+
+          <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+
+
+        <div
+          id="galleryTrack"
+          class="gallery-track"
+        >
+
+
+          <figure class="gallery-card">
+
+            <img
+              src="gallery1.jpg"
+              alt="ذكرى 1"
+            >
+
+            <figcaption>
+              أول الحكاية
+            </figcaption>
+
+          </figure>
+
+
+
+          <figure class="gallery-card">
+
+            <img
+              src="gallery2.jpg"
+              alt="ذكرى 2"
+            >
+
+            <figcaption>
+              تفاصيل صغيرة
+            </figcaption>
+
+          </figure>
+
+
+
+          <figure class="gallery-card">
+
+            <img
+              src="gallery3.jpg"
+              alt="ذكرى 3"
+            >
+
+            <figcaption>
+              أجمل الأيام
+            </figcaption>
+
+          </figure>
+
+
+
+          <figure class="gallery-card">
+
+            <img
+              src="gallery4.jpg"
+              alt="ذكرى 4"
+            >
+
+            <figcaption>
+              معا
+            </figcaption>
+
+          </figure>
+
+
+
+          <figure class="gallery-card">
+
+            <img
+              src="gallery5.jpg"
+              alt="ذكرى 5"
+            >
+
+            <figcaption>
+              وإلى الأبد
+            </figcaption>
+
+          </figure>
+
+
+        </div>
+
+
+
+        <button
+          id="galleryNext"
+          class="gallery-arrow gallery-next"
+          type="button"
+          aria-label="الصورة التالية"
+        >
+
+          <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+
+      </div>
+
+
+      <div class="swipe-hint reveal">
+
+        <i class="fa-solid fa-hand-pointer"></i>
+
+        <span>
+          يمكنك سحب الصور
+        </span>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         تفاصيل المناسبة
+    =========================================== -->
+
+    <section class="event-section">
+
+
+      <div class="event-card reveal">
+
+
+        <span class="event-small">
+          SAVE THE DATE
+        </span>
+
+
+        <h3>
+          ننتظركم معنا
+        </h3>
+
+
+
+        <div class="event-detail">
+
+
+          <div class="event-icon">
+
+            <i class="fa-regular fa-calendar"></i>
+
+          </div>
+
+
+          <div>
+
+            <small>
+              التاريخ
+            </small>
+
+            <strong>
+              السبت 21 نوفمبر 2026
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="event-detail">
+
+
+          <div class="event-icon">
+
+            <i class="fa-regular fa-clock"></i>
+
+          </div>
+
+
+          <div>
+
+            <small>
+              الوقت
+            </small>
+
+            <strong>
+              الساعة السادسة مساء
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="event-detail">
+
+
+          <div class="event-icon">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+          </div>
+
+
+          <div>
+
+            <small>
+              المكان
+            </small>
+
+            <strong>
+              قاعة الياسمين
+            </strong>
+
+            <span>
+              الموصل - نينوى
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+
+        <a
+          class="map-button"
+          href="https://www.google.com/maps/search/?api=1&query=قاعة+الياسمين+الموصل"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <i class="fa-regular fa-map"></i>
+
+          <span>
+            افتح موقع القاعة
+          </span>
+
+        </a>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ==========================================
+         النهاية
+    =========================================== -->
+
+    <footer class="story-footer reveal">
+
+
+      <div class="footer-heart">
+        ♡
+      </div>
+
+
+      <p>
+        ربما تبدأ الحكايات بشخصين
+      </p>
+
+
+      <h3>
+        لكنها تصبح أجمل
+        بمن يشاركونهما الفرح
+      </h3>
+
+
+      <div class="footer-names">
+        يوسف & مريم
+      </div>
+
+
+      <span>
+        ننتظركم بكل الحب
+      </span>
+
+
+    </footer>
+
+
+  </main>
+
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

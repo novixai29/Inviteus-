@@ -1,0 +1,2563 @@
+:root {
+
+  --paper:
+    #e9e1d4;
+
+  --paper-light:
+    #f7f2e8;
+
+  --paper-dark:
+    #d8cdbc;
+
+  --ink:
+    #151515;
+
+  --muted:
+    #666158;
+
+  --navy:
+    #173248;
+
+  --navy-deep:
+    #0f2434;
+
+  --orange:
+    #d9673c;
+
+  --red:
+    #a5483c;
+
+  --green:
+    #3f6b58;
+
+  --line:
+    #aaa091;
+
+  --white:
+    #fffdf8;
+
+  --font-body:
+    "Cairo",
+    sans-serif;
+
+  --font-mono:
+    "DM Mono",
+    monospace;
+
+  --font-serif:
+    "Playfair Display",
+    serif;
+
+}
+
+
+/* ==========================================
+   BASE
+========================================== */
+
+* {
+
+  box-sizing:
+    border-box;
+
+}
+
+
+html {
+
+  scroll-behavior:
+    smooth;
+
+}
+
+
+body {
+
+  margin:
+    0;
+
+  min-height:
+    100vh;
+
+  overflow-x:
+    hidden;
+
+  background:
+    #c9c0b2;
+
+  color:
+    var(--ink);
+
+  font-family:
+    var(--font-body);
+
+  -webkit-font-smoothing:
+    antialiased;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+
+button,
+a {
+
+  font-family:
+    inherit;
+
+}
+
+
+button {
+
+  cursor:
+    pointer;
+
+}
+
+
+/* ==========================================
+   INTRO
+========================================== */
+
+.intro-screen {
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    1000;
+
+  padding:
+    25px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+
+    radial-gradient(
+      circle at top,
+      #29475e,
+      #132b3d 55%,
+      #0c1d29 100%
+    );
+
+  transition:
+    opacity .8s ease,
+    visibility .8s ease;
+
+}
+
+
+.intro-screen.hidden {
+
+  opacity:
+    0;
+
+  visibility:
+    hidden;
+
+  pointer-events:
+    none;
+
+}
+
+
+.airport-board {
+
+  width:
+    min(100%,500px);
+
+  padding:
+    24px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  border-radius:
+    15px;
+
+  background:
+    #101820;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.38);
+
+  color:
+    #f2eee5;
+
+  font-family:
+    var(--font-mono);
+
+}
+
+
+.board-top {
+
+  padding-bottom:
+    16px;
+
+  margin-bottom:
+    5px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  border-bottom:
+    2px solid #e8bd53;
+
+  color:
+    #e8bd53;
+
+  font-size:
+    18px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.board-row {
+
+  min-height:
+    58px;
+
+  padding:
+    10px 0;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    15px;
+
+  border-bottom:
+    1px dashed rgba(255,255,255,.13);
+
+}
+
+
+.board-row .label {
+
+  color:
+    #71818d;
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.board-row strong {
+
+  text-align:
+    left;
+
+  font-size:
+    14px;
+
+  font-weight:
+    400;
+
+}
+
+
+.status {
+
+  color:
+    #6fc28f;
+
+  animation:
+    statusBlink 1.6s infinite;
+
+}
+
+
+@keyframes statusBlink {
+
+  50% {
+    opacity: .45;
+  }
+
+}
+
+
+.enter-button {
+
+  width:
+    100%;
+
+  min-height:
+    55px;
+
+  margin-top:
+    22px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    10px;
+
+  border:
+    0;
+
+  border-radius:
+    8px;
+
+  background:
+    #e8bd53;
+
+  color:
+    #101820;
+
+  font-weight:
+    700;
+
+}
+
+
+/* ==========================================
+   PAGE
+========================================== */
+
+.page-shell {
+
+  width:
+    100%;
+
+  max-width:
+    850px;
+
+  margin:
+    0 auto;
+
+  overflow:
+    hidden;
+
+  background:
+    var(--paper);
+
+  box-shadow:
+    0 0 60px rgba(0,0,0,.2);
+
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero-section {
+
+  min-height:
+    90vh;
+
+  padding:
+    35px 35px 65px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    space-between;
+
+  background:
+
+    linear-gradient(
+      rgba(255,255,255,.05),
+      rgba(255,255,255,.05)
+    ),
+
+    repeating-linear-gradient(
+      0deg,
+      rgba(50,40,30,.025) 0,
+      rgba(50,40,30,.025) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+
+    var(--paper-light);
+
+}
+
+
+.hero-topline {
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    9px;
+
+  letter-spacing:
+    1px;
+
+}
+
+
+.hero-copy {
+
+  margin:
+    auto 0;
+
+  text-align:
+    center;
+
+}
+
+
+.eyebrow {
+
+  color:
+    var(--orange);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    10px;
+
+  letter-spacing:
+    4px;
+
+}
+
+
+.hero-copy h1 {
+
+  margin:
+    12px 0;
+
+  font-family:
+    var(--font-serif);
+
+  font-size:
+    clamp(58px,12vw,110px);
+
+  font-weight:
+    500;
+
+}
+
+
+.hero-copy p {
+
+  margin:
+    0;
+
+  color:
+    var(--muted);
+
+  font-size:
+    20px;
+
+}
+
+
+.hero-copy p strong {
+
+  color:
+    var(--navy);
+
+}
+
+
+/* ==========================================
+   ROUTE
+========================================== */
+
+.flight-route {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    100px 1fr 100px;
+
+  align-items:
+    center;
+
+  gap:
+    20px;
+
+}
+
+
+.airport-point {
+
+  text-align:
+    center;
+
+}
+
+
+.airport-point strong {
+
+  display:
+    block;
+
+  color:
+    var(--navy);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    31px;
+
+}
+
+
+.airport-point span {
+
+  display:
+    block;
+
+  margin-top:
+    4px;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    7px;
+
+}
+
+
+.route-line {
+
+  height:
+    50px;
+
+  position:
+    relative;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-evenly;
+
+  border-top:
+    2px dashed var(--navy);
+
+}
+
+
+.route-dot {
+
+  width:
+    7px;
+
+  height:
+    7px;
+
+  position:
+    relative;
+
+  top:
+    -26px;
+
+  border-radius:
+    50%;
+
+  background:
+    var(--navy);
+
+}
+
+
+.route-plane {
+
+  position:
+    absolute;
+
+  top:
+    -13px;
+
+  left:
+    0;
+
+  color:
+    var(--orange);
+
+  font-size:
+    22px;
+
+  transform:
+    rotate(3deg);
+
+  animation:
+    flyRoute 5s ease-in-out infinite;
+
+}
+
+
+@keyframes flyRoute {
+
+  0% {
+
+    left:
+      0;
+
+  }
+
+  50% {
+
+    left:
+      calc(100% - 25px);
+
+  }
+
+  100% {
+
+    left:
+      0;
+
+  }
+
+}
+
+
+/* ==========================================
+   TICKET SECTION
+========================================== */
+
+.ticket-section {
+
+  padding:
+    90px 30px;
+
+  background:
+    var(--navy-deep);
+
+}
+
+
+.boarding-pass {
+
+  width:
+    100%;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 20px 210px;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    18px;
+
+  background:
+    var(--paper-light);
+
+  box-shadow:
+    0 25px 55px rgba(0,0,0,.28);
+
+}
+
+
+/* ==========================================
+   TICKET MAIN
+========================================== */
+
+.ticket-main {
+
+  padding:
+    27px;
+
+  position:
+    relative;
+
+  background:
+
+    repeating-linear-gradient(
+      0deg,
+      rgba(40,30,20,.02) 0,
+      rgba(40,30,20,.02) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+
+    var(--paper-light);
+
+}
+
+
+.ticket-header {
+
+  padding-bottom:
+    18px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  border-bottom:
+    2px solid var(--navy);
+
+}
+
+
+.ticket-header span {
+
+  display:
+    block;
+
+  color:
+    var(--orange);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.ticket-header strong {
+
+  display:
+    block;
+
+  margin-top:
+    3px;
+
+  color:
+    var(--navy);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    14px;
+
+}
+
+
+.ticket-header i {
+
+  color:
+    var(--navy);
+
+  font-size:
+    24px;
+
+}
+
+
+.passenger-area {
+
+  padding:
+    25px 0 18px;
+
+}
+
+
+.field-label {
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.passenger-area h2 {
+
+  margin:
+    4px 0 0;
+
+  font-family:
+    var(--font-serif);
+
+  font-size:
+    45px;
+
+  font-weight:
+    500;
+
+}
+
+
+.passenger-area h2 small {
+
+  color:
+    var(--orange);
+
+  font-size:
+    20px;
+
+}
+
+
+/* ==========================================
+   TICKET ROUTE
+========================================== */
+
+.ticket-route {
+
+  padding:
+    20px 0;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 100px 1fr;
+
+  align-items:
+    center;
+
+  border-top:
+    1px solid var(--line);
+
+  border-bottom:
+    1px solid var(--line);
+
+}
+
+
+.ticket-route > div {
+
+  text-align:
+    center;
+
+}
+
+
+.ticket-route span {
+
+  display:
+    block;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    8px;
+
+}
+
+
+.ticket-route strong {
+
+  display:
+    block;
+
+  color:
+    var(--navy);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    35px;
+
+}
+
+
+.ticket-route small {
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    7px;
+
+}
+
+
+.ticket-route-icon {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    7px;
+
+}
+
+
+.ticket-route-icon span {
+
+  flex:
+    1;
+
+  height:
+    1px;
+
+  border-top:
+    1px dashed var(--navy);
+
+}
+
+
+.ticket-route-icon i {
+
+  color:
+    var(--orange);
+
+}
+
+
+/* ==========================================
+   INFO GRID
+========================================== */
+
+.ticket-info-grid {
+
+  padding:
+    22px 0;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:
+    18px;
+
+}
+
+
+.ticket-info-grid span {
+
+  display:
+    block;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    1px;
+
+}
+
+
+.ticket-info-grid strong {
+
+  display:
+    block;
+
+  margin-top:
+    4px;
+
+  color:
+    var(--ink);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    10px;
+
+}
+
+
+/* ==========================================
+   AR DESTINATION
+========================================== */
+
+.destination-ar {
+
+  padding:
+    17px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    14px;
+
+  background:
+    rgba(23,50,72,.07);
+
+  border:
+    1px solid rgba(23,50,72,.12);
+
+}
+
+
+.destination-ar > i {
+
+  color:
+    var(--orange);
+
+  font-size:
+    20px;
+
+}
+
+
+.destination-ar span {
+
+  display:
+    block;
+
+  color:
+    var(--muted);
+
+  font-size:
+    9px;
+
+}
+
+
+.destination-ar strong {
+
+  display:
+    block;
+
+  font-size:
+    17px;
+
+}
+
+
+.destination-ar small {
+
+  color:
+    var(--muted);
+
+}
+
+
+/* ==========================================
+   STAMPS
+========================================== */
+
+.passport-stamps {
+
+  margin-top:
+    24px;
+
+  display:
+    flex;
+
+  gap:
+    20px;
+
+  justify-content:
+    flex-end;
+
+}
+
+
+.stamp {
+
+  width:
+    110px;
+
+  height:
+    110px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border:
+    3px double currentColor;
+
+  border-radius:
+    50%;
+
+  font-family:
+    var(--font-mono);
+
+  text-align:
+    center;
+
+  opacity:
+    .75;
+
+}
+
+
+.stamp-one {
+
+  color:
+    var(--red);
+
+  transform:
+    rotate(-11deg);
+
+}
+
+
+.stamp-two {
+
+  color:
+    var(--green);
+
+  transform:
+    rotate(9deg);
+
+}
+
+
+.stamp span {
+
+  font-size:
+    6px;
+
+}
+
+
+.stamp strong {
+
+  margin:
+    3px 0;
+
+  font-size:
+    11px;
+
+}
+
+
+.stamp small {
+
+  font-size:
+    6px;
+
+}
+
+
+/* ==========================================
+   PERFORATION
+========================================== */
+
+.ticket-perforation {
+
+  position:
+    relative;
+
+  background:
+    var(--paper-light);
+
+  border-left:
+    1px dashed var(--line);
+
+  border-right:
+    1px dashed var(--line);
+
+}
+
+
+.ticket-perforation span {
+
+  width:
+    18px;
+
+  height:
+    18px;
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  transform:
+    translateX(-50%);
+
+  border-radius:
+    50%;
+
+  background:
+    var(--navy-deep);
+
+}
+
+
+.ticket-perforation span:nth-child(1) { top: -9px; }
+.ticket-perforation span:nth-child(2) { top: 13%; }
+.ticket-perforation span:nth-child(3) { top: 27%; }
+.ticket-perforation span:nth-child(4) { top: 41%; }
+.ticket-perforation span:nth-child(5) { top: 55%; }
+.ticket-perforation span:nth-child(6) { top: 69%; }
+.ticket-perforation span:nth-child(7) { top: 83%; }
+.ticket-perforation span:nth-child(8) { bottom: -9px; }
+
+
+/* ==========================================
+   STUB
+========================================== */
+
+.ticket-stub {
+
+  padding:
+    24px 18px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  text-align:
+    center;
+
+  background:
+    var(--paper-light);
+
+}
+
+
+.stub-title {
+
+  color:
+    var(--orange);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    11px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.stub-code strong {
+
+  display:
+    block;
+
+  color:
+    var(--navy);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    42px;
+
+}
+
+
+.stub-code span {
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    8px;
+
+}
+
+
+.ticket-qr {
+
+  width:
+    125px;
+
+  height:
+    125px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  background:
+    white;
+
+}
+
+
+.ticket-qr img,
+.ticket-qr canvas {
+
+  max-width:
+    100%;
+
+  height:
+    auto;
+
+}
+
+
+/* ==========================================
+   BARCODE
+========================================== */
+
+.barcode {
+
+  width:
+    145px;
+
+  height:
+    55px;
+
+  display:
+    flex;
+
+  align-items:
+    stretch;
+
+  justify-content:
+    center;
+
+  gap:
+    2px;
+
+}
+
+
+.barcode span {
+
+  display:
+    block;
+
+  background:
+    var(--ink);
+
+}
+
+
+.barcode span:nth-child(1) { width: 2px; }
+.barcode span:nth-child(2) { width: 5px; }
+.barcode span:nth-child(3) { width: 2px; }
+.barcode span:nth-child(4) { width: 7px; }
+.barcode span:nth-child(5) { width: 3px; }
+.barcode span:nth-child(6) { width: 2px; }
+.barcode span:nth-child(7) { width: 8px; }
+.barcode span:nth-child(8) { width: 2px; }
+.barcode span:nth-child(9) { width: 4px; }
+.barcode span:nth-child(10) { width: 7px; }
+.barcode span:nth-child(11) { width: 2px; }
+.barcode span:nth-child(12) { width: 5px; }
+.barcode span:nth-child(13) { width: 3px; }
+.barcode span:nth-child(14) { width: 8px; }
+.barcode span:nth-child(15) { width: 2px; }
+
+
+.ticket-number {
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    6px;
+
+}
+
+
+/* ==========================================
+   SECTIONS
+========================================== */
+
+.journey-section,
+.countdown-section,
+.destination-section,
+.actions-section {
+
+  padding:
+    100px 35px;
+
+}
+
+
+.section-heading {
+
+  margin-bottom:
+    55px;
+
+  text-align:
+    center;
+
+}
+
+
+.section-heading span {
+
+  color:
+    var(--orange);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    4px;
+
+}
+
+
+.section-heading h2 {
+
+  margin:
+    7px 0 0;
+
+  font-family:
+    var(--font-serif);
+
+  font-size:
+    45px;
+
+  font-weight:
+    500;
+
+}
+
+
+/* ==========================================
+   JOURNEY
+========================================== */
+
+.journey-section {
+
+  background:
+    var(--paper-light);
+
+}
+
+
+.journey-line {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    12px;
+
+}
+
+
+.journey-stop {
+
+  min-width:
+    115px;
+
+  text-align:
+    center;
+
+}
+
+
+.stop-icon {
+
+  width:
+    58px;
+
+  height:
+    58px;
+
+  margin:
+    0 auto 12px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border:
+    1px solid var(--navy);
+
+  border-radius:
+    50%;
+
+  color:
+    var(--navy);
+
+}
+
+
+.journey-stop span {
+
+  display:
+    block;
+
+  color:
+    var(--muted);
+
+  font-size:
+    9px;
+
+}
+
+
+.journey-stop strong {
+
+  display:
+    block;
+
+  margin-top:
+    3px;
+
+  font-size:
+    14px;
+
+}
+
+
+.journey-track {
+
+  width:
+    120px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    8px;
+
+  color:
+    var(--orange);
+
+}
+
+
+.journey-track span {
+
+  flex:
+    1;
+
+  border-top:
+    1px dashed var(--navy);
+
+}
+
+
+/* ==========================================
+   COUNTDOWN
+========================================== */
+
+.countdown-section {
+
+  background:
+    var(--navy-deep);
+
+  color:
+    white;
+
+}
+
+
+.countdown-section .section-heading h2 {
+
+  color:
+    white;
+
+}
+
+
+.countdown-board {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  border:
+    1px solid rgba(255,255,255,.12);
+
+  background:
+    #101820;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.2);
+
+}
+
+
+.countdown-board > div {
+
+  padding:
+    30px 15px;
+
+  text-align:
+    center;
+
+  border-left:
+    1px solid rgba(255,255,255,.1);
+
+}
+
+
+.countdown-board > div:first-child {
+
+  border-left:
+    0;
+
+}
+
+
+.countdown-board strong {
+
+  display:
+    block;
+
+  color:
+    #f0c862;
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    clamp(38px,7vw,70px);
+
+  font-weight:
+    400;
+
+}
+
+
+.countdown-board span {
+
+  display:
+    block;
+
+  color:
+    #71818d;
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    7px;
+
+  letter-spacing:
+    2px;
+
+}
+
+
+.countdown-board small {
+
+  display:
+    block;
+
+  margin-top:
+    7px;
+
+  color:
+    #aab3ba;
+
+  font-size:
+    9px;
+
+}
+
+
+.countdown-message {
+
+  margin:
+    28px 0 0;
+
+  text-align:
+    center;
+
+  color:
+    #aeb8bf;
+
+}
+
+
+/* ==========================================
+   DESTINATION
+========================================== */
+
+.destination-section {
+
+  background:
+    var(--paper);
+
+}
+
+
+.destination-card {
+
+  max-width:
+    540px;
+
+  margin:
+    auto;
+
+  padding:
+    32px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius:
+    16px;
+
+  background:
+    var(--paper-light);
+
+  box-shadow:
+    0 20px 45px rgba(60,45,30,.08);
+
+}
+
+
+.destination-top {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  color:
+    var(--orange);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    3px;
+
+}
+
+
+.destination-card h2 {
+
+  margin:
+    18px 0 4px;
+
+  font-family:
+    var(--font-serif);
+
+  font-size:
+    42px;
+
+  font-weight:
+    500;
+
+}
+
+
+.destination-card > p {
+
+  margin:
+    0;
+
+  color:
+    var(--muted);
+
+}
+
+
+.destination-details {
+
+  margin:
+    28px 0;
+
+  padding:
+    18px 0;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  border-top:
+    1px solid var(--line);
+
+  border-bottom:
+    1px solid var(--line);
+
+}
+
+
+.destination-details div {
+
+  text-align:
+    center;
+
+}
+
+
+.destination-details div + div {
+
+  border-right:
+    1px solid var(--line);
+
+}
+
+
+.destination-details span {
+
+  display:
+    block;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    7px;
+
+}
+
+
+.destination-details strong {
+
+  display:
+    block;
+
+  margin-top:
+    5px;
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    11px;
+
+}
+
+
+.navigate-button {
+
+  min-height:
+    55px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    10px;
+
+  border-radius:
+    8px;
+
+  text-decoration:
+    none;
+
+  background:
+    var(--navy);
+
+  color:
+    white;
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    10px;
+
+}
+
+
+/* ==========================================
+   ACTIONS
+========================================== */
+
+.actions-section {
+
+  background:
+    var(--paper-light);
+
+}
+
+
+.ticket-button {
+
+  width:
+    100%;
+
+  min-height:
+    58px;
+
+  margin-bottom:
+    12px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  gap:
+    10px;
+
+  border:
+    1px solid var(--navy);
+
+  border-radius:
+    8px;
+
+  background:
+    var(--navy);
+
+  color:
+    white;
+
+}
+
+
+.ticket-button.secondary {
+
+  background:
+    transparent;
+
+  color:
+    var(--navy);
+
+}
+
+
+.share-message {
+
+  min-height:
+    18px;
+
+  text-align:
+    center;
+
+  color:
+    var(--green);
+
+  font-size:
+    11px;
+
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.footer-section {
+
+  min-height:
+    70vh;
+
+  padding:
+    90px 35px 35px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  text-align:
+    center;
+
+  background:
+    var(--navy-deep);
+
+  color:
+    white;
+
+}
+
+
+.footer-plane {
+
+  width:
+    260px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+  color:
+    var(--orange);
+
+}
+
+
+.footer-plane span {
+
+  flex:
+    1;
+
+  border-top:
+    1px dashed rgba(255,255,255,.25);
+
+}
+
+
+.footer-label {
+
+  margin-top:
+    35px;
+
+  color:
+    #e0ad65;
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    8px;
+
+  letter-spacing:
+    5px;
+
+}
+
+
+.footer-section h2 {
+
+  margin:
+    12px 0;
+
+  font-family:
+    var(--font-serif);
+
+  font-size:
+    54px;
+
+  font-weight:
+    500;
+
+}
+
+
+.footer-section p {
+
+  max-width:
+    350px;
+
+  margin:
+    0;
+
+  color:
+    #adb8bf;
+
+  line-height:
+    1.8;
+
+}
+
+
+.footer-code {
+
+  margin-top:
+    35px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    20px;
+
+  color:
+    #f0c862;
+
+  font-family:
+    var(--font-mono);
+
+  font-size:
+    18px;
+
+}
+
+
+/* ==========================================
+   REVEAL
+========================================== */
+
+.reveal {
+
+  opacity:
+    0;
+
+  transform:
+    translateY(35px);
+
+  transition:
+    opacity .85s ease,
+    transform .85s ease;
+
+}
+
+
+.reveal.visible {
+
+  opacity:
+    1;
+
+  transform:
+    translateY(0);
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media
+(max-width: 700px) {
+
+  .page-shell {
+
+    max-width:
+      100%;
+
+  }
+
+
+  .hero-section {
+
+    min-height:
+      100svh;
+
+    padding:
+      25px 20px 50px;
+
+  }
+
+
+  .flight-route {
+
+    grid-template-columns:
+      65px 1fr 65px;
+
+    gap:
+      10px;
+
+  }
+
+
+  .airport-point strong {
+
+    font-size:
+      24px;
+
+  }
+
+
+  .airport-point span {
+
+    font-size:
+      5px;
+
+  }
+
+
+  .ticket-section {
+
+    padding:
+      65px 15px;
+
+  }
+
+
+  .boarding-pass {
+
+    display:
+      block;
+
+  }
+
+
+  .ticket-main {
+
+    padding:
+      22px 18px;
+
+  }
+
+
+  .ticket-perforation {
+
+    width:
+      100%;
+
+    height:
+      20px;
+
+    border-left:
+      0;
+
+    border-right:
+      0;
+
+    border-top:
+      1px dashed var(--line);
+
+    border-bottom:
+      1px dashed var(--line);
+
+  }
+
+
+  .ticket-perforation span {
+
+    width:
+      18px;
+
+    height:
+      18px;
+
+    top:
+      50% !important;
+
+    transform:
+      translateY(-50%);
+
+    background:
+      var(--navy-deep);
+
+  }
+
+
+  .ticket-perforation span:nth-child(1) { left: -9px; }
+  .ticket-perforation span:nth-child(2) { left: 14%; }
+  .ticket-perforation span:nth-child(3) { left: 28%; }
+  .ticket-perforation span:nth-child(4) { left: 42%; }
+  .ticket-perforation span:nth-child(5) { left: 56%; }
+  .ticket-perforation span:nth-child(6) { left: 70%; }
+  .ticket-perforation span:nth-child(7) { left: 84%; }
+  .ticket-perforation span:nth-child(8) { left: auto; right: -9px; }
+
+
+  .ticket-stub {
+
+    min-height:
+      310px;
+
+  }
+
+
+  .ticket-info-grid {
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+
+  .passport-stamps {
+
+    justify-content:
+      center;
+
+  }
+
+
+  .journey-line {
+
+    flex-direction:
+      column;
+
+    gap:
+      18px;
+
+  }
+
+
+  .journey-track {
+
+    width:
+      2px;
+
+    height:
+      70px;
+
+    flex-direction:
+      column;
+
+  }
+
+
+  .journey-track span {
+
+    width:
+      1px;
+
+    border-top:
+      0;
+
+    border-left:
+      1px dashed var(--navy);
+
+  }
+
+
+  .journey-track i {
+
+    transform:
+      rotate(90deg);
+
+  }
+
+
+  .countdown-board {
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+
+  .countdown-board > div {
+
+    border:
+      0;
+
+    border-bottom:
+      1px solid rgba(255,255,255,.1);
+
+  }
+
+
+  .countdown-board > div:nth-child(odd) {
+
+    border-left:
+      1px solid rgba(255,255,255,.1);
+
+  }
+
+
+  .journey-section,
+  .countdown-section,
+  .destination-section,
+  .actions-section {
+
+    padding:
+      80px 20px;
+
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media
+(max-width: 390px) {
+
+  .passenger-area h2 {
+
+    font-size:
+      37px;
+
+  }
+
+
+  .ticket-route {
+
+    grid-template-columns:
+      1fr 65px 1fr;
+
+  }
+
+
+  .ticket-route strong {
+
+    font-size:
+      28px;
+
+  }
+
+
+  .stamp {
+
+    width:
+      92px;
+
+    height:
+      92px;
+
+  }
+
+}
+
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media
+(prefers-reduced-motion: reduce) {
+
+  * {
+
+    animation-duration:
+      .01ms !important;
+
+    transition-duration:
+      .01ms !important;
+
+  }
+
+
+  .reveal {
+
+    opacity:
+      1;
+
+    transform:
+      none;
+
+  }
+
+}

@@ -1,0 +1,2101 @@
+:root {
+
+  --cream: #fffaf6;
+  --cream-dark: #f4e9e1;
+
+  --pink: #e8c7c7;
+  --pink-soft: #f3dddd;
+
+  --rose: #bd8588;
+  --rose-dark: #8e555d;
+
+  --wine: #713943;
+
+  --brown: #54433f;
+  --muted: #8e7772;
+
+  --white: #ffffff;
+
+  --font-title: "Aref Ruqaa", serif;
+  --font-elegant: "Amiri", serif;
+  --font-body: "Cairo", sans-serif;
+
+}
+
+
+/* ==========================================
+   الأساس
+========================================== */
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+
+body {
+
+  margin: 0;
+
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  background:
+    var(--cream);
+
+  color:
+    var(--brown);
+
+  font-family:
+    var(--font-body);
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+
+body::before {
+
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: -10;
+
+  pointer-events: none;
+
+  background:
+
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(232, 199, 199, 0.45),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 90% 45%,
+      rgba(244, 224, 214, 0.5),
+      transparent 35%
+    ),
+
+    linear-gradient(
+      180deg,
+      #fffaf6,
+      #fbf3ed
+    );
+
+}
+
+
+button,
+a {
+
+  font-family: inherit;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+
+/* ==========================================
+   القلوب الخلفية
+========================================== */
+
+.hearts-background {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+}
+
+
+.floating-heart {
+
+  position: absolute;
+
+  bottom: -60px;
+
+  color:
+    rgba(142, 85, 93, 0.16);
+
+  font-family:
+    var(--font-elegant);
+
+  animation:
+    heartFloat linear infinite;
+
+}
+
+
+@keyframes heartFloat {
+
+  0% {
+
+    transform:
+      translateY(0)
+      rotate(-10deg);
+
+    opacity: 0;
+
+  }
+
+
+  15% {
+
+    opacity: 1;
+
+  }
+
+
+  100% {
+
+    transform:
+      translateY(-115vh)
+      rotate(18deg);
+
+    opacity: 0;
+
+  }
+
+}
+
+
+/* ==========================================
+   الموسيقى
+========================================== */
+
+.music-control {
+
+  position: fixed;
+
+  top: 18px;
+
+  left: 18px;
+
+  z-index: 150;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform:
+    translateY(-10px);
+
+  transition:
+    0.4s ease;
+
+}
+
+
+.music-control.visible {
+
+  opacity: 1;
+
+  visibility: visible;
+
+  transform:
+    translateY(0);
+
+}
+
+
+.music-button {
+
+  width: 46px;
+
+  height: 46px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border:
+
+    1px solid
+    rgba(142, 85, 93, 0.18);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 250, 246, 0.85);
+
+  backdrop-filter:
+    blur(10px);
+
+  color:
+    var(--wine);
+
+  box-shadow:
+    0 8px 24px
+    rgba(103, 70, 65, 0.12);
+
+  cursor: pointer;
+
+}
+
+
+/* ==========================================
+   شاشة البداية
+========================================== */
+
+.intro-screen {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 500;
+
+  padding:
+    25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+
+    radial-gradient(
+      circle at center,
+      #fffdfa,
+      #f7e9e3
+    );
+
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease,
+    visibility 0.9s ease;
+
+}
+
+
+.intro-screen.hidden {
+
+  opacity: 0;
+
+  transform:
+    scale(1.05);
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+}
+
+
+.intro-paper {
+
+  width:
+    min(
+      100%,
+      390px
+    );
+
+  min-height: 540px;
+
+  padding:
+    55px 28px;
+
+  position: relative;
+
+  z-index: 5;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    rgba(255, 255, 255, 0.72);
+
+  border:
+    1px solid
+    rgba(156, 107, 106, 0.13);
+
+  border-radius:
+    180px 180px 24px 24px;
+
+  box-shadow:
+
+    0 25px 70px
+    rgba(119, 83, 76, 0.12),
+
+    inset
+    0 0 45px
+    rgba(255, 255, 255, 0.8);
+
+}
+
+
+.tiny-heart {
+
+  margin-bottom: 18px;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 36px;
+
+  color:
+    var(--rose-dark);
+
+}
+
+
+.intro-pretitle {
+
+  margin: 0;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 18px;
+
+}
+
+
+.intro-paper h1 {
+
+  margin:
+    3px 0;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    clamp(
+      53px,
+      15vw,
+      72px
+    );
+
+  font-weight: 400;
+
+  line-height: 1.4;
+
+}
+
+
+.intro-paper h1 span {
+
+  display: inline-block;
+
+  margin:
+    0 5px;
+
+  color:
+    var(--rose);
+
+  font-size: 25px;
+
+}
+
+
+.intro-text {
+
+  max-width: 270px;
+
+  margin:
+    10px auto;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 18px;
+
+  line-height: 1.9;
+
+  color:
+    var(--brown);
+
+}
+
+
+.signature-line {
+
+  width: 170px;
+
+  margin:
+    15px auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  color:
+    var(--rose);
+
+  font-size: 9px;
+
+}
+
+
+.signature-line span {
+
+  flex: 1;
+
+  height: 1px;
+
+  background:
+
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--pink)
+    );
+
+}
+
+
+.signature-line span:last-child {
+
+  transform:
+    rotate(180deg);
+
+}
+
+
+.start-story-button {
+
+  margin-top: 25px;
+
+  padding:
+    14px 28px;
+
+  display:
+    inline-flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  border:
+    0;
+
+  border-radius:
+    50px;
+
+  background:
+    var(--wine);
+
+  color:
+    var(--white);
+
+  box-shadow:
+    0 10px 24px
+    rgba(113, 57, 67, 0.22);
+
+  cursor: pointer;
+
+  transition:
+    0.3s ease;
+
+}
+
+
+.start-story-button:hover {
+
+  transform:
+    translateY(-2px);
+
+  background:
+    var(--rose-dark);
+
+}
+
+
+.intro-flower {
+
+  position: absolute;
+
+  font-size: 95px;
+
+  color:
+    rgba(142, 85, 93, 0.08);
+
+}
+
+
+.flower-one {
+
+  top: 4%;
+
+  right: -20px;
+
+  transform:
+    rotate(25deg);
+
+}
+
+
+.flower-two {
+
+  bottom: 2%;
+
+  left: -15px;
+
+  transform:
+    rotate(-25deg);
+
+}
+
+
+/* ==========================================
+   محتوى القصة
+========================================== */
+
+.story-content {
+
+  width: 100%;
+
+  max-width: 470px;
+
+  margin:
+    0 auto;
+
+  position: relative;
+
+  z-index: 5;
+
+}
+
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero-section {
+
+  min-height: 100vh;
+
+  padding:
+    65px 24px 55px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.hero-photo-card {
+
+  width:
+    min(
+      88%,
+      335px
+    );
+
+  position: relative;
+
+  margin-bottom: 36px;
+
+  padding:
+    12px 12px 42px;
+
+  background:
+    #ffffff;
+
+  transform:
+    rotate(-2deg);
+
+  box-shadow:
+
+    0 20px 45px
+    rgba(102, 71, 64, 0.15),
+
+    0 3px 10px
+    rgba(102, 71, 64, 0.08);
+
+}
+
+
+.hero-photo-card img {
+
+  width: 100%;
+
+  height: 390px;
+
+  display: block;
+
+  object-fit: cover;
+
+}
+
+
+.photo-tape {
+
+  position: absolute;
+
+  width: 75px;
+
+  height: 24px;
+
+  background:
+    rgba(232, 199, 199, 0.72);
+
+  opacity: 0.75;
+
+}
+
+
+.tape-one {
+
+  top: -9px;
+
+  left: 23px;
+
+  transform:
+    rotate(-12deg);
+
+}
+
+
+.tape-two {
+
+  right: 20px;
+
+  bottom: 24px;
+
+  transform:
+    rotate(8deg);
+
+}
+
+
+.hero-copy {
+
+  text-align: center;
+
+}
+
+
+.eyebrow {
+
+  letter-spacing: 4px;
+
+  color:
+    var(--rose);
+
+  font-size: 10px;
+
+}
+
+
+.hero-copy h2 {
+
+  margin:
+    4px 0 8px;
+
+  font-family:
+    var(--font-title);
+
+  font-size:
+    clamp(
+      52px,
+      15vw,
+      68px
+    );
+
+  font-weight: 400;
+
+  color:
+    var(--wine);
+
+}
+
+
+.hero-copy h2 span {
+
+  color:
+    var(--rose);
+
+  font-size: 27px;
+
+}
+
+
+.hero-copy > p {
+
+  max-width: 310px;
+
+  margin:
+    0 auto;
+
+  color:
+    var(--brown);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 18px;
+
+  line-height: 2;
+
+}
+
+
+.handwritten-note {
+
+  display: inline-block;
+
+  margin-top: 18px;
+
+  padding:
+    5px 12px;
+
+  color:
+    var(--rose-dark);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 20px;
+
+  transform:
+    rotate(-3deg);
+
+}
+
+
+/* ==========================================
+   الآية
+========================================== */
+
+.verse-section {
+
+  padding:
+    90px 28px;
+
+  text-align: center;
+
+  background:
+    rgba(243, 221, 221, 0.26);
+
+}
+
+
+.small-heart {
+
+  display: block;
+
+  margin-bottom: 14px;
+
+  color:
+    var(--rose);
+
+  font-size: 30px;
+
+}
+
+
+.verse-section p {
+
+  max-width: 385px;
+
+  margin:
+    auto;
+
+  color:
+    var(--brown);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 20px;
+
+  line-height: 2.2;
+
+}
+
+
+/* ==========================================
+   العناوين
+========================================== */
+
+.section-heading {
+
+  margin-bottom: 55px;
+
+  text-align: center;
+
+}
+
+
+.section-heading > span {
+
+  color:
+    var(--rose);
+
+  letter-spacing: 4px;
+
+  font-size: 10px;
+
+}
+
+
+.section-heading h3 {
+
+  margin:
+    4px 0;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 43px;
+
+  font-weight: 400;
+
+}
+
+
+.section-heading p {
+
+  margin: 0;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 15px;
+
+}
+
+
+/* ==========================================
+   STORY
+========================================== */
+
+.story-section {
+
+  padding:
+    85px 22px;
+
+}
+
+
+.story-line {
+
+  position: relative;
+
+}
+
+
+.story-line::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 30px;
+
+  right: 50%;
+
+  bottom: 50px;
+
+  width: 1px;
+
+  background:
+
+    linear-gradient(
+      var(--pink),
+      var(--rose),
+      var(--pink)
+    );
+
+  opacity: 0.45;
+
+}
+
+
+.story-chapter {
+
+  margin-bottom: 85px;
+
+  position: relative;
+
+}
+
+
+.chapter-number {
+
+  width: 43px;
+
+  height: 43px;
+
+  position: relative;
+
+  z-index: 5;
+
+  margin:
+    0 auto 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    var(--wine);
+
+  color:
+    #ffffff;
+
+  font-size: 11px;
+
+  box-shadow:
+    0 0 0 7px
+    var(--cream);
+
+}
+
+
+.chapter-photo {
+
+  width:
+    min(
+      85%,
+      300px
+    );
+
+  margin:
+    0 auto 23px;
+
+  padding:
+    10px 10px 32px;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 15px 35px
+    rgba(96, 66, 61, 0.13);
+
+}
+
+
+.chapter-left
+.chapter-photo {
+
+  transform:
+    rotate(-3deg);
+
+}
+
+
+.chapter-right
+.chapter-photo {
+
+  transform:
+    rotate(3deg);
+
+}
+
+
+.chapter-photo img {
+
+  display: block;
+
+  width: 100%;
+
+  height: 300px;
+
+  object-fit: cover;
+
+}
+
+
+.chapter-content {
+
+  max-width: 320px;
+
+  margin:
+    auto;
+
+  padding:
+    4px 15px;
+
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+
+  background:
+    var(--cream);
+
+}
+
+
+.chapter-date {
+
+  color:
+    var(--rose);
+
+  font-size: 11px;
+
+}
+
+
+.chapter-content h4 {
+
+  margin:
+    2px 0;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 31px;
+
+  font-weight: 400;
+
+}
+
+
+.chapter-content p {
+
+  margin: 0;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 17px;
+
+  line-height: 1.9;
+
+}
+
+
+.story-heart {
+
+  width: 40px;
+
+  height: 40px;
+
+  position: relative;
+
+  z-index: 4;
+
+  margin:
+    -48px auto 40px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    var(--cream);
+
+  color:
+    var(--rose);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 26px;
+
+}
+
+
+.chapter-paper {
+
+  max-width: 330px;
+
+  margin:
+    0 auto 28px;
+
+  padding:
+    38px 27px;
+
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+
+  background:
+    #ffffff;
+
+  border-radius:
+    4px;
+
+  box-shadow:
+    0 15px 35px
+    rgba(100, 70, 63, 0.1);
+
+  transform:
+    rotate(-1.5deg);
+
+}
+
+
+.quote-mark {
+
+  position: absolute;
+
+  top: -19px;
+
+  right: 20px;
+
+  color:
+    var(--pink);
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 75px;
+
+}
+
+
+.chapter-paper p {
+
+  margin: 0;
+
+  color:
+    var(--brown);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 20px;
+
+  line-height: 2;
+
+}
+
+
+.final-chapter {
+
+  margin-bottom: 0;
+
+}
+
+
+.final-story-card {
+
+  max-width: 355px;
+
+  margin:
+    auto;
+
+  padding:
+    45px 25px;
+
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+
+  border:
+    1px solid
+    rgba(142, 85, 93, 0.18);
+
+  border-radius:
+    140px 140px 25px 25px;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(243, 221, 221, 0.55),
+      rgba(255, 255, 255, 0.75)
+    );
+
+}
+
+
+.final-small {
+
+  margin: 0;
+
+  color:
+    var(--rose);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 20px;
+
+}
+
+
+.final-story-card h4 {
+
+  margin:
+    8px auto 25px;
+
+  max-width: 280px;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 31px;
+
+  line-height: 1.6;
+
+  font-weight: 400;
+
+}
+
+
+.final-date {
+
+  margin-bottom: 20px;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 44px;
+
+  line-height: 1;
+
+}
+
+
+.final-date span {
+
+  display: block;
+
+  margin:
+    10px 0;
+
+  color:
+    var(--rose);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 28px;
+
+}
+
+
+.final-story-card > p:last-child {
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 17px;
+
+}
+
+
+/* ==========================================
+   كلمة من العروسين
+========================================== */
+
+.couple-message-section {
+
+  padding:
+    80px 24px;
+
+  background:
+    var(--wine);
+
+}
+
+
+.message-card {
+
+  padding:
+    55px 28px;
+
+  text-align: center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.16);
+
+  border-radius:
+    15px;
+
+  color:
+    #ffffff;
+
+}
+
+
+.message-label {
+
+  display: block;
+
+  margin-bottom: 22px;
+
+  color:
+    var(--pink);
+
+  font-size: 12px;
+
+}
+
+
+.message-card i {
+
+  color:
+    var(--pink);
+
+  font-size: 25px;
+
+}
+
+
+.message-card p {
+
+  max-width: 340px;
+
+  margin:
+    17px auto;
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 20px;
+
+  line-height: 2;
+
+  color:
+    #fff8f4;
+
+}
+
+
+.couple-signature {
+
+  margin-top: 26px;
+
+  color:
+    var(--pink-soft);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 27px;
+
+}
+
+
+/* ==========================================
+   GALLERY
+========================================== */
+
+.gallery-section {
+
+  padding:
+    90px 0;
+
+  overflow: hidden;
+
+}
+
+
+.gallery-section
+.section-heading {
+
+  padding:
+    0 22px;
+
+}
+
+
+.gallery-wrapper {
+
+  position: relative;
+
+}
+
+
+.gallery-track {
+
+  display: flex;
+
+  gap: 18px;
+
+  overflow-x: auto;
+
+  scroll-snap-type:
+    x mandatory;
+
+  scrollbar-width: none;
+
+  padding:
+    25px 65px 40px;
+
+  cursor: grab;
+
+  user-select: none;
+
+  direction: rtl;
+
+}
+
+
+.gallery-track::-webkit-scrollbar {
+
+  display: none;
+
+}
+
+
+.gallery-track.dragging {
+
+  cursor: grabbing;
+
+  scroll-snap-type: none;
+
+}
+
+
+.gallery-card {
+
+  flex:
+    0 0 255px;
+
+  margin: 0;
+
+  padding:
+    10px 10px 26px;
+
+  scroll-snap-align:
+    center;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 15px 35px
+    rgba(91, 62, 57, 0.13);
+
+}
+
+
+.gallery-card:nth-child(odd) {
+
+  transform:
+    rotate(-2deg);
+
+}
+
+
+.gallery-card:nth-child(even) {
+
+  transform:
+    rotate(2deg);
+
+}
+
+
+.gallery-card img {
+
+  width: 100%;
+
+  height: 320px;
+
+  display: block;
+
+  object-fit: cover;
+
+  pointer-events: none;
+
+}
+
+
+.gallery-card figcaption {
+
+  margin-top: 10px;
+
+  text-align: center;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 19px;
+
+}
+
+
+.gallery-arrow {
+
+  width: 42px;
+
+  height: 42px;
+
+  position: absolute;
+
+  top: 48%;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background:
+    rgba(113, 57, 67, 0.92);
+
+  color:
+    #ffffff;
+
+  box-shadow:
+    0 7px 20px
+    rgba(113, 57, 67, 0.2);
+
+  cursor: pointer;
+
+}
+
+
+.gallery-prev {
+
+  right: 8px;
+
+}
+
+
+.gallery-next {
+
+  left: 8px;
+
+}
+
+
+.swipe-hint {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  color:
+    var(--muted);
+
+  font-size: 11px;
+
+}
+
+
+/* ==========================================
+   تفاصيل المناسبة
+========================================== */
+
+.event-section {
+
+  padding:
+    70px 22px 95px;
+
+}
+
+
+.event-card {
+
+  padding:
+    45px 23px;
+
+  border-radius:
+    28px;
+
+  background:
+    rgba(255, 255, 255, 0.75);
+
+  border:
+    1px solid
+    rgba(142, 85, 93, 0.12);
+
+  box-shadow:
+    0 20px 55px
+    rgba(105, 75, 69, 0.1);
+
+}
+
+
+.event-small {
+
+  display: block;
+
+  text-align: center;
+
+  color:
+    var(--rose);
+
+  letter-spacing: 4px;
+
+  font-size: 10px;
+
+}
+
+
+.event-card > h3 {
+
+  margin:
+    5px 0 35px;
+
+  text-align: center;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 42px;
+
+  font-weight: 400;
+
+}
+
+
+.event-detail {
+
+  min-height: 90px;
+
+  display: grid;
+
+  grid-template-columns:
+    52px 1fr;
+
+  align-items: center;
+
+  gap: 16px;
+
+  border-bottom:
+    1px solid
+    rgba(142, 85, 93, 0.1);
+
+}
+
+
+.event-icon {
+
+  width: 47px;
+
+  height: 47px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    var(--pink-soft);
+
+  color:
+    var(--wine);
+
+}
+
+
+.event-detail small {
+
+  display: block;
+
+  margin-bottom: 2px;
+
+  color:
+    var(--rose);
+
+  font-size: 10px;
+
+}
+
+
+.event-detail strong {
+
+  display: block;
+
+  color:
+    var(--brown);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 18px;
+
+  font-weight: 400;
+
+}
+
+
+.event-detail span {
+
+  display: block;
+
+  margin-top: 2px;
+
+  color:
+    var(--muted);
+
+  font-size: 11px;
+
+}
+
+
+.map-button {
+
+  margin-top: 30px;
+
+  padding:
+    15px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  border-radius: 50px;
+
+  text-decoration: none;
+
+  background:
+    var(--wine);
+
+  color:
+    #ffffff;
+
+  box-shadow:
+    0 10px 25px
+    rgba(113, 57, 67, 0.18);
+
+}
+
+
+/* ==========================================
+   النهاية
+========================================== */
+
+.story-footer {
+
+  min-height: 520px;
+
+  padding:
+    90px 30px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(243, 221, 221, 0.3),
+      rgba(244, 233, 225, 0.8)
+    );
+
+}
+
+
+.footer-heart {
+
+  margin-bottom: 12px;
+
+  color:
+    var(--rose);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 50px;
+
+}
+
+
+.story-footer p {
+
+  margin: 0;
+
+  color:
+    var(--muted);
+
+  font-family:
+    var(--font-elegant);
+
+  font-size: 17px;
+
+}
+
+
+.story-footer h3 {
+
+  max-width: 330px;
+
+  margin:
+    8px auto 20px;
+
+  color:
+    var(--wine);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 36px;
+
+  line-height: 1.6;
+
+  font-weight: 400;
+
+}
+
+
+.footer-names {
+
+  color:
+    var(--rose-dark);
+
+  font-family:
+    var(--font-title);
+
+  font-size: 32px;
+
+}
+
+
+.story-footer > span {
+
+  margin-top: 7px;
+
+  color:
+    var(--muted);
+
+  font-size: 11px;
+
+}
+
+
+/* ==========================================
+   ظهور العناصر أثناء Scroll
+========================================== */
+
+.reveal {
+
+  opacity: 0;
+
+  transform:
+    translateY(55px);
+
+  transition:
+
+    opacity
+    0.9s
+    ease,
+
+    transform
+    0.9s
+    cubic-bezier(
+      0.2,
+      0.75,
+      0.25,
+      1
+    );
+
+}
+
+
+.reveal.visible {
+
+  opacity: 1;
+
+  transform:
+    translateY(0);
+
+}
+
+
+.chapter-left.reveal {
+
+  transform:
+    translateX(-40px);
+
+}
+
+
+.chapter-right.reveal {
+
+  transform:
+    translateX(40px);
+
+}
+
+
+.chapter-left.reveal.visible,
+.chapter-right.reveal.visible {
+
+  transform:
+    translateX(0);
+
+}
+
+
+/* ==========================================
+   شاشة صغيرة
+========================================== */
+
+@media
+(max-width: 380px) {
+
+  .intro-paper {
+
+    min-height: 500px;
+
+    padding-left: 20px;
+
+    padding-right: 20px;
+
+  }
+
+
+  .hero-photo-card img {
+
+    height: 340px;
+
+  }
+
+
+  .chapter-photo img {
+
+    height: 270px;
+
+  }
+
+
+  .gallery-card {
+
+    flex-basis: 230px;
+
+  }
+
+
+  .gallery-card img {
+
+    height: 285px;
+
+  }
+
+}
+
+
+/* ==========================================
+   تقليل الحركة
+========================================== */
+
+@media
+(prefers-reduced-motion: reduce) {
+
+  * {
+
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    scroll-behavior:
+      auto !important;
+
+  }
+
+
+  .reveal {
+
+    opacity: 1;
+
+    transform: none;
+
+  }
+
+}
