@@ -66,7 +66,7 @@ function renderCards() {
   const templates = catalog.templates;
   $('#catalog-count').textContent = `${number(templates.length)} دعوات في المعرض`;
   $('#admin-cards').innerHTML = templates.length ? templates.map(template => `<article class="admin-card">
-    <div class="admin-card-phone" aria-hidden="true"><span>✦</span></div>
+    <div class="admin-card-preview" aria-hidden="true"><span>✦</span></div>
     <div class="admin-card-body"><strong>${escapeHTML(template.name)}</strong><small>${escapeHTML(CATEGORY_NAMES[template.category] || template.category)} · ${escapeHTML(template.id)}</small>
       <div class="admin-card-actions"><button type="button" data-edit="${escapeHTML(template.id)}">تعديل</button><a href="${escapeHTML(template.previewUrl)}" target="_blank" rel="noopener noreferrer">شاهد الدعوة ↗</a><button type="button" class="danger" data-delete="${escapeHTML(template.id)}">حذف</button></div>
     </div></article>`).join('') : '<p>ماكو دعوات حالياً. أضف أول دعوة من النموذج.</p>';
@@ -191,7 +191,7 @@ $('#template-form').addEventListener('submit', async event => {
     if (new URL(repoUrl).hostname !== 'github.com') throw new Error('رابط المستودع لازم يكون من GitHub.');
     const previewUrl = validatedUrl($('#template-url').value, 'رابط الدعوة');
     const mockupValue = $('#template-mockup').value.trim();
-    const mockupUrl = mockupValue ? validatedUrl(mockupValue, 'رابط الموك أب') : '';
+    const mockupUrl = mockupValue ? validatedUrl(mockupValue, 'رابط عرض البطاقة') : '';
     const original = catalog.templates.find(item => item.id === originalId);
     const template = {
       id, name:$('#template-name').value.trim(), englishName:$('#template-english').value.trim(), category,

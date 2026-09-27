@@ -1,6 +1,6 @@
 /*
  * Inviteus — معرض ثابت للاستعراض فقط.
- * رابط الدعوة المنشورة يشغّل الموك أب الحيّ داخل إطار هاتف، من دون صور عرض.
+ * رابط الدعوة المنشورة يشغّل المعاينة الحيّة بكامل مساحة عرض البطاقة، من دون صور عرض.
  * mockupUrl اختياري إذا كانت للدعوة صفحة عرض خاصة؛ previewUrl يفتح التجربة الكاملة.
  * ضع روابط التواصل الحقيقية في SITE_CONFIG.socials عندما تتوفر.
  * الموقع معرض فقط. الصوت يظهر ضمن الدعوات الأصلية التي تتضمنه.
@@ -81,12 +81,8 @@ let mockupObserver;
 
 function mockupMarkup(template) {
   return `<div class="mockup-stage">
-    <span class="mockup-caption">معاينة حيّة من الدعوة</span>
-    <div class="phone-mockup"><span class="phone-camera" aria-hidden="true"></span>
-      <div class="phone-screen"><span class="mockup-loading" aria-hidden="true">${escapeHTML(template.name)}</span>
-        <iframe data-mockup-src="${escapeHTML(mockupLink(template))}" title="معاينة دعوة ${escapeHTML(template.name)}" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-      </div>
-    </div>
+    <span class="mockup-loading" aria-hidden="true">${escapeHTML(template.name)}</span>
+    <iframe data-mockup-src="${escapeHTML(mockupLink(template))}" title="معاينة دعوة ${escapeHTML(template.name)}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
   </div>`;
 }
 

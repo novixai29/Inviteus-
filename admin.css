@@ -32,8 +32,8 @@ body { background: #f3f5f1; }
 .admin-list h2 { margin-bottom: 18px; }
 #admin-cards { display: grid; gap: 10px; }
 .admin-card { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 12px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
-.admin-card-phone { display: grid; place-items: center; width: 48px; height: 69px; margin: auto; border: 3px solid var(--plum-dark); border-radius: 11px; background: linear-gradient(160deg, #f8f3e8, #d5e5dc); color: var(--gold); box-shadow: 0 5px 10px rgba(15,45,50,.15); }
-.admin-card-phone span { font-size: 1.2rem; }
+.admin-card-preview { display: grid; place-items: center; width: 64px; height: 74px; border: 1px solid var(--line); border-radius: 7px; background: linear-gradient(160deg, #f8f3e8, #d5e5dc); color: var(--gold); }
+.admin-card-preview span { font-size: 1.4rem; }
 .admin-card-body { min-width: 0; }
 .admin-card-body strong { display: block; color: var(--plum-dark); font-size: .86rem; }
 .admin-card-body small { display: block; color: var(--muted); font-size: .7rem; }
