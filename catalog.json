@@ -1,6 +1,12 @@
 {
   "version": 1,
-  "nextIds": { "engagement": 11, "henna": 1, "wedding": 1, "conferences": 1, "openings": 1 },
+  "nextIds": {
+    "engagement": 11,
+    "henna": 1,
+    "wedding": 1,
+    "conferences": 1,
+    "openings": 2
+  },
   "templates": [
     {
       "id": "ENG-001",
@@ -218,6 +224,22 @@
       "previewPath": "templates/engagement-j/index.html",
       "previewUrl": "https://novixai29.github.io/engagement-j/",
       "image": "previews/engagement-j.webp",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "OPN-001",
+      "name": "دعوة تجريبية مؤقتة",
+      "englishName": "Temporary Test Invitation",
+      "category": "openings",
+      "styles": [
+        "modern"
+      ],
+      "description": "بطاقة اختبار مؤقتة للتحقق من الإضافة والحذف فقط.",
+      "features": [],
+      "previewUrl": "https://novixai29.github.io/engagement-a/",
+      "repoUrl": "https://github.com/novixai29/engagement-a",
+      "image": "https://raw.githubusercontent.com/novixai29/Inviteus-/main/previews/opn-001-1790475096312.webp",
       "trending": false,
       "newArrival": true
     }
