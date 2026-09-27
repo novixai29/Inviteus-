@@ -105,14 +105,24 @@ h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; letter-spacing: -.02
 .results-line { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin: 24px 0 18px; }
 .results-line p { margin: 0; color: var(--muted); font-size: .78rem; }
 .results-line .text-link { font-size: .73rem; white-space: nowrap; }
+.pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin: 16px 0; color: var(--muted); font-size: .78rem; scroll-margin-top: 82px; }
+.pagination:empty { display: none; }
+.page-buttons { display: flex; flex-wrap: wrap; gap: 5px; }
+.page-buttons button { display: grid; place-items: center; min-width: 38px; min-height: 38px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 9px; background: var(--white); color: var(--plum); font: inherit; font-weight: 700; cursor: pointer; }
+.page-buttons button:hover:not(:disabled), .page-buttons button[aria-current="page"] { border-color: var(--plum); background: var(--plum); color: white; }
+.page-buttons button:disabled { opacity: .38; cursor: default; }
 .template-grid { display: grid; gap: 22px; }
 .template-card { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: white; box-shadow: 0 10px 30px rgba(20,54,59,.055); transition: transform .25s, box-shadow .25s; }
 .template-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
 .card-cover { position: relative; overflow: hidden; aspect-ratio: 4/5; background: var(--cream-deep); }
-.cover-link { display: block; width: 100%; height: 100%; }
+.cover-link { display: block; width: 100%; height: 100%; touch-action: pan-y; }
 .mockup-stage { position: relative; width: 100%; height: 100%; overflow: hidden; background: linear-gradient(155deg, #f6f4e9, #d6e3dd); }
 .mockup-stage iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; opacity: 0; pointer-events: none; transition: opacity .25s; }
 .mockup-stage iframe.loaded { opacity: 1; }
+.mockup-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.mockup-stage.is-previewing .mockup-video { opacity: 1; }
+.mockup-cue { position: absolute; z-index: 1; inset-inline: 16px; bottom: 62px; width: fit-content; max-width: calc(100% - 32px); padding: 7px 11px; border-radius: 99px; background: rgba(15, 43, 50, .87); color: white; font-size: .68rem; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.mockup-stage:hover .mockup-cue, .mockup-stage.is-previewing .mockup-cue, .mockup-stage.manual-preview .mockup-cue { opacity: 1; }
 .mockup-loading { position: absolute; inset: 0; display: grid; place-items: center; padding: 20px; color: var(--plum); font-size: .9rem; text-align: center; }
 .cover-open { position: absolute; right: 15px; bottom: 15px; padding: 7px 12px; border-radius: 99px; background: rgba(255,254,250,.95); color: var(--plum); font-size: .72rem; font-weight: 700; }
 .card-badge { position: absolute; z-index: 1; top: 14px; right: 14px; padding: 5px 11px; border-radius: 99px; background: rgba(14,46,53,.94); color: white; font-size: .65rem; }
