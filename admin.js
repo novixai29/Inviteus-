@@ -14,6 +14,8 @@ let token = '';
 let catalog = null;
 let catalogSha = '';
 let busy = false;
+const PAGE_SIZE = 8;
+let adminPage = 1;
 
 function status(message, error = false) {
   const element = $('#admin-status');
@@ -63,9 +65,15 @@ function styleChoices() {
   $('#feature-options').innerHTML = Object.entries(FEATURES).map(([key, label]) => `<label><input type="checkbox" name="features" value="${key}">${label}</label>`).join('');
 }
 function renderCards() {
-  const templates = catalog.templates;
+  const templates = [...catalog.templates].reverse(); // التخزين بترتيب الإضافة، والعرض من الأحدث للأقدم.
+  const pages = Math.max(1, Math.ceil(templates.length / PAGE_SIZE));
+  adminPage = Math.min(Math.max(adminPage, 1), pages);
+  const visible = templates.slice((adminPage - 1) * PAGE_SIZE, adminPage * PAGE_SIZE);
+  const pagination = templates.length ? `<span class="page-summary">صفحة ${number(adminPage)} من ${number(pages)}</span><div class="page-buttons"><button type="button" data-admin-page="${adminPage - 1}" ${adminPage === 1 ? 'disabled' : ''} aria-label="الصفحة السابقة">‹</button>${Array.from({ length:pages }, (_, index) => `<button type="button" data-admin-page="${index + 1}" aria-label="صفحة ${number(index + 1)}" ${index + 1 === adminPage ? 'aria-current="page"' : ''}>${number(index + 1)}</button>`).join('')}<button type="button" data-admin-page="${adminPage + 1}" ${adminPage === pages ? 'disabled' : ''} aria-label="الصفحة التالية">›</button></div>` : '';
+  $('#admin-pages-top').innerHTML = pagination;
+  $('#admin-pages-bottom').innerHTML = pagination;
   $('#catalog-count').textContent = `${number(templates.length)} دعوات في المعرض`;
-  $('#admin-cards').innerHTML = templates.length ? templates.map(template => `<article class="admin-card">
+  $('#admin-cards').innerHTML = templates.length ? visible.map(template => `<article class="admin-card">
     <div class="admin-card-preview" aria-hidden="true"><span>✦</span></div>
     <div class="admin-card-body"><strong>${escapeHTML(template.name)}</strong><small>${escapeHTML(CATEGORY_NAMES[template.category] || template.category)} · ${escapeHTML(template.id)}</small>
       <div class="admin-card-actions"><button type="button" data-edit="${escapeHTML(template.id)}">تعديل</button><a href="${escapeHTML(template.previewUrl)}" target="_blank" rel="noopener noreferrer">شاهد الدعوة ↗</a><button type="button" class="danger" data-delete="${escapeHTML(template.id)}">حذف</button></div>
@@ -109,6 +117,7 @@ function editTemplate(id) {
   $('#template-repo').value = template.repoUrl || repoFromPublished(template.previewUrl);
   $('#template-url').value = template.previewUrl;
   $('#template-mockup').value = template.mockupUrl || '';
+  $('#template-mockup-video').value = template.mockupVideoUrl || '';
   $('#template-description').value = template.description;
   document.querySelectorAll('[name="styles"]').forEach(input => { input.checked = template.styles.includes(input.value); });
   document.querySelectorAll('[name="features"]').forEach(input => { input.checked = template.features.includes(input.value); });
@@ -146,6 +155,7 @@ async function saveCatalog(nextCatalog, message) {
   });
   catalog = nextCatalog;
   catalogSha = result.content.sha;
+  adminPage = 1;
   renderCards();
   if ('BroadcastChannel' in window) {
     const channel = new BroadcastChannel('inviteus-catalog');
@@ -166,6 +176,7 @@ $('#login-form').addEventListener('submit', async event => {
     const latest = await readCatalog();
     catalog = latest.data;
     catalogSha = latest.sha;
+    adminPage = 1;
     $('#access-token').value = '';
     $('#connected-user').textContent = `متصل بحساب ${profile.login}`;
     $('#login-panel').hidden = true;
@@ -192,13 +203,16 @@ $('#template-form').addEventListener('submit', async event => {
     const previewUrl = validatedUrl($('#template-url').value, 'رابط الدعوة');
     const mockupValue = $('#template-mockup').value.trim();
     const mockupUrl = mockupValue ? validatedUrl(mockupValue, 'رابط عرض البطاقة') : '';
+    const videoValue = $('#template-mockup-video').value.trim();
+    const mockupVideoUrl = videoValue ? validatedUrl(videoValue, 'رابط فيديو المعاينة') : '';
+    if (mockupVideoUrl && !/\.(mp4|webm)(?:\?|#|$)/i.test(mockupVideoUrl)) throw new Error('رابط فيديو المعاينة لازم يشير إلى ملف MP4 أو WebM مباشر.');
     const original = catalog.templates.find(item => item.id === originalId);
     const template = {
       id, name:$('#template-name').value.trim(), englishName:$('#template-english').value.trim(), category,
       styles:[...document.querySelectorAll('[name="styles"]:checked')].map(input => input.value),
       description:$('#template-description').value.trim(),
       features:[...document.querySelectorAll('[name="features"]:checked')].map(input => input.value),
-      previewUrl, repoUrl, ...(mockupUrl ? { mockupUrl } : {}),
+      previewUrl, repoUrl, ...(mockupUrl ? { mockupUrl } : {}), ...(mockupVideoUrl ? { mockupVideoUrl } : {}),
       ...(original?.image ? { image:original.image } : {}),
       trending:original?.trending || false, newArrival:original?.newArrival ?? true
     };
@@ -229,6 +243,15 @@ $('#admin-cards').addEventListener('click', async event => {
   } catch (error) { status(error.message, true); }
   finally { setBusy(false); }
 });
+document.querySelectorAll('#admin-pages-top, #admin-pages-bottom').forEach(nav => nav.addEventListener('click', event => {
+  const button = event.target.closest('[data-admin-page]');
+  if (!button || !catalog) return;
+  const page = Number(button.dataset.adminPage);
+  if (!Number.isInteger(page) || page < 1 || page > Math.ceil(catalog.templates.length / PAGE_SIZE)) return;
+  adminPage = page;
+  renderCards();
+  $('#admin-pages-top').scrollIntoView({ behavior:'smooth', block:'start' });
+}));
 $('#new-template').addEventListener('click', () => { resetForm(); $('#template-form').scrollIntoView({ behavior:'smooth', block:'start' }); });
 $('#cancel-edit').addEventListener('click', resetForm);
 $('#reload-catalog').addEventListener('click', async () => {
