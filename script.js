@@ -1,7 +1,7 @@
 /*
  * Inviteus — معرض ثابت للاستعراض فقط.
- * لإضافة تصميم جديد: أضف معاينته في previews ورابط النسخة المنشورة إلى TEMPLATES.
- * previewPath نسخة محلية احتياطية، وpreviewUrl هو رابط الدعوة الأصلية الكاملة.
+ * رابط الدعوة المنشورة يشغّل الموك أب الحيّ داخل إطار هاتف، من دون صور عرض.
+ * mockupUrl اختياري إذا كانت للدعوة صفحة عرض خاصة؛ previewUrl يفتح التجربة الكاملة.
  * ضع روابط التواصل الحقيقية في SITE_CONFIG.socials عندما تتوفر.
  * الموقع معرض فقط. الصوت يظهر ضمن الدعوات الأصلية التي تتضمنه.
  */
@@ -64,6 +64,7 @@ const number = value => new Intl.NumberFormat('ar-IQ').format(value);
 const categoryName = id => CATEGORIES.find(category => category.id === id)?.name || id;
 const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const previewLink = template => template.previewUrl || template.previewPath;
+const mockupLink = template => template.mockupUrl || previewLink(template);
 const heartIcon = '<svg class="heart-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M24 42 5.8 24.7C-1.2 18 1.4 6.8 10 4.8c5.6-1.3 10.7 1.2 14 6.2 3.3-5 8.4-7.5 14-6.2 8.6 2 11.2 13.2 4.2 19.9L24 42Z"/></svg>';
 const storageKey = 'inviteus-favorites-v2';
 let favorites = new Set();
@@ -76,6 +77,42 @@ const state = { category:'all', collection:'all' };
 let selectedTemplate = null;
 let previousFocus = null;
 let toastTimer = null;
+let mockupObserver;
+
+function mockupMarkup(template) {
+  return `<div class="mockup-stage">
+    <span class="mockup-caption">معاينة حيّة من الدعوة</span>
+    <div class="phone-mockup"><span class="phone-camera" aria-hidden="true"></span>
+      <div class="phone-screen"><span class="mockup-loading" aria-hidden="true">${escapeHTML(template.name)}</span>
+        <iframe data-mockup-src="${escapeHTML(mockupLink(template))}" title="معاينة دعوة ${escapeHTML(template.name)}" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+      </div>
+    </div>
+  </div>`;
+}
+
+function activateMockups(root = document, immediate = false) {
+  const frames = [...root.querySelectorAll('iframe[data-mockup-src]')];
+  frames.forEach(frame => frame.addEventListener('load', () => {
+    if (frame.getAttribute('src') === frame.dataset.mockupSrc) frame.classList.add('loaded');
+  }));
+  if (immediate || !('IntersectionObserver' in window)) {
+    frames.forEach(frame => { frame.src = frame.dataset.mockupSrc; });
+    return;
+  }
+  mockupObserver?.disconnect();
+  mockupObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const frame = entry.target;
+      if (entry.isIntersecting && frame.getAttribute('src') !== frame.dataset.mockupSrc) {
+        frame.src = frame.dataset.mockupSrc;
+      } else if (!entry.isIntersecting && frame.getAttribute('src') === frame.dataset.mockupSrc) {
+        frame.classList.remove('loaded');
+        frame.src = 'about:blank';
+      }
+    });
+  }, { rootMargin:'160px' });
+  frames.forEach(frame => mockupObserver.observe(frame));
+}
 
 function toast(message) {
   const element = $('#toast');
@@ -105,7 +142,7 @@ function cardMarkup(template) {
   return `<article class="template-card">
     <div class="card-cover">
       <a class="cover-link" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer" aria-label="شاهد دعوة ${escapeHTML(template.name)} كاملة">
-        <img src="${escapeHTML(template.image)}" alt="لقطة فعلية من دعوة ${escapeHTML(template.name)}" width="640" height="640" loading="lazy">
+        ${mockupMarkup(template)}
         <span class="cover-open">شاهد الدعوة كاملة ↗</span>
       </a>
       <span class="card-badge">${categoryName(template.category)}</span>
@@ -126,6 +163,7 @@ function renderGallery() {
   renderCategories();
   const templates = filteredTemplates();
   $('#template-grid').innerHTML = templates.map(cardMarkup).join('');
+  activateMockups($('#template-grid'));
   const labels = { all:'كل التصاميم', favorites:'المفضلة' };
   $('#result-count').textContent = `${labels[state.collection]} · ${number(templates.length)} تصاميم حقيقية`;
   $('#favorite-count').textContent = number(favorites.size);
@@ -169,7 +207,7 @@ function openDetails(id) {
   const dialog = $('#preview-dialog');
   previousFocus = document.activeElement;
   $('#preview-content').innerHTML = `<div class="preview-layout">
-    <div class="preview-art"><img src="${escapeHTML(template.image)}" alt="لقطة من دعوة ${escapeHTML(template.name)}" width="640" height="640"></div>
+    <div class="preview-art">${mockupMarkup(template)}</div>
     <div class="preview-details">
       <p class="eyebrow">${categoryName(template.category)} · ${template.id}</p>
       <h2 id="preview-title">${escapeHTML(template.name)}</h2>
@@ -183,6 +221,7 @@ function openDetails(id) {
   </div>`;
   dialog.showModal();
   document.body.classList.add('modal-open');
+  activateMockups($('#preview-content'), true);
 }
 
 function chooseForContact(id) {
@@ -272,6 +311,7 @@ $$('#main-nav a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
 $('#preview-dialog').addEventListener('close', () => {
   document.body.classList.remove('modal-open');
+  $('#preview-content').replaceChildren();
   previousFocus?.isConnected && previousFocus.focus({ preventScroll:true });
 });
 $('#preview-dialog').addEventListener('click', event => { if (event.target === $('#preview-dialog')) $('#preview-dialog').close(); });
@@ -299,8 +339,8 @@ function validCatalogTemplate(template) {
   try {
     const link = new URL(template.previewUrl);
     if (link.protocol !== 'https:') return false;
-    const image = new URL(template.image, location.href);
-    return ['https:', 'http:'].includes(image.protocol);
+    const mockup = new URL(template.mockupUrl || template.previewUrl);
+    return mockup.protocol === 'https:';
   } catch { return false; }
 }
 async function refreshCatalog() {
@@ -310,6 +350,7 @@ async function refreshCatalog() {
     const file = await response.json();
     const catalog = file.content ? decodeCatalog(file.content) : file;
     if (!Array.isArray(catalog.templates) || !catalog.templates.every(validCatalogTemplate)) return;
+    if (JSON.stringify(catalog.templates) === JSON.stringify(TEMPLATES)) return;
     TEMPLATES = catalog.templates;
     favorites = new Set([...favorites].filter(id => TEMPLATES.some(template => template.id === id)));
     if (selectedTemplate && !TEMPLATES.some(template => template.id === selectedTemplate.id)) {

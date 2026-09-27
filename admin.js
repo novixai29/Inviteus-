@@ -66,7 +66,7 @@ function renderCards() {
   const templates = catalog.templates;
   $('#catalog-count').textContent = `${number(templates.length)} دعوات في المعرض`;
   $('#admin-cards').innerHTML = templates.length ? templates.map(template => `<article class="admin-card">
-    <img src="${escapeHTML(template.image)}" alt="" loading="lazy">
+    <div class="admin-card-phone" aria-hidden="true"><span>✦</span></div>
     <div class="admin-card-body"><strong>${escapeHTML(template.name)}</strong><small>${escapeHTML(CATEGORY_NAMES[template.category] || template.category)} · ${escapeHTML(template.id)}</small>
       <div class="admin-card-actions"><button type="button" data-edit="${escapeHTML(template.id)}">تعديل</button><a href="${escapeHTML(template.previewUrl)}" target="_blank" rel="noopener noreferrer">شاهد الدعوة ↗</a><button type="button" class="danger" data-delete="${escapeHTML(template.id)}">حذف</button></div>
     </div></article>`).join('') : '<p>ماكو دعوات حالياً. أضف أول دعوة من النموذج.</p>';
@@ -97,8 +97,6 @@ function resetForm() {
   $('#template-id').value = '';
   $('#editor-title').textContent = 'إضافة دعوة';
   $('#save-template').textContent = 'حفظ الدعوة';
-  $('#image-help').textContent = 'مطلوبة للدعوة الجديدة · JPG أو PNG أو WebP حتى ٢ ميغابايت';
-  $('#current-image').hidden = true;
 }
 function editTemplate(id) {
   const template = catalog.templates.find(item => item.id === id);
@@ -110,32 +108,18 @@ function editTemplate(id) {
   $('#template-category').value = template.category;
   $('#template-repo').value = template.repoUrl || repoFromPublished(template.previewUrl);
   $('#template-url').value = template.previewUrl;
+  $('#template-mockup').value = template.mockupUrl || '';
   $('#template-description').value = template.description;
   document.querySelectorAll('[name="styles"]').forEach(input => { input.checked = template.styles.includes(input.value); });
   document.querySelectorAll('[name="features"]').forEach(input => { input.checked = template.features.includes(input.value); });
-  $('#current-image').innerHTML = `صورة العرض الحالية <img src="${escapeHTML(template.image)}" alt="صورة العرض الحالية">`;
-  $('#current-image').hidden = false;
   $('#editor-title').textContent = `تعديل ${template.name}`;
   $('#save-template').textContent = 'حفظ التعديلات';
-  $('#image-help').textContent = 'اختياري إذا تريد تبدّل لقطة العرض';
   $('#template-form').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 function validatedUrl(value, kind) {
   const url = new URL(value.trim());
   if (url.protocol !== 'https:') throw new Error(`${kind} لازم يبدأ بـ https://`);
   return url.href;
-}
-async function uploadImage(file, id) {
-  if (!['image/png','image/jpeg','image/webp'].includes(file.type)) throw new Error('اختَر صورة JPG أو PNG أو WebP.');
-  if (file.size > 2 * 1024 * 1024) throw new Error('الصورة أكبر من ٢ ميغابايت. اختَر لقطة أصغر.');
-  const extension = { 'image/png':'png', 'image/jpeg':'jpg', 'image/webp':'webp' }[file.type];
-  const path = `previews/${id.toLowerCase()}-${Date.now()}.${extension}`;
-  const content = encodeBase64(new Uint8Array(await file.arrayBuffer()));
-  await api(`repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
-    method:'PUT', headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({ message:`Add preview for ${id}`, content, branch:'main' })
-  });
-  return `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${path}`;
 }
 function ownedPreviewPath(template) {
   const prefix = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/previews/`;
@@ -206,26 +190,23 @@ $('#template-form').addEventListener('submit', async event => {
     const repoUrl = validatedUrl($('#template-repo').value, 'رابط المستودع');
     if (new URL(repoUrl).hostname !== 'github.com') throw new Error('رابط المستودع لازم يكون من GitHub.');
     const previewUrl = validatedUrl($('#template-url').value, 'رابط الدعوة');
-    const imageFile = $('#template-image').files[0];
+    const mockupValue = $('#template-mockup').value.trim();
+    const mockupUrl = mockupValue ? validatedUrl(mockupValue, 'رابط الموك أب') : '';
     const original = catalog.templates.find(item => item.id === originalId);
-    if (!original && !imageFile) throw new Error('اختَر لقطة عرض للدعوة الجديدة.');
-    const image = imageFile ? await uploadImage(imageFile, id) : original.image;
     const template = {
       id, name:$('#template-name').value.trim(), englishName:$('#template-english').value.trim(), category,
       styles:[...document.querySelectorAll('[name="styles"]:checked')].map(input => input.value),
       description:$('#template-description').value.trim(),
       features:[...document.querySelectorAll('[name="features"]:checked')].map(input => input.value),
-      previewUrl, repoUrl, image, trending:original?.trending || false, newArrival:original?.newArrival ?? true
+      previewUrl, repoUrl, ...(mockupUrl ? { mockupUrl } : {}),
+      ...(original?.image ? { image:original.image } : {}),
+      trending:original?.trending || false, newArrival:original?.newArrival ?? true
     };
     if (!template.name || !template.description) throw new Error('اكتب اسم التصميم وتفاصيله.');
     const templates = original ? catalog.templates.map(item => item.id === originalId ? template : item) : [...catalog.templates, template];
     const nextIds = original ? catalog.nextIds : { ...catalog.nextIds, [category]:Number(id.split('-')[1]) + 1 };
     await saveCatalog({ ...catalog, nextIds, templates }, `${original ? 'Update' : 'Add'} invitation ${id}`);
     resetForm();
-    if (original && imageFile) {
-      try { await removeUnusedPreview(original); }
-      catch { status(`انحفظت الدعوة، لكن تعذّر تنظيف صورة العرض القديمة.`, true); return; }
-    }
     status(`انحفظت دعوة «${template.name}» بنجاح. افتح الموقع أو حدّثه حتى تشوفها.`);
   } catch (error) { status(error.message, true); }
   finally { setBusy(false); }

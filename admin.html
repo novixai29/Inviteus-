@@ -13,7 +13,7 @@
 <body>
   <header class="admin-header"><div class="container admin-header-inner"><a class="brand" href="index.html">Inviteus<span>إدارة الدعوات</span></a><a class="text-link" href="index.html" target="_blank" rel="noopener noreferrer">شاهد الموقع ↗</a></div></header>
   <main class="container admin-main">
-    <div class="admin-heading"><p class="eyebrow">لوحتك الخاصة</p><h1>إدارة الدعوات</h1><p>أضف دعوة، حدّد مناسبتها وصورة العرض، أو عدّل واحذف دعوة موجودة. التغييرات تُحفظ في مستودع Inviteus وتظهر لزوار الموقع عند تحديث الصفحة.</p></div>
+    <div class="admin-heading"><p class="eyebrow">لوحتك الخاصة</p><h1>إدارة الدعوات</h1><p>أضف دعوة وحدّد مناسبتها ورابطها المنشور، أو عدّل واحذف دعوة موجودة. يظهر العرض داخل موك أب موبايل تلقائياً من الرابط، وتظهر التغييرات لزوار الموقع عند تحديث الصفحة.</p></div>
 
     <section class="admin-login" id="login-panel" aria-labelledby="login-title">
       <h2 id="login-title">دخول المالك</h2>
@@ -26,7 +26,7 @@
       <div class="admin-toolbar"><div><strong id="catalog-count">الدعوات</strong><span id="connected-user"></span></div><div class="toolbar-actions"><button type="button" class="button secondary" id="new-template">+ دعوة جديدة</button><button type="button" class="button secondary" id="reload-catalog">تحديث القائمة</button><button type="button" class="text-link" id="logout">خروج</button></div></div>
       <div class="admin-layout">
         <section class="admin-list" aria-labelledby="list-title"><h2 id="list-title">الدعوات الموجودة</h2><div id="admin-cards"></div></section>
-        <section class="admin-editor" aria-labelledby="editor-title"><h2 id="editor-title">إضافة دعوة</h2><p class="editor-hint">اختَر لقطة من أجمل جزء بالدعوة حتى تظهر على بطاقتها بالمعرض.</p>
+        <section class="admin-editor" aria-labelledby="editor-title"><h2 id="editor-title">إضافة دعوة</h2><p class="editor-hint">المعرض يعرض الدعوة المنشورة داخل موك أب موبايل حيّ. ما تحتاج ترفع صورة.</p>
           <form id="template-form">
             <input id="template-id" type="hidden">
             <div class="admin-fields">
@@ -35,10 +35,9 @@
               <label>المناسبة <span>*</span><select id="template-category" required><option value="engagement">خطوبة</option><option value="henna">حنة</option><option value="wedding">زفاف</option><option value="conferences">مؤتمرات</option><option value="openings">افتتاحيات</option></select></label>
               <label>رابط مستودع الدعوة على GitHub <span>*</span><input id="template-repo" type="url" inputmode="url" required placeholder="https://github.com/novixai29/…"></label>
               <label>رابط الدعوة المنشورة <span>*</span><input id="template-url" type="url" inputmode="url" required placeholder="https://novixai29.github.io/…/"></label>
+              <label class="field-full">رابط العرض داخل الموك أب <small>اختياري؛ إذا تركته فارغاً، يظهر رابط الدعوة المنشورة نفسه داخل إطار الموبايل.</small><input id="template-mockup" type="url" inputmode="url" placeholder="رابط صفحة عرض خاصة أو رابط الدعوة المنشورة"></label>
               <label class="field-full">تفاصيل التصميم <span>*</span><textarea id="template-description" rows="3" maxlength="380" required placeholder="شنو يميّز الدعوة؟"></textarea></label>
-              <label class="field-full">لقطة العرض <small id="image-help">مطلوبة للدعوة الجديدة · JPG أو PNG أو WebP حتى ٢ ميغابايت</small><input id="template-image" type="file" accept="image/png,image/jpeg,image/webp"></label>
             </div>
-            <div id="current-image" class="current-image" hidden></div>
             <fieldset><legend>طابع التصميم</legend><div id="style-options" class="choice-grid"></div></fieldset>
             <fieldset><legend>تفاصيل موجودة في الدعوة</legend><div id="feature-options" class="choice-grid"></div></fieldset>
             <div class="editor-actions"><button type="submit" class="button" id="save-template">حفظ الدعوة</button><button type="button" class="button secondary" id="cancel-edit">إلغاء التعديل</button></div>
