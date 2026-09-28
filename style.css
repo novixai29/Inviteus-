@@ -94,12 +94,12 @@ h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; letter-spacing: -.02
 .section-heading { display: flex; justify-content: space-between; gap: 14px 32px; flex-wrap: wrap; align-items: end; margin-bottom: 30px; }
 .section-heading h2 { margin-bottom: 0; color: var(--plum-dark); }
 .section-heading > p { max-width: 330px; margin-bottom: 4px; color: var(--muted); font-size: .9rem; }
-.category-list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(132px, 1fr); gap: 10px; overflow-x: auto; padding: 0 1px 15px; scrollbar-width: thin; scroll-snap-type: x proximity; }
-.category-card { min-height: 118px; display: flex; flex-direction: column; align-items: start; justify-content: center; gap: 5px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 13px; background: var(--white); color: var(--ink); text-align: right; scroll-snap-align: start; transition: background .2s, transform .2s, border-color .2s; }
+.category-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 0 1px 15px; }
+.category-card { min-width: 0; min-height: 105px; display: flex; flex-direction: column; align-items: start; justify-content: center; gap: 5px; padding: 12px; border: 1px solid var(--line); border-radius: 13px; background: var(--white); color: var(--ink); text-align: right; scroll-snap-align: start; transition: background .2s, transform .2s, border-color .2s; }
 .category-card:hover { transform: translateY(-3px); border-color: var(--rose); }
 .category-card.active { border-color: var(--plum); background: var(--plum); color: white; }
 .category-symbol { color: var(--gold); font-size: 1.4rem; line-height: 1; }
-.category-card strong { font-size: .95rem; }
+.category-card strong { font-size: .82rem; line-height: 1.5; }
 .category-card small { color: var(--muted); font-size: .72rem; }
 .category-card.active small { color: #c9ddda; }
 .results-line { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin: 24px 0 18px; }
@@ -218,7 +218,9 @@ dialog::backdrop { background: rgba(10,34,40,.76); backdrop-filter: blur(3px); }
   .header-contact { display: inline-flex; }
   .header-inner { min-height: 82px; }
   .hero-inner { min-height: 630px; padding-block: 82px; }
-  .category-list { grid-auto-columns: minmax(0, 1fr); overflow: visible; }
+  .category-list { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; }
+  .category-card { min-height: 90px; display: grid; grid-template-columns: auto 1fr; column-gap: 14px; }
+  .category-symbol { grid-row: span 2; align-self: center; }
   .template-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
