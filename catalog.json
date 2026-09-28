@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 1,
+    "henna": 2,
     "wedding": 1,
     "conferences": 1,
     "openings": 2
@@ -224,6 +224,26 @@
       "previewPath": "templates/engagement-j/index.html",
       "previewUrl": "https://novixai29.github.io/engagement-j/",
       "image": "previews/engagement-j.webp",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "HEN-001",
+      "name": "ليلة الرشيد",
+      "englishName": "Rasheed Night",
+      "category": "henna",
+      "styles": [
+        "classic",
+        "minimal"
+      ],
+      "description": "دعوة مستوحاة من بغداد القديمة وليالي الأزقة البغدادية، لكن بتنفيذ حديث ونظيف. ليست تراثية بشكل متحفي؛ بل كأن التراث البغدادي أُعيد تصميمه كمنتج فاخر معاصر.",
+      "features": [
+        "maps",
+        "calendar",
+        "darkMode"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-1/",
+      "repoUrl": "https://github.com/novixai29/hen-1",
       "trending": false,
       "newArrival": true
     }
