@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 2,
+    "henna": 3,
     "wedding": 1,
     "conferences": 1,
     "openings": 2,
@@ -248,6 +248,27 @@
       "previewUrl": "https://novixai29.github.io/hen-1/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "HEN-002",
+      "name": "نقش الحنة",
+      "englishName": "Henna Trace",
+      "category": "henna",
+      "styles": [
+        "luxury",
+        "minimal",
+        "creative"
+      ],
+      "description": "تجربة عربية فنية تتحول فيها تفاصيل حفل الحنة إلى نقش حي يتكون أثناء تصفح الدعوة.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-2-/",
+      "trending": false,
+      "newArrival": true
     }
-  ]
+  ],
+  "updatedAt": "2026-09-28T19:37:25.405Z"
 }
