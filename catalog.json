@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 3,
+    "henna": 4,
     "wedding": 1,
     "conferences": 1,
     "openings": 2,
@@ -268,7 +268,26 @@
       "previewUrl": "https://novixai29.github.io/hen-2/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "HEN-003",
+      "name": "مجلس الفرح",
+      "englishName": "Majlis",
+      "category": "henna",
+      "styles": [
+        "luxury",
+        "classic"
+      ],
+      "description": "دعوة رجالية أنيقة بروح المجلس العربي، هادئة وفخمة ومناسبة لحفلات الحنة الرسمية.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-3/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-28T19:38:41.448Z"
+  "updatedAt": "2026-09-28T21:14:09.517Z"
 }
