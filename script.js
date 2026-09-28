@@ -16,7 +16,6 @@ const SITE_CONFIG = {
 };
 
 const CATEGORIES = [
-  { id: 'all', name: 'كل التصاميم', symbol: '✧' },
   { id: 'engagement', name: 'خطوبة', symbol: '◇' },
   { id: 'henna', name: 'حنة', symbol: '❋' },
   { id: 'wedding', name: 'زفاف', symbol: '∞' },
@@ -25,6 +24,10 @@ const CATEGORIES = [
   { id: 'stores', name: 'متاجر', symbol: '▥' },
   { id: 'food-menus', name: 'قوائم الطعام', symbol: '☷' },
   { id: 'drink-menus', name: 'قوائم المشروبات', symbol: '♧' }
+];
+const DESIGN_GROUPS = [
+  { id:'invitations', name:'تصميم الدعوات', categories:['engagement','henna','wedding','conferences','openings'], list:'#category-list', panel:'#invitation-designs' },
+  { id:'commerce', name:'التجارة الإلكترونية', categories:['stores','food-menus','drink-menus'], list:'#commerce-category-list', panel:'#commerce' }
 ];
 
 const STYLES = {
@@ -77,7 +80,7 @@ try {
 } catch { /* المفضلة تظل متاحة لهذه الزيارة. */ }
 
 const PAGE_SIZE = 8;
-const state = { category:'all', collection:'all', page:1 };
+const state = { group:'invitations', category:'all', collection:'all', page:1 };
 let selectedTemplate = null;
 let previousFocus = null;
 let toastTimer = null;
@@ -245,18 +248,26 @@ function toast(message) {
 }
 
 function renderCategories() {
-  $('#category-list').innerHTML = CATEGORIES.map(category => {
-    const count = category.id === 'all' ? TEMPLATES.length : TEMPLATES.filter(template => template.category === category.id).length;
-    return `<button type="button" data-category="${category.id}" class="category-card ${state.category === category.id ? 'active' : ''}" aria-pressed="${state.category === category.id}"><span class="category-symbol" aria-hidden="true">${category.symbol}</span><strong>${category.name}</strong><small>${count ? `${number(count)} ${count === 1 ? 'تصميم' : 'تصاميم'}` : 'قريباً'}</small></button>`;
-  }).join('');
+  DESIGN_GROUPS.forEach(group => {
+    $(group.panel).classList.toggle('is-active', state.group === group.id && state.collection !== 'favorites');
+    const header = $(`${group.panel} [data-group]`);
+    header.setAttribute('aria-pressed', String(state.group === group.id && state.category === 'all' && state.collection !== 'favorites'));
+    $(group.list).innerHTML = CATEGORIES.filter(category => group.categories.includes(category.id)).map(category => {
+      const count = TEMPLATES.filter(template => template.category === category.id).length;
+      const active = state.group === group.id && state.category === category.id && state.collection !== 'favorites';
+      return `<button type="button" data-group="${group.id}" data-category="${category.id}" class="category-card ${active ? 'active' : ''}" aria-pressed="${active}"><span class="category-symbol" aria-hidden="true">${category.symbol}</span><strong>${category.name}</strong><small>${count ? `${number(count)} ${count === 1 ? 'تصميم' : 'تصاميم'}` : 'قريباً'}</small></button>`;
+    }).join('');
+  });
 }
 
 function filteredTemplates() {
   return TEMPLATES.filter(template => {
+    if (state.collection === 'favorites') return favorites.has(template.id);
+    const group = DESIGN_GROUPS.find(item => item.id === state.group);
+    if (!group?.categories.includes(template.category)) return false;
     if (state.category !== 'all' && template.category !== state.category) return false;
-    if (state.collection === 'favorites' && !favorites.has(template.id)) return false;
     return true;
-  }).reverse(); // ترتيب catalog.json هو ترتيب الإضافة؛ آخر دعوة مضافة تظهر أولاً.
+  }).reverse(); // ترتيب catalog.json هو ترتيب الإضافة؛ آخر تصميم مضاف يظهر أولاً.
 }
 
 function paginationMarkup(total, page, label) {
@@ -293,6 +304,7 @@ function cardMarkup(template) {
 
 function renderGallery() {
   renderCategories();
+  $('#active-group-title').textContent = state.collection === 'favorites' ? 'التصاميم المفضلة' : DESIGN_GROUPS.find(group => group.id === state.group)?.name || 'تصميم الدعوات';
   const templates = filteredTemplates();
   const pages = Math.max(1, Math.ceil(templates.length / PAGE_SIZE));
   state.page = Math.min(Math.max(state.page, 1), pages);
@@ -303,8 +315,8 @@ function renderGallery() {
   $$('#template-grid .mockup-stage').forEach(stopMockup);
   $('#template-grid').innerHTML = visible.map(cardMarkup).join('');
   activateMockups($('#template-grid'));
-  const labels = { all:'كل التصاميم', favorites:'المفضلة' };
-  $('#result-count').textContent = `${labels[state.collection]} · ${number(templates.length)} تصاميم حقيقية · المعروض هسه ${number(visible.length)}`;
+  const label = state.collection === 'favorites' ? 'المفضلة' : state.category === 'all' ? $('#active-group-title').textContent : categoryName(state.category);
+  $('#result-count').textContent = `${label} · ${number(templates.length)} تصاميم حقيقية · المعروض هسه ${number(visible.length)}`;
   $('#favorite-count').textContent = number(favorites.size);
   $('#favorite-nav').setAttribute('aria-label', `عرض المفضلة: ${number(favorites.size)} تصاميم`);
   $('#favorite-nav').classList.toggle('has-favorites', favorites.size > 0);
@@ -313,13 +325,14 @@ function renderGallery() {
   if (!templates.length) {
     const category = CATEGORIES.find(item => item.id === state.category);
     const upcoming = state.category !== 'all' && !TEMPLATES.some(template => template.category === state.category);
-    $('#empty-title').textContent = upcoming ? `تصاميم ${category.name} قيد التجهيز` : state.collection === 'favorites' && !favorites.size ? 'مفضّلتك تنتظر أول تصميم' : 'ما لقينا تصميماً مطابقاً';
-    $('#empty-copy').textContent = upcoming ? 'نضيف تصاميم هذه الفئة قريباً. وتكدر تتواصل ويانا إذا عندك فكرة لتصميمك.' : state.collection === 'favorites' && !favorites.size ? 'اضغط علامة القلب على التصميم اللي يعجبك حتى ترجع له بسهولة.' : 'جرّب اختيار فئة أخرى.';
+    const groupEmpty = state.collection !== 'favorites' && !TEMPLATES.some(template => DESIGN_GROUPS.find(group => group.id === state.group)?.categories.includes(template.category));
+    $('#empty-title').textContent = upcoming ? `تصاميم ${category.name} قيد التجهيز` : groupEmpty ? `تصاميم ${$('#active-group-title').textContent} قيد التجهيز` : state.collection === 'favorites' && !favorites.size ? 'مفضّلتك تنتظر أول تصميم' : 'ما لقينا تصميماً مطابقاً';
+    $('#empty-copy').textContent = upcoming || groupEmpty ? 'هنا راح تظهر التصاميم المنشورة فور إضافتها من لوحة الإدارة. وتكدر تتواصل ويانا إذا عندك فكرة لتصميمك.' : state.collection === 'favorites' && !favorites.size ? 'اضغط علامة القلب على التصميم اللي يعجبك حتى ترجع له بسهولة.' : 'جرّب اختيار قسم آخر.';
   }
 }
 
 function resetFilters() {
-  Object.assign(state, { category:'all', collection:'all', page:1 });
+  Object.assign(state, { group:'invitations', category:'all', collection:'all', page:1 });
   renderGallery();
 }
 
@@ -425,10 +438,17 @@ document.addEventListener('click', event => {
   const button = event.target.closest('button');
   if (!button) return;
   if (button.dataset.category) {
+    state.group = button.dataset.group;
     state.category = button.dataset.category;
+    state.collection = 'all';
     state.page = 1;
     renderGallery();
     $(`[data-category="${state.category}"]`)?.focus({ preventScroll:true });
+    $('#active-group-title').scrollIntoView({ behavior:'smooth', block:'start' });
+  } else if (button.dataset.group) {
+    Object.assign(state, { group:button.dataset.group, category:'all', collection:'all', page:1 });
+    renderGallery();
+    $('#active-group-title').scrollIntoView({ behavior:'smooth', block:'start' });
   } else if (button.dataset.page) {
     const page = Number(button.dataset.page);
     if (!Number.isInteger(page) || page < 1 || page > Math.ceil(filteredTemplates().length / PAGE_SIZE)) return;
@@ -455,6 +475,10 @@ $('#menu-toggle').addEventListener('click', () => {
   $('#menu-toggle').setAttribute('aria-label', opened ? 'إغلاق القائمة' : 'فتح القائمة');
 });
 $$('#main-nav a').forEach(link => link.addEventListener('click', closeMenu));
+$$('a[href="#commerce"]').forEach(link => link.addEventListener('click', () => {
+  Object.assign(state, { group:'commerce', category:'all', collection:'all', page:1 });
+  renderGallery();
+}));
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
 $('#preview-dialog').addEventListener('close', () => {
   document.body.classList.remove('modal-open');
@@ -474,6 +498,7 @@ window.addEventListener('storage', event => {
 
 // بيانات المعرض تُحدَّث من المستودع مباشرة، بينما تبقى النسخة المضمّنة احتياطاً عند انقطاع الاتصال.
 const catalogApi = 'https://api.github.com/repos/novixai29/Inviteus-/contents/catalog.json';
+let catalogUpdatedAt = '';
 function decodeCatalog(content) {
   const bytes = Uint8Array.from(atob(content.replace(/\s/g, '')), char => char.charCodeAt(0));
   return JSON.parse(new TextDecoder().decode(bytes));
@@ -494,11 +519,20 @@ function validCatalogTemplate(template) {
 }
 async function refreshCatalog() {
   try {
-    const response = await fetch(`${catalogApi}?ref=main&v=${Math.floor(Date.now() / 30000)}`, { cache:'no-store', headers:{ Accept:'application/vnd.github+json' } });
-    if (!response.ok) return;
-    const file = await response.json();
-    const catalog = file.content ? decodeCatalog(file.content) : file;
+    let catalog;
+    try {
+      const response = await fetch(`${catalogApi}?ref=main&v=${Date.now()}`, { cache:'no-store', headers:{ Accept:'application/vnd.github+json' } });
+      if (!response.ok) throw new Error('GitHub API unavailable');
+      const file = await response.json();
+      catalog = file.content ? decodeCatalog(file.content) : file;
+    } catch {
+      const response = await fetch(`catalog.json?v=${Date.now()}`, { cache:'no-store' });
+      if (!response.ok) return;
+      catalog = await response.json();
+    }
     if (!Array.isArray(catalog.templates) || !catalog.templates.every(validCatalogTemplate)) return;
+    if (catalogUpdatedAt && (!catalog.updatedAt || catalog.updatedAt < catalogUpdatedAt)) return;
+    catalogUpdatedAt = catalog.updatedAt || catalogUpdatedAt;
     if (JSON.stringify(catalog.templates) === JSON.stringify(TEMPLATES)) return;
     TEMPLATES = catalog.templates;
     favorites = new Set([...favorites].filter(id => TEMPLATES.some(template => template.id === id)));
@@ -514,7 +548,9 @@ if ('BroadcastChannel' in window) {
   catalogChannel.addEventListener('message', event => { if (event.data === 'updated') refreshCatalog(); });
 }
 document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshCatalog(); });
-setInterval(refreshCatalog, 180000);
+window.addEventListener('pageshow', refreshCatalog);
+window.addEventListener('focus', refreshCatalog);
+setInterval(refreshCatalog, 90000);
 
 renderGallery();
 renderSocials();

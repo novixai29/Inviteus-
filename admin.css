@@ -48,7 +48,7 @@ body { background: #f3f5f1; }
 .choice-grid label { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 99px; background: #fff; font-size: .75rem; }
 .choice-grid input { accent-color: var(--plum); }
 .editor-actions { margin-top: 24px; }
-.admin-status { position: sticky; bottom: 10px; width: fit-content; max-width: 100%; margin: 18px auto 0; padding: 0; border-radius: 9px; font-size: .82rem; }
+.admin-status { position: fixed; z-index: 100; right: 50%; bottom: 16px; transform: translateX(50%); width: max-content; max-width: calc(100vw - 24px); margin: 0; padding: 0; border-radius: 9px; font-size: .82rem; text-align: center; }
 .admin-status:not(:empty) { padding: 9px 15px; background: var(--plum-dark); color: white; box-shadow: var(--shadow); }
 .admin-status.error:not(:empty) { background: #943a38; }
 @media (min-width: 760px) { .admin-layout { grid-template-columns: minmax(250px,.85fr) minmax(0,1.4fr); } .admin-editor { position: sticky; top: 20px; } .admin-fields { grid-template-columns: repeat(2,minmax(0,1fr)); } .field-full { grid-column: 1/-1; } }

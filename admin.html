@@ -17,11 +17,12 @@
 
     <section class="admin-login" id="login-panel" aria-labelledby="login-title">
       <h2 id="login-title">دخول المالك</h2>
-      <p>أدخل رمز وصول GitHub المخصص لمستودع Inviteus. يبقى الرمز في هذه الصفحة فقط ولا يُحفظ على الجهاز أو في ملفات الموقع.</p>
+      <p>أدخل رمز وصول GitHub المخصص لمستودع Inviteus. يبقى الرمز في جلسة هذا التبويب حتى لا تضيع إضافتك إذا أعاد الموبايل تحميل الصفحة، ويُمسح عند الخروج.</p>
       <form id="login-form"><label for="access-token">رمز الوصول</label><div class="login-row"><input id="access-token" name="access-token" type="password" autocomplete="off" spellcheck="false" required placeholder="github_pat_…"><button class="button" type="submit">افتح اللوحة</button></div></form>
       <p class="admin-help">يحتاج الرمز صلاحية <b>Contents: Read and write</b> لهذا المستودع فقط. <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">إنشاء رمز محدود على GitHub ↗</a></p>
     </section>
 
+    <p id="admin-status" class="admin-status" role="status" aria-live="polite"></p>
     <div id="admin-workspace" hidden>
       <div class="admin-toolbar"><div><strong id="catalog-count">التصاميم</strong><span id="connected-user"></span></div><div class="toolbar-actions"><button type="button" class="button secondary" id="new-template">+ تصميم جديد</button><button type="button" class="button secondary" id="reload-catalog">تحديث القائمة</button><button type="button" class="text-link" id="logout">خروج</button></div></div>
       <div class="admin-layout">
@@ -32,7 +33,7 @@
             <div class="admin-fields">
               <label>اسم التصميم بالعربي <span>*</span><input id="template-name" maxlength="80" required placeholder="مثلاً: ليلة العمر"></label>
               <label>الاسم بالإنجليزي <input id="template-english" maxlength="80" placeholder="Optional"></label>
-              <label>القسم <span>*</span><select id="template-category" required><optgroup label="الدعوات"><option value="engagement">خطوبة</option><option value="henna">حنة</option><option value="wedding">زفاف</option><option value="conferences">مؤتمرات</option><option value="openings">افتتاحيات</option></optgroup><optgroup label="متاجر وقوائم رقمية"><option value="stores">متاجر</option><option value="food-menus">قوائم الطعام</option><option value="drink-menus">قوائم المشروبات</option></optgroup></select></label>
+              <label>القسم <span>*</span><select id="template-category" required><optgroup label="تصميم الدعوات"><option value="engagement">خطوبة</option><option value="henna">حنة</option><option value="wedding">زفاف</option><option value="conferences">مؤتمرات</option><option value="openings">افتتاحيات</option></optgroup><optgroup label="التجارة الإلكترونية"><option value="stores">متاجر</option><option value="food-menus">قوائم الطعام</option><option value="drink-menus">قوائم المشروبات</option></optgroup></select></label>
               <label>رابط التصميم المنشور <span>*</span><input id="template-url" type="url" inputmode="url" required placeholder="https://example.com/design/"></label>
               <label class="field-full">رابط العرض داخل البطاقة <small>اختياري؛ إذا تركته فارغاً، يظهر رابط التصميم المنشور نفسه على مساحة البطاقة.</small><input id="template-mockup" type="url" inputmode="url" placeholder="رابط صفحة عرض خاصة أو رابط التصميم المنشور"></label>
               <label class="field-full">رابط فيديو المعاينة الصامت <small>اختياري؛ يفيد للتصاميم المنشورة في موقع آخر حتى تتحرك المعاينة تلقائياً عند التأشير أو اللمس. استخدم رابط MP4 أو WebM مباشر.</small><input id="template-mockup-video" type="url" inputmode="url" placeholder="https://…/preview.mp4"></label>
@@ -45,7 +46,6 @@
         </section>
       </div>
     </div>
-    <p id="admin-status" class="admin-status" role="status" aria-live="polite"></p>
   </main>
 </body>
 </html>

@@ -16,6 +16,33 @@ let catalogSha = '';
 let busy = false;
 const PAGE_SIZE = 8;
 let adminPage = 1;
+const TOKEN_SESSION_KEY = 'inviteus-admin-token-v1';
+const DRAFT_SESSION_KEY = 'inviteus-admin-draft-v1';
+const draftFields = ['template-id', 'template-name', 'template-english', 'template-category', 'template-url', 'template-mockup', 'template-mockup-video', 'template-description'];
+
+function sessionRead(key) { try { return sessionStorage.getItem(key) || ''; } catch { return ''; } }
+function sessionWrite(key, value) { try { sessionStorage.setItem(key, value); } catch { /* تظل اللوحة شغالة إذا منع المتصفح التخزين. */ } }
+function sessionRemove(key) { try { sessionStorage.removeItem(key); } catch { /* لا حاجة لأي إجراء. */ } }
+function saveDraft() {
+  const values = Object.fromEntries(draftFields.map(id => [id, $(`#${id}`).value]));
+  values.styles = [...document.querySelectorAll('[name="styles"]:checked')].map(input => input.value);
+  values.features = [...document.querySelectorAll('[name="features"]:checked')].map(input => input.value);
+  sessionWrite(DRAFT_SESSION_KEY, JSON.stringify(values));
+}
+function restoreDraft() {
+  try {
+    const draft = JSON.parse(sessionRead(DRAFT_SESSION_KEY));
+    if (!draft || typeof draft !== 'object') return false;
+    for (const id of draftFields) if (typeof draft[id] === 'string') $(`#${id}`).value = draft[id];
+    document.querySelectorAll('[name="styles"]').forEach(input => { input.checked = draft.styles?.includes(input.value) || false; });
+    document.querySelectorAll('[name="features"]').forEach(input => { input.checked = draft.features?.includes(input.value) || false; });
+    if (draft['template-id'] && catalog.templates.some(item => item.id === draft['template-id'])) {
+      $('#editor-title').textContent = 'إكمال تعديل التصميم';
+      $('#save-template').textContent = 'حفظ التعديلات';
+    }
+    return true;
+  } catch { return false; }
+}
 
 function status(message, error = false) {
   const element = $('#admin-status');
@@ -90,6 +117,7 @@ function resetForm() {
   $('#template-id').value = '';
   $('#editor-title').textContent = 'إضافة تصميم';
   $('#save-template').textContent = 'حفظ التصميم';
+  sessionRemove(DRAFT_SESSION_KEY);
 }
 function editTemplate(id) {
   const template = catalog.templates.find(item => item.id === id);
@@ -107,6 +135,7 @@ function editTemplate(id) {
   document.querySelectorAll('[name="features"]').forEach(input => { input.checked = template.features.includes(input.value); });
   $('#editor-title').textContent = `تعديل ${template.name}`;
   $('#save-template').textContent = 'حفظ التعديلات';
+  saveDraft();
   $('#template-form').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 function validatedUrl(value, kind) {
@@ -133,12 +162,13 @@ async function saveCatalog(nextCatalog, message) {
   const latest = await readCatalog();
   if (latest.sha !== catalogSha) throw new Error('تغيّرت القائمة من مكان آخر. اضغط «تحديث القائمة» قبل الحفظ.');
   // روابط المستودعات القديمة ليست جزءاً من بيانات العرض أو من التصاميم الجديدة.
-  nextCatalog = { ...nextCatalog, templates:nextCatalog.templates.map(({ repoUrl, ...template }) => template) };
+  nextCatalog = { ...nextCatalog, updatedAt:new Date().toISOString(), templates:nextCatalog.templates.map(({ repoUrl, ...template }) => template) };
   const bytes = new TextEncoder().encode(`${JSON.stringify(nextCatalog, null, 2)}\n`);
   const result = await api(`repos/${REPO_OWNER}/${REPO_NAME}/contents/catalog.json`, {
     method:'PUT', headers:{'Content-Type':'application/json'},
     body:JSON.stringify({ message, content:encodeBase64(bytes), sha:catalogSha, branch:'main' })
   });
+  if (!result.content?.sha) throw new Error('GitHub ما أكّد حفظ التصميم. حدّث القائمة وتأكد قبل إعادة المحاولة.');
   catalog = nextCatalog;
   catalogSha = result.content.sha;
   adminPage = 1;
@@ -150,34 +180,42 @@ async function saveCatalog(nextCatalog, message) {
   }
 }
 
+async function connect(candidate, resumed = false) {
+  token = candidate;
+  const profile = await api('user');
+  if (profile.login?.toLowerCase() !== REPO_OWNER.toLowerCase()) throw new Error(`هذا الرمز لحساب ${profile.login || 'آخر'}؛ يحتاج حساب ${REPO_OWNER}.`);
+  const latest = await readCatalog();
+  catalog = latest.data;
+  catalogSha = latest.sha;
+  adminPage = 1;
+  sessionWrite(TOKEN_SESSION_KEY, candidate);
+  $('#access-token').value = '';
+  $('#connected-user').textContent = `متصل بحساب ${profile.login}`;
+  $('#login-panel').hidden = true;
+  $('#admin-workspace').hidden = false;
+  renderCards();
+  if (!restoreDraft()) resetForm();
+  status(resumed ? 'رجعنا اللوحة والمسودة بعد إعادة تحميل الصفحة.' : 'اللوحة جاهزة.');
+}
 $('#login-form').addEventListener('submit', async event => {
   event.preventDefault();
   const candidate = $('#access-token').value.trim();
   if (!candidate) return;
-  token = candidate;
   status('نتأكد من صلاحية الرمز…');
-  try {
-    const profile = await api('user');
-    if (profile.login?.toLowerCase() !== REPO_OWNER.toLowerCase()) throw new Error(`هذا الرمز لحساب ${profile.login || 'آخر'}؛ يحتاج حساب ${REPO_OWNER}.`);
-    const latest = await readCatalog();
-    catalog = latest.data;
-    catalogSha = latest.sha;
-    adminPage = 1;
-    $('#access-token').value = '';
-    $('#connected-user').textContent = `متصل بحساب ${profile.login}`;
-    $('#login-panel').hidden = true;
-    $('#admin-workspace').hidden = false;
-    renderCards();
-    resetForm();
-    status('اللوحة جاهزة.');
-  } catch (error) { token = ''; status(error.message, true); }
+  try { await connect(candidate); }
+  catch (error) { token = ''; sessionRemove(TOKEN_SESSION_KEY); status(error.message, true); }
 });
+$('#template-form').addEventListener('input', saveDraft);
+$('#template-form').addEventListener('change', saveDraft);
 $('#template-form').addEventListener('submit', async event => {
   event.preventDefault();
   if (busy || !catalog) return;
   setBusy(true);
   status('نحفظ التصميم…');
   try {
+    const latest = await readCatalog();
+    catalog = latest.data;
+    catalogSha = latest.sha;
     const originalId = $('#template-id').value;
     const category = $('#template-category').value;
     if (!Object.hasOwn(CATEGORY_NAMES, category)) throw new Error('اختر قسماً صالحاً للتصميم.');
@@ -189,6 +227,7 @@ $('#template-form').addEventListener('submit', async event => {
     const mockupVideoUrl = videoValue ? validatedUrl(videoValue, 'رابط فيديو المعاينة') : '';
     if (mockupVideoUrl && !/\.(mp4|webm)(?:\?|#|$)/i.test(mockupVideoUrl)) throw new Error('رابط فيديو المعاينة لازم يشير إلى ملف MP4 أو WebM مباشر.');
     const original = catalog.templates.find(item => item.id === originalId);
+    if (originalId && !original) throw new Error('التصميم تغير أو انحذف من مكان آخر. حدّث القائمة قبل تعديل التصميم.');
     const template = {
       id, name:$('#template-name').value.trim(), englishName:$('#template-english').value.trim(), category,
       styles:[...document.querySelectorAll('[name="styles"]:checked')].map(input => input.value),
@@ -205,7 +244,16 @@ $('#template-form').addEventListener('submit', async event => {
     await saveCatalog({ ...catalog, nextIds, templates }, `${original ? 'Update' : 'Add'} design ${id}`);
     resetForm();
     status(`انحفظ تصميم «${template.name}» بنجاح. افتح الموقع أو حدّثه حتى تشوفه.`);
-  } catch (error) { status(error.message, true); }
+    $('#admin-cards').scrollIntoView({ behavior:'smooth', block:'start' });
+  } catch (error) {
+    if (error.message.includes('رمز الوصول غير صحيح')) {
+      token = '';
+      sessionRemove(TOKEN_SESSION_KEY);
+      $('#login-panel').hidden = false;
+      status('انتهت صلاحية رمز GitHub. أدخله مجدداً؛ تفاصيل التصميم محفوظة في هذا التبويب.', true);
+      $('#login-panel').scrollIntoView({ behavior:'smooth', block:'start' });
+    } else status(error.message, true);
+  }
   finally { setBusy(false); }
 });
 $('#admin-cards').addEventListener('click', async event => {
@@ -246,9 +294,20 @@ $('#reload-catalog').addEventListener('click', async () => {
 });
 $('#logout').addEventListener('click', () => {
   token = ''; catalog = null; catalogSha = '';
+  sessionRemove(TOKEN_SESSION_KEY);
+  sessionRemove(DRAFT_SESSION_KEY);
   $('#admin-workspace').hidden = true;
   $('#login-panel').hidden = false;
   $('#login-form').reset();
   status('طلعت من لوحة الإدارة.');
 });
 styleChoices();
+const rememberedToken = sessionRead(TOKEN_SESSION_KEY);
+if (rememberedToken) {
+  status('نرجّع جلسة لوحة الإدارة…');
+  connect(rememberedToken, true).catch(error => {
+    token = '';
+    sessionRemove(TOKEN_SESSION_KEY);
+    status(`تعذّر استرجاع الجلسة: ${error.message} مسودة التصميم محفوظة بهذا التبويب.`, true);
+  });
+}
