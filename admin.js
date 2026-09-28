@@ -3,10 +3,10 @@
 const REPO_OWNER = 'novixai29';
 const REPO_NAME = 'Inviteus-';
 const API_ROOT = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
-const CATEGORY_NAMES = { engagement:'خطوبة', henna:'حنة', wedding:'زفاف', conferences:'مؤتمرات', openings:'افتتاحيات' };
-const CATEGORY_CODES = { engagement:'ENG', henna:'HEN', wedding:'WED', conferences:'CON', openings:'OPN' };
+const CATEGORY_NAMES = { engagement:'خطوبة', henna:'حنة', wedding:'زفاف', conferences:'مؤتمرات', openings:'افتتاحيات', stores:'متاجر', 'food-menus':'قوائم الطعام', 'drink-menus':'قوائم المشروبات' };
+const CATEGORY_CODES = { engagement:'ENG', henna:'HEN', wedding:'WED', conferences:'CON', openings:'OPN', stores:'STR', 'food-menus':'FOD', 'drink-menus':'DRK' };
 const STYLES = { luxury:'فاخر', classic:'كلاسيكي', romantic:'رومانسي', minimal:'بسيط', creative:'مبتكر', modern:'عصري' };
-const FEATURES = { photos:'صور شخصية', bilingual:'عربي / إنجليزي', countdown:'عدّ تنازلي', maps:'رابط موقع القاعة', calendar:'إضافة الموعد للتقويم', darkMode:'وضع داكن', audio:'صوت ضمن الدعوة الأصلية' };
+const FEATURES = { photos:'معرض صور', bilingual:'عربي / إنجليزي', countdown:'عدّ تنازلي', maps:'رابط الموقع على الخريطة', calendar:'إضافة الموعد للتقويم', darkMode:'وضع داكن', audio:'صوت ضمن التصميم الأصلي' };
 const $ = selector => document.querySelector(selector);
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const number = value => new Intl.NumberFormat('ar-IQ').format(value);
@@ -57,7 +57,7 @@ async function api(path, options = {}) {
 async function readCatalog() {
   const file = await api(`repos/${REPO_OWNER}/${REPO_NAME}/contents/catalog.json?ref=main&v=${Date.now()}`);
   const data = JSON.parse(decodeBase64(file.content));
-  if (!Array.isArray(data.templates)) throw new Error('ملف الدعوات في المستودع غير صالح.');
+  if (!Array.isArray(data.templates)) throw new Error('ملف التصاميم في المستودع غير صالح.');
   return { data, sha:file.sha };
 }
 function styleChoices() {
@@ -72,27 +72,12 @@ function renderCards() {
   const pagination = templates.length ? `<span class="page-summary">صفحة ${number(adminPage)} من ${number(pages)}</span><div class="page-buttons"><button type="button" data-admin-page="${adminPage - 1}" ${adminPage === 1 ? 'disabled' : ''} aria-label="الصفحة السابقة">‹</button>${Array.from({ length:pages }, (_, index) => `<button type="button" data-admin-page="${index + 1}" aria-label="صفحة ${number(index + 1)}" ${index + 1 === adminPage ? 'aria-current="page"' : ''}>${number(index + 1)}</button>`).join('')}<button type="button" data-admin-page="${adminPage + 1}" ${adminPage === pages ? 'disabled' : ''} aria-label="الصفحة التالية">›</button></div>` : '';
   $('#admin-pages-top').innerHTML = pagination;
   $('#admin-pages-bottom').innerHTML = pagination;
-  $('#catalog-count').textContent = `${number(templates.length)} دعوات في المعرض`;
+  $('#catalog-count').textContent = `${number(templates.length)} تصاميم في المعرض`;
   $('#admin-cards').innerHTML = templates.length ? visible.map(template => `<article class="admin-card">
     <div class="admin-card-preview" aria-hidden="true"><span>✦</span></div>
     <div class="admin-card-body"><strong>${escapeHTML(template.name)}</strong><small>${escapeHTML(CATEGORY_NAMES[template.category] || template.category)} · ${escapeHTML(template.id)}</small>
-      <div class="admin-card-actions"><button type="button" data-edit="${escapeHTML(template.id)}">تعديل</button><a href="${escapeHTML(template.previewUrl)}" target="_blank" rel="noopener noreferrer">شاهد الدعوة ↗</a><button type="button" class="danger" data-delete="${escapeHTML(template.id)}">حذف</button></div>
-    </div></article>`).join('') : '<p>ماكو دعوات حالياً. أضف أول دعوة من النموذج.</p>';
-}
-function repoFromPublished(url) {
-  try {
-    const parsed = new URL(url);
-    const match = parsed.hostname.match(/^([\w-]+)\.github\.io$/);
-    const repository = parsed.pathname.split('/').filter(Boolean)[0];
-    return match && repository ? `https://github.com/${match[1]}/${repository}` : '';
-  } catch { return ''; }
-}
-function publishedFromRepo(url) {
-  try {
-    const parsed = new URL(url);
-    const parts = parsed.pathname.split('/').filter(Boolean);
-    return parsed.hostname === 'github.com' && parts.length === 2 ? `https://${parts[0]}.github.io/${parts[1]}/` : '';
-  } catch { return ''; }
+      <div class="admin-card-actions"><button type="button" data-edit="${escapeHTML(template.id)}">تعديل</button><a href="${escapeHTML(template.previewUrl)}" target="_blank" rel="noopener noreferrer">شاهد التصميم ↗</a><button type="button" class="danger" data-delete="${escapeHTML(template.id)}">حذف</button></div>
+    </div></article>`).join('') : '<p>ماكو تصاميم حالياً. أضف أول تصميم من النموذج.</p>';
 }
 function newId(category) {
   const prefix = CATEGORY_CODES[category];
@@ -103,8 +88,8 @@ function newId(category) {
 function resetForm() {
   $('#template-form').reset();
   $('#template-id').value = '';
-  $('#editor-title').textContent = 'إضافة دعوة';
-  $('#save-template').textContent = 'حفظ الدعوة';
+  $('#editor-title').textContent = 'إضافة تصميم';
+  $('#save-template').textContent = 'حفظ التصميم';
 }
 function editTemplate(id) {
   const template = catalog.templates.find(item => item.id === id);
@@ -114,7 +99,6 @@ function editTemplate(id) {
   $('#template-name').value = template.name;
   $('#template-english').value = template.englishName || '';
   $('#template-category').value = template.category;
-  $('#template-repo').value = template.repoUrl || repoFromPublished(template.previewUrl);
   $('#template-url').value = template.previewUrl;
   $('#template-mockup').value = template.mockupUrl || '';
   $('#template-mockup-video').value = template.mockupVideoUrl || '';
@@ -148,6 +132,8 @@ async function removeUnusedPreview(template) {
 async function saveCatalog(nextCatalog, message) {
   const latest = await readCatalog();
   if (latest.sha !== catalogSha) throw new Error('تغيّرت القائمة من مكان آخر. اضغط «تحديث القائمة» قبل الحفظ.');
+  // روابط المستودعات القديمة ليست جزءاً من بيانات العرض أو من التصاميم الجديدة.
+  nextCatalog = { ...nextCatalog, templates:nextCatalog.templates.map(({ repoUrl, ...template }) => template) };
   const bytes = new TextEncoder().encode(`${JSON.stringify(nextCatalog, null, 2)}\n`);
   const result = await api(`repos/${REPO_OWNER}/${REPO_NAME}/contents/catalog.json`, {
     method:'PUT', headers:{'Content-Type':'application/json'},
@@ -186,21 +172,17 @@ $('#login-form').addEventListener('submit', async event => {
     status('اللوحة جاهزة.');
   } catch (error) { token = ''; status(error.message, true); }
 });
-$('#template-repo').addEventListener('change', () => {
-  if (!$('#template-url').value.trim()) $('#template-url').value = publishedFromRepo($('#template-repo').value);
-});
 $('#template-form').addEventListener('submit', async event => {
   event.preventDefault();
   if (busy || !catalog) return;
   setBusy(true);
-  status('نحفظ الدعوة في المستودع…');
+  status('نحفظ التصميم…');
   try {
     const originalId = $('#template-id').value;
     const category = $('#template-category').value;
+    if (!Object.hasOwn(CATEGORY_NAMES, category)) throw new Error('اختر قسماً صالحاً للتصميم.');
     const id = originalId || newId(category);
-    const repoUrl = validatedUrl($('#template-repo').value, 'رابط المستودع');
-    if (new URL(repoUrl).hostname !== 'github.com') throw new Error('رابط المستودع لازم يكون من GitHub.');
-    const previewUrl = validatedUrl($('#template-url').value, 'رابط الدعوة');
+    const previewUrl = validatedUrl($('#template-url').value, 'رابط التصميم المنشور');
     const mockupValue = $('#template-mockup').value.trim();
     const mockupUrl = mockupValue ? validatedUrl(mockupValue, 'رابط عرض البطاقة') : '';
     const videoValue = $('#template-mockup-video').value.trim();
@@ -212,16 +194,17 @@ $('#template-form').addEventListener('submit', async event => {
       styles:[...document.querySelectorAll('[name="styles"]:checked')].map(input => input.value),
       description:$('#template-description').value.trim(),
       features:[...document.querySelectorAll('[name="features"]:checked')].map(input => input.value),
-      previewUrl, repoUrl, ...(mockupUrl ? { mockupUrl } : {}), ...(mockupVideoUrl ? { mockupVideoUrl } : {}),
+      previewUrl, ...(mockupUrl ? { mockupUrl } : {}), ...(mockupVideoUrl ? { mockupVideoUrl } : {}),
+      ...(original?.previewPath && original.previewUrl === previewUrl ? { previewPath:original.previewPath } : {}),
       ...(original?.image ? { image:original.image } : {}),
       trending:original?.trending || false, newArrival:original?.newArrival ?? true
     };
     if (!template.name || !template.description) throw new Error('اكتب اسم التصميم وتفاصيله.');
     const templates = original ? catalog.templates.map(item => item.id === originalId ? template : item) : [...catalog.templates, template];
     const nextIds = original ? catalog.nextIds : { ...catalog.nextIds, [category]:Number(id.split('-')[1]) + 1 };
-    await saveCatalog({ ...catalog, nextIds, templates }, `${original ? 'Update' : 'Add'} invitation ${id}`);
+    await saveCatalog({ ...catalog, nextIds, templates }, `${original ? 'Update' : 'Add'} design ${id}`);
     resetForm();
-    status(`انحفظت دعوة «${template.name}» بنجاح. افتح الموقع أو حدّثه حتى تشوفها.`);
+    status(`انحفظ تصميم «${template.name}» بنجاح. افتح الموقع أو حدّثه حتى تشوفه.`);
   } catch (error) { status(error.message, true); }
   finally { setBusy(false); }
 });
@@ -235,7 +218,7 @@ $('#admin-cards').addEventListener('click', async event => {
   setBusy(true);
   status('نحذف البطاقة من المعرض…');
   try {
-    await saveCatalog({ ...catalog, templates:catalog.templates.filter(item => item.id !== template.id) }, `Remove invitation ${template.id}`);
+    await saveCatalog({ ...catalog, templates:catalog.templates.filter(item => item.id !== template.id) }, `Remove design ${template.id}`);
     if ($('#template-id').value === template.id) resetForm();
     try { await removeUnusedPreview(template); }
     catch { status(`انحذفت البطاقة، لكن تعذّر تنظيف صورة عرضها.`, true); return; }
