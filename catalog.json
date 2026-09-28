@@ -240,8 +240,7 @@
       "features": [
         "maps",
         "calendar",
-        "darkMode",
-        "audio"
+        "darkMode"
       ],
       "previewUrl": "https://novixai29.github.io/hen-1/",
       "repoUrl": "https://github.com/novixai29/hen-1",
