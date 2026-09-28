@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 2,
+    "henna": 3,
     "wedding": 1,
     "conferences": 1,
     "openings": 2
@@ -244,6 +244,26 @@
       ],
       "previewUrl": "https://novixai29.github.io/hen-1/",
       "repoUrl": "https://github.com/novixai29/hen-1",
+      "trending": false,
+      "newArrival": true
+    },
+    {
+      "id": "HEN-002",
+      "name": "نقش الحنة",
+      "englishName": "Henna Trace",
+      "category": "henna",
+      "styles": [
+        "minimal",
+        "creative",
+        "modern"
+      ],
+      "description": "تصميم مبني بالكامل حول شكل الحناء نفسها. لا توجد صور رجال ولا قاعات ولا فوانيس. خط نباتي رفيع ينمو خلال الصفحة ويقود الزائر من معلومة إلى أخرى.",
+      "features": [
+        "countdown",
+        "maps"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-2-/",
+      "repoUrl": "https://github.com/novixai29/hen-2-",
       "trending": false,
       "newArrival": true
     }
