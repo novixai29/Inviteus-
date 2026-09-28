@@ -16,12 +16,15 @@ const SITE_CONFIG = {
 };
 
 const CATEGORIES = [
-  { id: 'all', name: 'كل المناسبات', symbol: '✧' },
+  { id: 'all', name: 'كل التصاميم', symbol: '✧' },
   { id: 'engagement', name: 'خطوبة', symbol: '◇' },
   { id: 'henna', name: 'حنة', symbol: '❋' },
   { id: 'wedding', name: 'زفاف', symbol: '∞' },
   { id: 'conferences', name: 'مؤتمرات', symbol: '▤' },
-  { id: 'openings', name: 'افتتاحيات', symbol: '⌑' }
+  { id: 'openings', name: 'افتتاحيات', symbol: '⌑' },
+  { id: 'stores', name: 'متاجر', symbol: '▥' },
+  { id: 'food-menus', name: 'قوائم الطعام', symbol: '☷' },
+  { id: 'drink-menus', name: 'قوائم المشروبات', symbol: '♧' }
 ];
 
 const STYLES = {
@@ -35,13 +38,13 @@ const STYLES = {
 };
 
 const FEATURES = {
-  photos: 'صور شخصية',
+  photos: 'معرض صور',
   bilingual: 'عربي / إنجليزي',
   countdown: 'عدّ تنازلي',
-  maps: 'رابط موقع القاعة',
+  maps: 'الموقع على الخريطة',
   calendar: 'إضافة الموعد للتقويم',
   darkMode: 'وضع داكن',
-  audio: 'صوت ضمن الدعوة الأصلية'
+  audio: 'صوت ضمن التصميم الأصلي'
 };
 
 // كل عنصر أدناه دعوة موجودة فعلاً. يمكن إضافة الفئات الأخرى بالطريقة نفسها لاحقاً.
@@ -83,7 +86,7 @@ let mockupObserver;
 function mockupMarkup(template) {
   return `<div class="mockup-stage" data-mockup-id="${escapeHTML(template.id)}">
     <span class="mockup-loading" aria-hidden="true">${escapeHTML(template.name)}</span>
-    <iframe data-mockup-src="${escapeHTML(mockupLink(template))}" title="معاينة دعوة ${escapeHTML(template.name)}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+    <iframe data-mockup-src="${escapeHTML(mockupLink(template))}" title="معاينة تصميم ${escapeHTML(template.name)}" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
     ${template.mockupVideoUrl ? `<video class="mockup-video" data-video-src="${escapeHTML(template.mockupVideoUrl)}" muted playsinline loop preload="none" aria-hidden="true"></video>` : ''}
     <span class="mockup-cue" aria-hidden="true">حرّك المعاينة لتشوف التفاصيل</span>
   </div>`;
@@ -125,7 +128,7 @@ function startMockup(stage) {
   let scroller = previewScroller(frame);
   if (!scroller) {
     stage.classList.add('manual-preview');
-    stage.querySelector('.mockup-cue').textContent = 'تصفّح الدعوة داخل البطاقة';
+    stage.querySelector('.mockup-cue').textContent = 'تصفّح التصميم داخل البطاقة';
     frame.style.pointerEvents = 'auto'; // روابط خارجية: التصفح اليدوي يبقى حقيقياً داخل البطاقة.
     return;
   }
@@ -244,7 +247,7 @@ function toast(message) {
 function renderCategories() {
   $('#category-list').innerHTML = CATEGORIES.map(category => {
     const count = category.id === 'all' ? TEMPLATES.length : TEMPLATES.filter(template => template.category === category.id).length;
-    return `<button type="button" data-category="${category.id}" class="category-card ${state.category === category.id ? 'active' : ''}" aria-pressed="${state.category === category.id}"><span class="category-symbol" aria-hidden="true">${category.symbol}</span><strong>${category.name}</strong><small>${count ? `${number(count)} تصاميم` : 'قريباً'}</small></button>`;
+    return `<button type="button" data-category="${category.id}" class="category-card ${state.category === category.id ? 'active' : ''}" aria-pressed="${state.category === category.id}"><span class="category-symbol" aria-hidden="true">${category.symbol}</span><strong>${category.name}</strong><small>${count ? `${number(count)} ${count === 1 ? 'تصميم' : 'تصاميم'}` : 'قريباً'}</small></button>`;
   }).join('');
 }
 
@@ -270,9 +273,9 @@ function cardMarkup(template) {
   const saved = favorites.has(template.id);
   return `<article class="template-card">
     <div class="card-cover">
-      <a class="cover-link" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer" aria-label="شاهد دعوة ${escapeHTML(template.name)} كاملة">
+      <a class="cover-link" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer" aria-label="شاهد تصميم ${escapeHTML(template.name)} كاملاً">
         ${mockupMarkup(template)}
-        <span class="cover-open">شاهد الدعوة كاملة ↗</span>
+        <span class="cover-open">شاهد التصميم كاملاً ↗</span>
       </a>
       <span class="card-badge">${categoryName(template.category)}</span>
       ${template.features.includes('audio') ? '<span class="sound-badge">♫ صوت أصلي</span>' : ''}
@@ -283,7 +286,7 @@ function cardMarkup(template) {
       <h3>${escapeHTML(template.name)}</h3><span class="english-name" lang="en" dir="ltr">${escapeHTML(template.englishName)}</span>
       <p>${escapeHTML(template.description)}</p>
       <div class="card-features">${template.features.slice(0, 3).map(feature => `<span>${FEATURES[feature]}</span>`).join('')}${template.features.length > 3 ? `<span>+ ${number(template.features.length - 3)}</span>` : ''}</div>
-      <div class="card-actions"><button type="button" class="button secondary" data-preview="${template.id}">تفاصيل التصميم</button><a class="button" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer">جرّب الدعوة ↗</a></div>
+      <div class="card-actions"><button type="button" class="button secondary" data-preview="${template.id}">تفاصيل التصميم</button><a class="button" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer">جرّب التصميم ↗</a></div>
     </div>
   </article>`;
 }
@@ -311,7 +314,7 @@ function renderGallery() {
     const category = CATEGORIES.find(item => item.id === state.category);
     const upcoming = state.category !== 'all' && !TEMPLATES.some(template => template.category === state.category);
     $('#empty-title').textContent = upcoming ? `تصاميم ${category.name} قيد التجهيز` : state.collection === 'favorites' && !favorites.size ? 'مفضّلتك تنتظر أول تصميم' : 'ما لقينا تصميماً مطابقاً';
-    $('#empty-copy').textContent = upcoming ? 'نضيف تصاميم هذه الفئة قريباً. وتكدر تتواصل ويانا إذا عندك فكرة لمناسبتك.' : state.collection === 'favorites' && !favorites.size ? 'اضغط علامة القلب على التصميم اللي يعجبك حتى ترجع له بسهولة.' : 'جرّب اختيار فئة أخرى.';
+    $('#empty-copy').textContent = upcoming ? 'نضيف تصاميم هذه الفئة قريباً. وتكدر تتواصل ويانا إذا عندك فكرة لتصميمك.' : state.collection === 'favorites' && !favorites.size ? 'اضغط علامة القلب على التصميم اللي يعجبك حتى ترجع له بسهولة.' : 'جرّب اختيار فئة أخرى.';
   }
 }
 
@@ -350,10 +353,10 @@ function openDetails(id) {
       <h2 id="preview-title">${escapeHTML(template.name)}</h2>
       <p class="preview-english" lang="en" dir="ltr">${escapeHTML(template.englishName)}</p>
       <p>${escapeHTML(template.description)}</p>
-      <h3>تفاصيل موجودة في الدعوة</h3>
+      <h3>تفاصيل موجودة في التصميم</h3>
       <ul>${template.features.map(feature => `<li>${FEATURES[feature]}</li>`).join('')}</ul>
-      <p class="preview-note">الدعوة تفتح من موقعها الأصلي بكل التفاصيل والصوت إن كان موجوداً. بعدها تقدر ترجع هنا وتتواصل ويانا.</p>
-      <div class="preview-actions"><a class="button" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer">افتح الدعوة كاملة ↗</a><button type="button" class="button secondary" data-contact="${template.id}">تواصل بشأن هذا التصميم</button></div>
+      <p class="preview-note">التصميم يفتح من موقعه الأصلي بكل التفاصيل والصوت إن كان موجوداً. بعدها تقدر ترجع هنا وتتواصل ويانا.</p>
+      <div class="preview-actions"><a class="button" href="${escapeHTML(previewLink(template))}" target="_blank" rel="noopener noreferrer">افتح التصميم كاملاً ↗</a><button type="button" class="button secondary" data-contact="${template.id}">تواصل بشأن هذا التصميم</button></div>
     </div>
   </div>`;
   dialog.showModal();
@@ -389,7 +392,7 @@ function renderSocials() {
   const whatsapp = whatsappNumber();
   const message = selectedTemplate
     ? `مرحباً Inviteus، عجبني تصميم ${selectedTemplate.name} (${selectedTemplate.id}) وأحب أستفسر عنه.`
-    : 'مرحباً Inviteus، أحب أستفسر عن تصاميم الدعوات.';
+    : 'مرحباً Inviteus، أحب أستفسر عن تصاميمكم.';
   const social = [
     { key:'whatsapp', name:'واتساب', icon:'icons/whatsapp.svg', url:whatsapp ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}` : '' },
     { key:'instagram', name:'إنستغرام', icon:'icons/instagram.svg', url:safeSocialURL(SITE_CONFIG.socials.instagram) },
