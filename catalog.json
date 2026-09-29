@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 7,
+    "henna": 8,
     "wedding": 1,
     "conferences": 1,
     "openings": 2,
@@ -342,7 +342,28 @@
       "previewUrl": "https://novixai29.github.io/hen-6/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "HEN-007",
+      "name": "قمر البادية",
+      "englishName": "Desert Moon",
+      "category": "henna",
+      "styles": [
+        "romantic",
+        "minimal",
+        "modern"
+      ],
+      "description": "ليلة حنة شاعرية وهادئة تحت ضوء القمر بتجربة بصرية مختلفة كلياً عن الدعوات التقليدية.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar",
+        "darkMode"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-7/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-29T01:30:36.553Z"
+  "updatedAt": "2026-09-29T02:56:41.698Z"
 }
