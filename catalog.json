@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 10,
+    "henna": 11,
     "wedding": 1,
     "conferences": 1,
     "openings": 2,
@@ -401,7 +401,28 @@
       "previewUrl": "https://novixai29.github.io/hen-9/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "HEN-010",
+      "name": "صاحب الليلة",
+      "englishName": "The Gentleman",
+      "category": "henna",
+      "styles": [
+        "minimal",
+        "creative",
+        "modern"
+      ],
+      "description": "دعوة حنة فوتوغرافية فاخرة تضع صاحب الليلة في قلب التجربة بأسلوب Editorial حديث وراقي.",
+      "features": [
+        "photos",
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-10/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-29T03:06:11.264Z"
+  "updatedAt": "2026-09-29T03:22:23.702Z"
 }
