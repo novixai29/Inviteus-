@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 8,
+    "henna": 9,
     "wedding": 1,
     "conferences": 1,
     "openings": 2,
@@ -363,7 +363,25 @@
       "previewUrl": "https://novixai29.github.io/hen-7/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "HEN-008",
+      "name": "سطر فرح",
+      "englishName": "One Line",
+      "category": "henna",
+      "styles": [
+        "luxury"
+      ],
+      "description": "تصميم عربي Minimal يعتمد على الخط والنص والفراغ ليقدم حنة عصرية شديدة الأناقة والبساطة.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-8/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-29T02:56:41.698Z"
+  "updatedAt": "2026-09-29T03:00:52.602Z"
 }
