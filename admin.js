@@ -73,11 +73,15 @@ async function api(path, options = {}) {
   });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
+    const rateLimited = response.status === 403 && response.headers?.get?.('x-ratelimit-remaining') === '0';
     const detail = response.status === 401 ? 'رمز الوصول غير صحيح أو انتهت صلاحيته.'
-      : response.status === 403 ? 'الرمز لا يملك صلاحية تعديل هذا المستودع، أو وصلت إلى حد طلبات GitHub.'
+      : rateLimited ? 'وصلنا مؤقتاً إلى حد طلبات GitHub. انتظر قليلاً ثم جرّب مرة ثانية؛ الرمز والمسودة محفوظان بهذا التبويب.'
+      : response.status === 403 ? 'GitHub رفض هذا الطلب. تأكد من صلاحية الرمز لهذا المستودع، ثم جرّب مجدداً.'
       : response.status === 409 ? 'تغيّرت القائمة أثناء التعديل. حدّث القائمة وجرّب مرة ثانية.'
       : payload.message || `تعذّر الاتصال بـ GitHub (${response.status}).`;
-    throw new Error(detail);
+    const error = new Error(detail);
+    error.status = response.status;
+    throw error;
   }
   return payload;
 }
@@ -183,12 +187,17 @@ async function saveCatalog(nextCatalog, message) {
 async function connect(candidate, resumed = false) {
   token = candidate;
   const profile = await api('user');
-  if (profile.login?.toLowerCase() !== REPO_OWNER.toLowerCase()) throw new Error(`هذا الرمز لحساب ${profile.login || 'آخر'}؛ يحتاج حساب ${REPO_OWNER}.`);
+  if (profile.login?.toLowerCase() !== REPO_OWNER.toLowerCase()) {
+    const error = new Error(`هذا الرمز لحساب ${profile.login || 'آخر'}؛ يحتاج حساب ${REPO_OWNER}.`);
+    error.code = 'WRONG_ACCOUNT';
+    throw error;
+  }
+  // ثبت الرمز بمجرد التحقق من الحساب؛ فشل قراءة القائمة المؤقت لا يعني انتهاء صلاحيته.
+  sessionWrite(TOKEN_SESSION_KEY, candidate);
   const latest = await readCatalog();
   catalog = latest.data;
   catalogSha = latest.sha;
   adminPage = 1;
-  sessionWrite(TOKEN_SESSION_KEY, candidate);
   $('#access-token').value = '';
   $('#connected-user').textContent = `متصل بحساب ${profile.login}`;
   $('#login-panel').hidden = true;
@@ -203,7 +212,11 @@ $('#login-form').addEventListener('submit', async event => {
   if (!candidate) return;
   status('نتأكد من صلاحية الرمز…');
   try { await connect(candidate); }
-  catch (error) { token = ''; sessionRemove(TOKEN_SESSION_KEY); status(error.message, true); }
+  catch (error) {
+    token = '';
+    if (error.status === 401 || error.code === 'WRONG_ACCOUNT') sessionRemove(TOKEN_SESSION_KEY);
+    status(error.message, true);
+  }
 });
 $('#template-form').addEventListener('input', saveDraft);
 $('#template-form').addEventListener('change', saveDraft);
@@ -246,7 +259,7 @@ $('#template-form').addEventListener('submit', async event => {
     status(`انحفظ تصميم «${template.name}» بنجاح. افتح الموقع أو حدّثه حتى تشوفه.`);
     $('#admin-cards').scrollIntoView({ behavior:'smooth', block:'start' });
   } catch (error) {
-    if (error.message.includes('رمز الوصول غير صحيح')) {
+    if (error.status === 401) {
       token = '';
       sessionRemove(TOKEN_SESSION_KEY);
       $('#login-panel').hidden = false;
@@ -307,7 +320,7 @@ if (rememberedToken) {
   status('نرجّع جلسة لوحة الإدارة…');
   connect(rememberedToken, true).catch(error => {
     token = '';
-    sessionRemove(TOKEN_SESSION_KEY);
-    status(`تعذّر استرجاع الجلسة: ${error.message} مسودة التصميم محفوظة بهذا التبويب.`, true);
+    if (error.status === 401 || error.code === 'WRONG_ACCOUNT') sessionRemove(TOKEN_SESSION_KEY);
+    status(`تعذّر استرجاع الجلسة: ${error.message} ${error.status === 401 || error.code === 'WRONG_ACCOUNT' ? 'أدخل رمزاً صالحاً.' : 'حدّث الصفحة بعد قليل؛ الرمز والمسودة محفوظان بهذا التبويب.'}`, true);
   });
 }
