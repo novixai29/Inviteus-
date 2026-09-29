@@ -290,8 +290,8 @@
     },
     {
       "id": "HEN-004",
-      "name": "تذكرة الفرح",
-      "englishName": "Henna Pass",
+      "name": "الخبر السعيد",
+      "englishName": "Henna Gazette",
       "category": "henna",
       "styles": [],
       "description": "مفهوم شبابي ومختلف يحول دعوة الحنة إلى تذكرة رقمية أنيقة لليلة لا تُنسى.",
@@ -305,5 +305,5 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-29T01:00:46.646Z"
+  "updatedAt": "2026-09-29T01:15:19.698Z"
 }
