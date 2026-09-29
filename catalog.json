@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 4,
+    "henna": 5,
     "wedding": 1,
     "conferences": 1,
     "openings": 2,
@@ -287,7 +287,23 @@
       "previewUrl": "https://novixai29.github.io/hen-3/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "HEN-004",
+      "name": "تذكرة الفرح",
+      "englishName": "Henna Pass",
+      "category": "henna",
+      "styles": [],
+      "description": "مفهوم شبابي ومختلف يحول دعوة الحنة إلى تذكرة رقمية أنيقة لليلة لا تُنسى.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-4/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-28T21:14:09.517Z"
+  "updatedAt": "2026-09-29T01:00:46.646Z"
 }
