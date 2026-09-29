@@ -2,7 +2,7 @@
   "version": 1,
   "nextIds": {
     "engagement": 11,
-    "henna": 5,
+    "henna": 6,
     "wedding": 1,
     "conferences": 1,
     "openings": 2,
@@ -303,7 +303,27 @@
       "previewUrl": "https://novixai29.github.io/hen-4/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "HEN-005",
+      "name": "الخبر السعيد",
+      "englishName": "Henna Gazette",
+      "category": "henna",
+      "styles": [
+        "classic",
+        "creative",
+        "modern"
+      ],
+      "description": "دعوة حنة مبتكرة بأسلوب جريدة عربية قديمة تجعل المناسبة خبراً يستحق الصفحة الأولى.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/hen-5/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-29T01:18:12.189Z"
+  "updatedAt": "2026-09-29T01:21:46.220Z"
 }
