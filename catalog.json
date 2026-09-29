@@ -306,8 +306,8 @@
     },
     {
       "id": "HEN-005",
-      "name": "الخبر السعيد",
-      "englishName": "Henna Gazette",
+      "name": "تذكرة الفرح",
+      "englishName": "Henna Pass",
       "category": "henna",
       "styles": [
         "classic",
@@ -325,5 +325,5 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-29T01:21:46.220Z"
+  "updatedAt": "2026-09-29T01:22:31.354Z"
 }
