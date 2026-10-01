@@ -3,7 +3,7 @@
   "nextIds": {
     "engagement": 11,
     "henna": 11,
-    "wedding": 1,
+    "wedding": 2,
     "conferences": 1,
     "openings": 2,
     "stores": 1,
@@ -422,7 +422,26 @@
       "previewUrl": "https://novixai29.github.io/hen-10/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "WED-001",
+      "name": "الرسالة المختومة",
+      "englishName": "The Sealed Letter",
+      "category": "wedding",
+      "styles": [
+        "luxury",
+        "classic"
+      ],
+      "description": "رسالة زفاف كلاسيكية مختومة بالشمع، بتجربة افتتاح شخصية وفاخرة مستوحاة من المراسلات القديمة.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/WED-1/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-09-29T03:22:23.702Z"
+  "updatedAt": "2026-10-01T23:35:10.179Z"
 }
