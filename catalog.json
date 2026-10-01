@@ -3,7 +3,7 @@
   "nextIds": {
     "engagement": 11,
     "henna": 11,
-    "wedding": 2,
+    "wedding": 3,
     "conferences": 1,
     "openings": 2,
     "stores": 1,
@@ -441,7 +441,27 @@
       "previewUrl": "https://novixai29.github.io/WED-1/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "WED-002",
+      "name": "الحرير",
+      "englishName": "",
+      "category": "wedding",
+      "styles": [
+        "luxury",
+        "minimal",
+        "modern"
+      ],
+      "description": "دعوة Quiet Luxury ناعمة مستوحاة من الحرير وبيوت الأزياء الراقية، بهوية شديدة البساطة والفخامة",
+      "features": [
+        "photos",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/WED-2/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-01T23:35:10.179Z"
+  "updatedAt": "2026-10-01T23:52:04.552Z"
 }
