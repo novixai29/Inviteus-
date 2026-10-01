@@ -3,7 +3,7 @@
   "nextIds": {
     "engagement": 11,
     "henna": 11,
-    "wedding": 3,
+    "wedding": 4,
     "conferences": 1,
     "openings": 2,
     "stores": 1,
@@ -461,7 +461,27 @@
       "previewUrl": "https://novixai29.github.io/WED-2/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "WED-003",
+      "name": "قصر النور",
+      "englishName": "Palace of Light",
+      "category": "wedding",
+      "styles": [
+        "luxury",
+        "minimal",
+        "creative"
+      ],
+      "description": "دعوة زفاف معمارية فخمة تبدأ ببوابة قصر يخرج منها الضوء لتكشف ليلة الزفاف.",
+      "features": [
+        "photos",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/WED-3/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-01T23:52:04.552Z"
+  "updatedAt": "2026-10-01T23:53:20.452Z"
 }
