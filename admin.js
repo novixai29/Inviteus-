@@ -3,8 +3,8 @@
 const REPO_OWNER = 'novixai29';
 const REPO_NAME = 'Inviteus-';
 const API_ROOT = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
-const CATEGORY_NAMES = { engagement:'خطوبة', henna:'حنة', wedding:'زفاف', conferences:'مؤتمرات', openings:'افتتاحيات', stores:'متاجر', 'food-menus':'قوائم الطعام', 'drink-menus':'قوائم المشروبات' };
-const CATEGORY_CODES = { engagement:'ENG', henna:'HEN', wedding:'WED', conferences:'CON', openings:'OPN', stores:'STR', 'food-menus':'FOD', 'drink-menus':'DRK' };
+let CATEGORY_NAMES = Object.fromEntries(InviteusTaxonomy.read().flatMap(group => group.categories.map(category => [category.id, category.name])));
+let CATEGORY_CODES = Object.fromEntries(InviteusTaxonomy.read().flatMap(group => group.categories.map(category => [category.id, category.code])));
 const STYLES = { luxury:'فاخر', classic:'كلاسيكي', romantic:'رومانسي', minimal:'بسيط', creative:'مبتكر', modern:'عصري' };
 const FEATURES = { photos:'معرض صور', bilingual:'عربي / إنجليزي', countdown:'عدّ تنازلي', maps:'رابط الموقع على الخريطة', calendar:'إضافة الموعد للتقويم', darkMode:'وضع داكن', audio:'صوت ضمن التصميم الأصلي' };
 const $ = selector => document.querySelector(selector);
@@ -54,6 +54,8 @@ function setBusy(value) {
   $('#save-template').disabled = value;
   $('#reload-catalog').disabled = value;
   $('#new-template').disabled = value;
+  $('#save-group').disabled = value;
+  $('#save-category').disabled = value;
 }
 function encodeBase64(bytes) {
   let binary = '';
@@ -89,13 +91,31 @@ async function readCatalog() {
   const file = await api(`repos/${REPO_OWNER}/${REPO_NAME}/contents/catalog.json?ref=main&v=${Date.now()}`);
   const data = JSON.parse(decodeBase64(file.content));
   if (!Array.isArray(data.templates)) throw new Error('ملف التصاميم في المستودع غير صالح.');
+  InviteusTaxonomy.read(data);
   return { data, sha:file.sha };
+}
+function syncTaxonomy() {
+  const groups = InviteusTaxonomy.read(catalog || {});
+  CATEGORY_NAMES = Object.fromEntries(groups.flatMap(group => group.categories.map(category => [category.id, category.name])));
+  CATEGORY_CODES = Object.fromEntries(groups.flatMap(group => group.categories.map(category => [category.id, category.code])));
+  return groups;
+}
+function renderTaxonomy() {
+  const groups = syncTaxonomy();
+  const selectedCategory = $('#template-category').value;
+  const selectedGroup = $('#category-group').value;
+  $('#template-category').innerHTML = groups.filter(group => group.categories.length).map(group => `<optgroup label="${escapeHTML(group.name)}">${group.categories.map(category => `<option value="${category.id}">${escapeHTML(category.name)}</option>`).join('')}</optgroup>`).join('');
+  if (Object.hasOwn(CATEGORY_NAMES, selectedCategory)) $('#template-category').value = selectedCategory;
+  $('#category-group').innerHTML = groups.map(group => `<option value="${group.id}">${escapeHTML(group.name)}</option>`).join('');
+  if (groups.some(group => group.id === selectedGroup)) $('#category-group').value = selectedGroup;
+  $('#taxonomy-list').innerHTML = groups.map(group => `<article class="taxonomy-item"><h3>${escapeHTML(group.name)}</h3><p>${group.categories.length ? group.categories.map(category => escapeHTML(category.name)).join(' · ') : 'أضف أول قسم لهذا الصنف.'}</p><button type="button" class="text-link" data-add-category="${group.id}">+ إضافة قسم</button></article>`).join('');
 }
 function styleChoices() {
   $('#style-options').innerHTML = Object.entries(STYLES).map(([key, label]) => `<label><input type="checkbox" name="styles" value="${key}">${label}</label>`).join('');
   $('#feature-options').innerHTML = Object.entries(FEATURES).map(([key, label]) => `<label><input type="checkbox" name="features" value="${key}">${label}</label>`).join('');
 }
 function renderCards() {
+  renderTaxonomy();
   const templates = [...catalog.templates].reverse(); // التخزين بترتيب الإضافة، والعرض من الأحدث للأقدم.
   const pages = Math.max(1, Math.ceil(templates.length / PAGE_SIZE));
   adminPage = Math.min(Math.max(adminPage, 1), pages);
@@ -163,6 +183,7 @@ async function removeUnusedPreview(template) {
   });
 }
 async function saveCatalog(nextCatalog, message) {
+  InviteusTaxonomy.read(nextCatalog);
   const latest = await readCatalog();
   if (latest.sha !== catalogSha) throw new Error('تغيّرت القائمة من مكان آخر. اضغط «تحديث القائمة» قبل الحفظ.');
   // روابط المستودعات القديمة ليست جزءاً من بيانات العرض أو من التصاميم الجديدة.
@@ -229,6 +250,7 @@ $('#template-form').addEventListener('submit', async event => {
     const latest = await readCatalog();
     catalog = latest.data;
     catalogSha = latest.sha;
+    syncTaxonomy();
     const originalId = $('#template-id').value;
     const category = $('#template-category').value;
     if (!Object.hasOwn(CATEGORY_NAMES, category)) throw new Error('اختر قسماً صالحاً للتصميم.');
@@ -298,6 +320,64 @@ document.querySelectorAll('#admin-pages-top, #admin-pages-bottom').forEach(nav =
 }));
 $('#new-template').addEventListener('click', () => { resetForm(); $('#template-form').scrollIntoView({ behavior:'smooth', block:'start' }); });
 $('#cancel-edit').addEventListener('click', resetForm);
+$('#taxonomy-list').addEventListener('click', event => {
+  const button = event.target.closest('[data-add-category]');
+  if (!button) return;
+  $('#category-group').value = button.dataset.addCategory;
+  $('#category-form').scrollIntoView({behavior:'smooth', block:'center'});
+  $('#category-name').focus({preventScroll:true});
+});
+async function addTaxonomy(kind) {
+  if (busy || !catalog) return;
+  const field = kind === 'group' ? $('#group-name') : $('#category-name');
+  const name = field.value.trim().replace(/\s+/g, ' ');
+  const parentId = $('#category-group').value;
+  if (!name || name.length > 80) { status('اكتب اسماً بين حرف و٨٠ حرفاً.', true); return; }
+  setBusy(true);
+  status(kind === 'group' ? 'نحفظ الصنف الجديد…' : 'نحفظ القسم الجديد…');
+  try {
+    const latest = await readCatalog();
+    catalog = latest.data; catalogSha = latest.sha;
+    const groups = InviteusTaxonomy.read(catalog);
+    const normalized = value => value.normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('ar');
+    let createdId;
+    if (kind === 'group') {
+      if (groups.some(group => normalized(group.name) === normalized(name))) throw new Error('هذا الصنف موجود بالفعل. اختر اسماً مختلفاً.');
+      let n = 1;
+      while (groups.some(group => group.id === `group-${n}`)) n++;
+      createdId = `group-${n}`;
+      groups.push({id:createdId, name, categories:[]});
+    } else {
+      const parent = groups.find(group => group.id === parentId);
+      if (!parent) throw new Error('اختر صنفاً موجوداً لإضافة القسم داخله.');
+      if (parent.categories.some(category => normalized(category.name) === normalized(name))) throw new Error('هذا القسم موجود داخل الصنف المختار.');
+      const code = InviteusTaxonomy.nextCode(groups);
+      createdId = `category-${code.toLowerCase()}`;
+      parent.categories.push({id:createdId, name, code, symbol:'◇'});
+    }
+    await saveCatalog({...catalog, groups}, `Add ${kind} ${createdId}`);
+    field.value = '';
+    if (kind === 'group') {
+      $('#category-group').value = createdId;
+      $('#category-name').focus();
+    } else {
+      $('#category-group').value = parentId;
+      if (!$('#template-id').value) { $('#template-category').value = createdId; saveDraft(); }
+    }
+    status(kind === 'group' ? `انضاف صنف «${name}». تقدر هسه تضيف أقسام داخله.` : `انضاف قسم «${name}». صار متاحاً بالموقع وبنموذج التصميم.`);
+  } catch (error) {
+    if (error.status === 401) {
+      token = '';
+      sessionRemove(TOKEN_SESSION_KEY);
+      $('#login-panel').hidden = false;
+      $('#login-panel').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    status(`${error.message} بيانات الإضافة ما زالت بالنموذج.`, true);
+  }
+  finally { setBusy(false); }
+}
+$('#group-form').addEventListener('submit', event => { event.preventDefault(); return addTaxonomy('group'); });
+$('#category-form').addEventListener('submit', event => { event.preventDefault(); return addTaxonomy('category'); });
 $('#reload-catalog').addEventListener('click', async () => {
   if (busy) return;
   setBusy(true);

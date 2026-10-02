@@ -10,10 +10,10 @@ body { background: #f3f5f1; }
 .admin-login { max-width: 690px; }
 .admin-login h2, .admin-editor h2, .admin-list h2 { margin-bottom: 9px; color: var(--plum-dark); font-size: 1.45rem; }
 .admin-login > p, .editor-hint { color: var(--muted); font-size: .84rem; }
-.admin-login label, .admin-fields label { display: grid; gap: 7px; color: var(--plum); font-size: .83rem; font-weight: 700; }
+.admin-login label, .admin-fields label, .taxonomy-forms label { display: grid; gap: 7px; color: var(--plum); font-size: .83rem; font-weight: 700; }
 .admin-fields label span { display: inline; color: #9a543a; }
 .admin-fields label small { color: var(--muted); font-size: .72rem; font-weight: 400; }
-.admin-login input, .admin-fields input, .admin-fields select, .admin-fields textarea { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid #c8d5d0; border-radius: 9px; background: white; color: var(--ink); font: inherit; font-weight: 400; }
+.admin-login input, .admin-fields input, .admin-fields select, .admin-fields textarea, .taxonomy-forms input, .taxonomy-forms select { width: 100%; min-width: 0; min-height: 46px; padding: 10px 12px; border: 1px solid #c8d5d0; border-radius: 9px; background: white; color: var(--ink); font: inherit; font-weight: 400; }
 .admin-fields textarea { resize: vertical; }
 .admin-fields input[type=file] { padding: 7px; }
 .admin-login input:focus, .admin-fields :is(input,select,textarea):focus { border-color: var(--plum); outline: 2px solid rgba(24,58,66,.13); }
@@ -29,6 +29,20 @@ body { background: #f3f5f1; }
 .toolbar-actions .button { min-height: 42px; padding: 8px 14px; font-size: .8rem; }
 .toolbar-actions .text-link { margin-inline: 8px; }
 .admin-layout { display: grid; gap: 18px; align-items: start; }
+.admin-taxonomy { margin-bottom: 24px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+.admin-taxonomy summary { cursor: pointer; color: var(--plum-dark); font-weight: 700; font-size: 1.1rem; }
+.admin-taxonomy summary span { display: block; margin-top: 3px; color: var(--muted); font-size: .8rem; font-weight: 400; }
+.admin-taxonomy[open] summary { margin-bottom: 18px; }
+.taxonomy-list, .taxonomy-forms { display: grid; gap: 14px; }
+.taxonomy-list { margin-block: 18px; grid-template-columns: repeat(auto-fit,minmax(min(100%,220px),1fr)); }
+.taxonomy-item { min-width: 0; padding: 15px; border-radius: 12px; background: var(--cream); overflow-wrap: anywhere; }
+.taxonomy-item h3 { margin: 0 0 8px; font-size: 1rem; }
+.taxonomy-item p { margin: 0; font-size: .8rem; color: var(--muted); }
+.taxonomy-item button { margin-top: 12px; font-size: .8rem; }
+.taxonomy-forms form { display: grid; align-content: start; gap: 10px; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; }
+.taxonomy-forms h3 { margin: 0; font-size: 1rem; }
+.taxonomy-forms .button { margin-top: 6px; }
+@media (min-width: 650px) { .taxonomy-forms { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 .admin-list h2 { margin-bottom: 18px; }
 #admin-cards { display: grid; gap: 10px; }
 .admin-card { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 12px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }

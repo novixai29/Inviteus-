@@ -15,20 +15,9 @@ const SITE_CONFIG = {
   }
 };
 
-const CATEGORIES = [
-  { id: 'engagement', name: 'خطوبة', symbol: '◇' },
-  { id: 'henna', name: 'حنة', symbol: '❋' },
-  { id: 'wedding', name: 'زفاف', symbol: '∞' },
-  { id: 'conferences', name: 'مؤتمرات', symbol: '▤' },
-  { id: 'openings', name: 'افتتاحيات', symbol: '⌑' },
-  { id: 'stores', name: 'متاجر', symbol: '▥' },
-  { id: 'food-menus', name: 'قوائم الطعام', symbol: '☷' },
-  { id: 'drink-menus', name: 'قوائم المشروبات', symbol: '♧' }
-];
-const DESIGN_GROUPS = [
-  { id:'invitations', name:'تصميم الدعوات', categories:['engagement','henna','wedding','conferences','openings'], list:'#category-list', panel:'#invitation-designs' },
-  { id:'commerce', name:'التجارة الإلكترونية', categories:['stores','food-menus','drink-menus'], list:'#commerce-category-list', panel:'#commerce' }
-];
+let catalogGroups = InviteusTaxonomy.read();
+let CATEGORIES = catalogGroups.flatMap(group => group.categories);
+let DESIGN_GROUPS = catalogGroups.map(group => ({ ...group, categories:group.categories.map(category => category.id) }));
 
 const STYLES = {
   all: 'كل الأساليب',
@@ -248,16 +237,16 @@ function toast(message) {
 }
 
 function renderCategories() {
-  DESIGN_GROUPS.forEach(group => {
-    $(group.panel).classList.toggle('is-active', state.group === group.id && state.collection !== 'favorites');
-    const header = $(`${group.panel} [data-group]`);
-    header.setAttribute('aria-pressed', String(state.group === group.id && state.category === 'all' && state.collection !== 'favorites'));
-    $(group.list).innerHTML = CATEGORIES.filter(category => group.categories.includes(category.id)).map(category => {
+  $('#design-groups').innerHTML = DESIGN_GROUPS.map((group, index) => {
+    const activeGroup = state.group === group.id && state.collection !== 'favorites';
+    const cards = CATEGORIES.filter(category => group.categories.includes(category.id)).map(category => {
       const count = TEMPLATES.filter(template => template.category === category.id).length;
       const active = state.group === group.id && state.category === category.id && state.collection !== 'favorites';
-      return `<button type="button" data-group="${group.id}" data-category="${category.id}" class="category-card ${active ? 'active' : ''}" aria-pressed="${active}"><span class="category-symbol" aria-hidden="true">${category.symbol}</span><strong>${category.name}</strong><small>${count ? `${number(count)} ${count === 1 ? 'تصميم' : 'تصاميم'}` : 'قريباً'}</small></button>`;
+      return `<button type="button" data-group="${group.id}" data-category="${category.id}" class="category-card ${active ? 'active' : ''}" aria-pressed="${active}"><span class="category-symbol" aria-hidden="true">${escapeHTML(category.symbol)}</span><strong>${escapeHTML(category.name)}</strong><small>${count ? `${number(count)} ${count === 1 ? 'تصميم' : 'تصاميم'}` : 'قريباً'}</small></button>`;
     }).join('');
-  });
+    const panelId = group.id === 'invitations' ? 'invitation-designs' : group.id === 'commerce' ? 'commerce' : `design-${group.id}`;
+    return `<section class="design-group ${activeGroup ? 'is-active' : ''}" id="${panelId}" aria-labelledby="title-${group.id}"><div class="design-group-heading"><div><p class="eyebrow">${number(index + 1)} / أصناف التصاميم</p><h3 id="title-${group.id}">${escapeHTML(group.name)}</h3></div><button type="button" class="text-link" data-group="${group.id}" aria-pressed="${activeGroup && state.category === 'all'}">كل التصاميم ←</button></div><div class="category-list" role="group" aria-label="أقسام ${escapeHTML(group.name)}">${cards || '<p>أقسام وتصاميم تُضاف قريباً.</p>'}</div></section>`;
+  }).join('');
 }
 
 function filteredTemplates() {
@@ -504,10 +493,10 @@ function decodeCatalog(content) {
   const bytes = Uint8Array.from(atob(content.replace(/\s/g, '')), char => char.charCodeAt(0));
   return JSON.parse(new TextDecoder().decode(bytes));
 }
-function validCatalogTemplate(template) {
+function validCatalogTemplate(template, categories = CATEGORIES) {
   if (!template || typeof template !== 'object') return false;
   if (!/^[A-Z]{3}-\d{3,}$/.test(template.id || '')) return false;
-  if (!CATEGORIES.some(category => category.id === template.category && category.id !== 'all')) return false;
+  if (!categories.some(category => category.id === template.category && category.id !== 'all')) return false;
   if (!template.name || !template.description) return false;
   if (!Array.isArray(template.styles) || !Array.isArray(template.features)) return false;
   try {
@@ -531,10 +520,17 @@ async function refreshCatalog() {
       if (!response.ok) return;
       catalog = await response.json();
     }
-    if (!Array.isArray(catalog.templates) || !catalog.templates.every(validCatalogTemplate)) return;
+    const groups = InviteusTaxonomy.read(catalog);
+    const categories = groups.flatMap(group => group.categories);
+    if (!Array.isArray(catalog.templates) || !catalog.templates.every(template => validCatalogTemplate(template, categories))) return;
     if (catalogUpdatedAt && (!catalog.updatedAt || catalog.updatedAt < catalogUpdatedAt)) return;
     catalogUpdatedAt = catalog.updatedAt || catalogUpdatedAt;
-    if (JSON.stringify(catalog.templates) === JSON.stringify(TEMPLATES)) return;
+    if (JSON.stringify(catalog.templates) === JSON.stringify(TEMPLATES) && JSON.stringify(groups) === JSON.stringify(catalogGroups)) return;
+    catalogGroups = groups;
+    CATEGORIES = categories;
+    DESIGN_GROUPS = groups.map(group => ({ ...group, categories:group.categories.map(category => category.id) }));
+    if (!DESIGN_GROUPS.some(group => group.id === state.group)) Object.assign(state, {group:DESIGN_GROUPS[0].id, category:'all', page:1});
+    if (state.category !== 'all' && !DESIGN_GROUPS.find(group => group.id === state.group).categories.includes(state.category)) Object.assign(state, {category:'all', page:1});
     TEMPLATES = catalog.templates;
     favorites = new Set([...favorites].filter(id => TEMPLATES.some(template => template.id === id)));
     if (selectedTemplate && !TEMPLATES.some(template => template.id === selectedTemplate.id)) {
