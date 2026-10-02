@@ -4,7 +4,7 @@
     "engagement": 11,
     "henna": 11,
     "wedding": 11,
-    "conferences": 6,
+    "conferences": 7,
     "openings": 2,
     "stores": 1,
     "food-menus": 1,
@@ -715,7 +715,27 @@
       "previewUrl": "https://novixai29.github.io/CONF-5/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "CON-006",
+      "name": "مسار القرار",
+      "englishName": "",
+      "category": "conferences",
+      "styles": [
+        "classic",
+        "minimal",
+        "creative"
+      ],
+      "description": "دعوة قيادية تفاعلية تبني تجربة المؤتمر حول مسار اتخاذ القرار",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/CONF-6/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T15:27:10.270Z"
+  "updatedAt": "2026-10-02T15:28:20.168Z"
 }
