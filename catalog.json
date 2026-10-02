@@ -3,7 +3,7 @@
   "nextIds": {
     "engagement": 11,
     "henna": 11,
-    "wedding": 7,
+    "wedding": 8,
     "conferences": 1,
     "openings": 2,
     "stores": 1,
@@ -538,7 +538,23 @@
       "previewUrl": "https://novixai29.github.io/WED-6/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "WED-007",
+      "name": "الميثاق",
+      "englishName": "The Marriage Folio",
+      "category": "wedding",
+      "styles": [],
+      "description": "دعوة رصينة بتصميم ميثاق زواج فاخر، مناسبة لمن يريد هوية رسمية ومختلفة كلياً عن القوالب التقليدية.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/WED-7/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T00:01:59.204Z"
+  "updatedAt": "2026-10-02T00:02:42.764Z"
 }
