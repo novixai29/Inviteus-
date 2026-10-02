@@ -3,7 +3,7 @@
   "nextIds": {
     "engagement": 11,
     "henna": 11,
-    "wedding": 6,
+    "wedding": 7,
     "conferences": 1,
     "openings": 2,
     "stores": 1,
@@ -517,7 +517,28 @@
       "previewUrl": "https://novixai29.github.io/WED-5/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "WED-006",
+      "name": "اللؤلؤة",
+      "englishName": "The Pearl Note",
+      "category": "wedding",
+      "styles": [
+        "luxury",
+        "minimal",
+        "creative",
+        "modern"
+      ],
+      "description": "دعوة بيضاء هادئة مستوحاة من اللؤلؤ والـQuiet Luxury، ناعمة وفاخرة دون مبالغة.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/WED-6/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T00:01:05.801Z"
+  "updatedAt": "2026-10-02T00:01:59.204Z"
 }
