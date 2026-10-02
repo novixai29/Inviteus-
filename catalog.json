@@ -4,7 +4,7 @@
     "engagement": 11,
     "henna": 11,
     "wedding": 11,
-    "conferences": 3,
+    "conferences": 4,
     "openings": 2,
     "stores": 1,
     "food-menus": 1,
@@ -656,7 +656,26 @@
       "previewUrl": "https://novixai29.github.io/CONF-2/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "CON-003",
+      "name": "هوامش المعرفة",
+      "englishName": "Margin Notes",
+      "category": "conferences",
+      "styles": [
+        "luxury",
+        "creative"
+      ],
+      "description": "\"دعوة أكاديمية عربية مستوحاة من هوامش الأوراق البحثية الحديثة.\"",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/CONF-3/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T15:24:51.190Z"
+  "updatedAt": "2026-10-02T15:25:29.831Z"
 }
