@@ -3,7 +3,7 @@
   "nextIds": {
     "engagement": 11,
     "henna": 11,
-    "wedding": 9,
+    "wedding": 10,
     "conferences": 1,
     "openings": 2,
     "stores": 1,
@@ -574,7 +574,27 @@
       "previewUrl": "https://novixai29.github.io/WED-8/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "WED-009",
+      "name": "الحديقة البيضاء",
+      "englishName": "The White Garden",
+      "category": "wedding",
+      "styles": [
+        "luxury",
+        "classic",
+        "minimal"
+      ],
+      "description": "دعوة Botanical بيضاء وهادئة، تبدأ بظرف يتحول إلى بوابة حديقة أنيقة قبل ظهور تفاصيل الزفاف.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/WED-9/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T00:05:19.574Z"
+  "updatedAt": "2026-10-02T00:05:53.559Z"
 }
