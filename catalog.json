@@ -4,7 +4,7 @@
     "engagement": 11,
     "henna": 11,
     "wedding": 11,
-    "conferences": 4,
+    "conferences": 5,
     "openings": 2,
     "stores": 1,
     "food-menus": 1,
@@ -675,7 +675,28 @@
       "previewUrl": "https://novixai29.github.io/CONF-3/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "CON-004",
+      "name": "المسرح صفر",
+      "englishName": "Stage Zero",
+      "category": "conferences",
+      "styles": [
+        "classic",
+        "minimal",
+        "creative"
+      ],
+      "description": "A startup invitation where the stage light guides the entire experience.",
+      "features": [
+        "photos",
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/CONF4/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T15:25:29.831Z"
+  "updatedAt": "2026-10-02T15:26:18.987Z"
 }
