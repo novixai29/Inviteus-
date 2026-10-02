@@ -10,8 +10,8 @@
 const SITE_CONFIG = {
   socials: {
     whatsapp: '', // رقم دولي بالأرقام فقط، مثل 9647…
-    instagram: '', // رابط الحساب الكامل https://…
-    facebook: ''   // رابط الصفحة الكامل https://…
+    instagram: 'https://www.instagram.com/inviteus7?stkn=M296OWttOXF5eGZt',
+    facebook: 'https://www.facebook.com/share/1Hfjm33jaZ/?mibextid=wwXIfr'
   }
 };
 
@@ -414,7 +414,8 @@ function renderSocials() {
   $('#social-links').innerHTML = social.map(item => item.url
     ? `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><img class="social-symbol" src="${item.icon}" alt="" aria-hidden="true" width="26" height="26">${item.name}<span aria-hidden="true">↗</span></a>`
     : `<span class="social-pending"><img class="social-symbol" src="${item.icon}" alt="" aria-hidden="true" width="26" height="26">${item.name} · قريباً</span>`).join('');
-  $('#contact-status').textContent = social.some(item => !item.url) ? 'نجهّز روابط التواصل الرسمية ونضيفها هنا قريباً.' : '';
+  const pendingSocials = social.filter(item => !item.url).map(item => item.name);
+  $('#contact-status').textContent = pendingSocials.length ? `روابط تُضاف قريباً: ${pendingSocials.join('، ')}.` : '';
   const floating = $('#floating-whatsapp');
   if (whatsapp) {
     floating.href = social[0].url;
