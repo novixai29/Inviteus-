@@ -3,7 +3,7 @@
   "nextIds": {
     "engagement": 11,
     "henna": 11,
-    "wedding": 5,
+    "wedding": 6,
     "conferences": 1,
     "openings": 2,
     "stores": 1,
@@ -501,7 +501,23 @@
       "previewUrl": "https://novixai29.github.io/WED-4/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "WED-005",
+      "name": "حبر بغداد",
+      "englishName": "Baghdad Ink",
+      "category": "wedding",
+      "styles": [],
+      "description": "زفاف عراقي معاصر يجمع دفء الورق وهيبة الخط العربي مع تصميم حديث شديد النظافة.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/WED-5/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T00:00:23.213Z"
+  "updatedAt": "2026-10-02T00:01:05.801Z"
 }
