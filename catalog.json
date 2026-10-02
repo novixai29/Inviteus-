@@ -4,7 +4,7 @@
     "engagement": 11,
     "henna": 11,
     "wedding": 11,
-    "conferences": 9,
+    "conferences": 10,
     "openings": 2,
     "stores": 1,
     "food-menus": 1,
@@ -772,7 +772,27 @@
       "previewUrl": "https://novixai29.github.io/CONF-8/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "CON-009",
+      "name": "مجال التركيز",
+      "englishName": "Focus Field",
+      "category": "conferences",
+      "styles": [
+        "luxury",
+        "minimal",
+        "creative"
+      ],
+      "description": "دعوة علمية تفاعلية تكشف معلومات المؤتمر عبر مجال تركيز متحرك",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/CONF-9/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T15:29:37.165Z"
+  "updatedAt": "2026-10-02T15:30:45.744Z"
 }
