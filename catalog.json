@@ -814,7 +814,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:13:32.978Z",
+  "updatedAt": "2026-10-04T23:23:50.475Z",
   "groups": [
     {
       "id": "invitations",
@@ -881,11 +881,6 @@
           "symbol": "♧"
         }
       ]
-    },
-    {
-      "id": "group-1",
-      "name": "حفل تخرج",
-      "categories": []
     }
   ]
 }
