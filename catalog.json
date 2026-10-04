@@ -824,7 +824,7 @@
         "minimal",
         "creative"
       ],
-      "description": "An interactive university ID that transforms a student credential into a graduate invitation",
+      "description": "دعوة تخرج تفاعلية تبدأ كهوية طالب جامعية حقيقية، ثم تمر بعملية تحقق ومسح رقمي لتتحول أمام الضيف إلى هوية خريج معتمدة وتكشف بعدها تفاصيل حفل التخرج.",
       "features": [
         "photos",
         "bilingual",
@@ -1011,7 +1011,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:34:53.550Z",
+  "updatedAt": "2026-10-04T23:49:53.780Z",
   "groups": [
     {
       "id": "invitations",
