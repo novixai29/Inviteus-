@@ -9,7 +9,7 @@
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
-    "category-aaa": 4
+    "category-aaa": 5
   },
   "templates": [
     {
@@ -873,9 +873,29 @@
       "previewUrl": "https://novixai29.github.io/GRAD-3/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "AAA-004",
+      "name": "الفصل التالي",
+      "englishName": "The Next Chapter",
+      "category": "category-aaa",
+      "styles": [
+        "minimal",
+        "creative",
+        "modern"
+      ],
+      "description": "A modern thesis experience whose final chapter becomes the graduation celebration",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/GRAD-4/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:28:44.806Z",
+  "updatedAt": "2026-10-04T23:29:56.962Z",
   "groups": [
     {
       "id": "invitations",
