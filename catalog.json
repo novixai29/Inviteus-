@@ -9,7 +9,7 @@
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
-    "category-aaa": 6
+    "category-aaa": 7
   },
   "templates": [
     {
@@ -912,9 +912,28 @@
       "previewUrl": "https://novixai29.github.io/GRAD-5/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "AAA-006",
+      "name": "المخطط الأخير",
+      "englishName": "The Final Blueprint",
+      "category": "category-aaa",
+      "styles": [
+        "classic",
+        "minimal"
+      ],
+      "description": "دعوة تخرج هندسية تُبنى أمام الضيف كأنها المخطط النهائي لمشروع المستقبل",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/GRAD-6/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:30:51.071Z",
+  "updatedAt": "2026-10-04T23:31:38.593Z",
   "groups": [
     {
       "id": "invitations",
