@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#142b35">
   <title>إدارة التصاميم | Inviteus</title>
   <link rel="stylesheet" href="style.css?v=20260929-mobile-logo">
-  <link rel="stylesheet" href="admin.css?v=20261002-categories">
+  <link rel="stylesheet" href="admin.css?v=20261005-delete-categories">
   <script src="taxonomy.js?v=20261002-categories" defer></script>
-  <script src="admin.js?v=20261002-categories" defer></script>
+  <script src="admin.js?v=20261005-delete-categories" defer></script>
 </head>
 <body>
   <header class="admin-header"><div class="container admin-header-inner"><a class="brand" href="index.html">Inviteus<span>إدارة التصاميم</span></a><a class="text-link" href="index.html" target="_blank" rel="noopener noreferrer">شاهد الموقع ↗</a></div></header>
@@ -27,8 +27,8 @@
     <div id="admin-workspace" hidden>
       <div class="admin-toolbar"><div><strong id="catalog-count">التصاميم</strong><span id="connected-user"></span></div><div class="toolbar-actions"><button type="button" class="button secondary" id="new-template">+ تصميم جديد</button><button type="button" class="button secondary" id="reload-catalog">تحديث القائمة</button><button type="button" class="text-link" id="logout">خروج</button></div></div>
       <details class="admin-taxonomy">
-        <summary id="taxonomy-title">الأصناف والأقسام <span>إضافة صنف رئيسي أو قسم جديد</span></summary>
-        <p class="editor-hint">الصنف هو المجموعة الرئيسية، مثل «تصميم الدعوات»، والقسم يكون داخلها، مثل «خطوبة». الإضافات تظهر بالموقع بعد الحفظ، وتقدر تختار القسم الجديد عند إضافة تصميم.</p>
+        <summary id="taxonomy-title">الأصناف والأقسام <span>إضافة أو حذف صنف رئيسي أو قسم</span></summary>
+        <p class="editor-hint">الصنف هو المجموعة الرئيسية، مثل «تصميم الدعوات»، والقسم يكون داخلها، مثل «خطوبة». الحذف ينعكس على الموقع، ويُمنع إذا كان العنصر مرتبطاً بتصاميم حتى تبقى بطاقاتك محفوظة.</p>
         <div id="taxonomy-list" class="taxonomy-list"></div>
         <div class="taxonomy-forms">
           <form id="group-form"><h3>إضافة صنف رئيسي</h3><label for="group-name">اسم الصنف</label><input id="group-name" required maxlength="80" placeholder="مثلاً: تصاميم الأعمال"><button type="submit" class="button secondary" id="save-group">+ إضافة الصنف</button></form>

@@ -39,6 +39,13 @@ body { background: #f3f5f1; }
 .taxonomy-item h3 { margin: 0 0 8px; font-size: 1rem; }
 .taxonomy-item p { margin: 0; font-size: .8rem; color: var(--muted); }
 .taxonomy-item button { margin-top: 12px; font-size: .8rem; }
+.taxonomy-item-heading, .taxonomy-item li { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.taxonomy-item-heading h3 { margin: 0; }
+.taxonomy-item ul { display: grid; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+.taxonomy-item li { padding: 7px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); font-size: .8rem; }
+.taxonomy-item .taxonomy-delete { flex: 0 0 auto; margin: 0; padding: 4px 7px; border: 0; border-radius: 6px; background: #f8e8e5; color: #923f37; cursor: pointer; }
+.taxonomy-item .taxonomy-delete:hover { background: #efd5d0; }
+.taxonomy-item .taxonomy-delete:disabled { opacity: .45; cursor: default; }
 .taxonomy-forms form { display: grid; align-content: start; gap: 10px; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; }
 .taxonomy-forms h3 { margin: 0; font-size: 1rem; }
 .taxonomy-forms .button { margin-top: 6px; }

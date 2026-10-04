@@ -56,6 +56,7 @@ function setBusy(value) {
   $('#new-template').disabled = value;
   $('#save-group').disabled = value;
   $('#save-category').disabled = value;
+  document.querySelectorAll('[data-delete-group], [data-delete-category]').forEach(button => { button.disabled = value; });
 }
 function encodeBase64(bytes) {
   let binary = '';
@@ -108,7 +109,7 @@ function renderTaxonomy() {
   if (Object.hasOwn(CATEGORY_NAMES, selectedCategory)) $('#template-category').value = selectedCategory;
   $('#category-group').innerHTML = groups.map(group => `<option value="${group.id}">${escapeHTML(group.name)}</option>`).join('');
   if (groups.some(group => group.id === selectedGroup)) $('#category-group').value = selectedGroup;
-  $('#taxonomy-list').innerHTML = groups.map(group => `<article class="taxonomy-item"><h3>${escapeHTML(group.name)}</h3><p>${group.categories.length ? group.categories.map(category => escapeHTML(category.name)).join(' · ') : 'أضف أول قسم لهذا الصنف.'}</p><button type="button" class="text-link" data-add-category="${group.id}">+ إضافة قسم</button></article>`).join('');
+  $('#taxonomy-list').innerHTML = groups.map(group => `<article class="taxonomy-item"><div class="taxonomy-item-heading"><h3>${escapeHTML(group.name)}</h3><button type="button" class="taxonomy-delete" data-delete-group="${group.id}" aria-label="حذف صنف ${escapeHTML(group.name)}">حذف الصنف</button></div>${group.categories.length ? `<ul>${group.categories.map(category => `<li><span>${escapeHTML(category.name)}</span><button type="button" class="taxonomy-delete" data-delete-category="${category.id}" aria-label="حذف قسم ${escapeHTML(category.name)}">حذف</button></li>`).join('')}</ul>` : '<p>أضف أول قسم لهذا الصنف.</p>'}<button type="button" class="text-link" data-add-category="${group.id}">+ إضافة قسم</button></article>`).join('');
 }
 function styleChoices() {
   $('#style-options').innerHTML = Object.entries(STYLES).map(([key, label]) => `<label><input type="checkbox" name="styles" value="${key}">${label}</label>`).join('');
@@ -322,11 +323,63 @@ $('#new-template').addEventListener('click', () => { resetForm(); $('#template-f
 $('#cancel-edit').addEventListener('click', resetForm);
 $('#taxonomy-list').addEventListener('click', event => {
   const button = event.target.closest('[data-add-category]');
-  if (!button) return;
-  $('#category-group').value = button.dataset.addCategory;
-  $('#category-form').scrollIntoView({behavior:'smooth', block:'center'});
-  $('#category-name').focus({preventScroll:true});
+  if (button) {
+    $('#category-group').value = button.dataset.addCategory;
+    $('#category-form').scrollIntoView({behavior:'smooth', block:'center'});
+    $('#category-name').focus({preventScroll:true});
+    return;
+  }
+  const categoryButton = event.target.closest('[data-delete-category]');
+  if (categoryButton) { deleteTaxonomy('category', categoryButton.dataset.deleteCategory); return; }
+  const groupButton = event.target.closest('[data-delete-group]');
+  if (groupButton) deleteTaxonomy('group', groupButton.dataset.deleteGroup);
 });
+async function deleteTaxonomy(kind, id) {
+  if (busy || !catalog) return;
+  const currentGroups = InviteusTaxonomy.read(catalog);
+  const group = kind === 'group' ? currentGroups.find(item => item.id === id) : currentGroups.find(item => item.categories.some(category => category.id === id));
+  const category = kind === 'category' ? group?.categories.find(item => item.id === id) : null;
+  if (!group || (kind === 'category' && !category)) { status('هذا العنصر لم يعد موجوداً. حدّث القائمة.', true); return; }
+  const categoryIds = kind === 'group' ? group.categories.map(item => item.id) : [id];
+  const used = catalog.templates.filter(template => categoryIds.includes(template.category));
+  if (used.length) {
+    const label = kind === 'group' ? `الصنف «${group.name}»` : `القسم «${category.name}»`;
+    status(`ما نكدر نحذف ${label} لأن مرتبط بـ ${number(used.length)} ${used.length === 1 ? 'تصميم' : 'تصاميم'}. انقل أو احذف التصاميم أولاً.`, true);
+    return;
+  }
+  const label = kind === 'group' ? `صنف «${group.name}» وكل أقسامه الفارغة` : `قسم «${category.name}»`;
+  if (!confirm(`تحذف ${label} من لوحة الإدارة والموقع؟`)) return;
+  setBusy(true);
+  status('نحذف العنصر من الموقع…');
+  try {
+    const selectedTemplateCategory = $('#template-category').value;
+    const latest = await readCatalog();
+    catalog = latest.data; catalogSha = latest.sha;
+    const groups = InviteusTaxonomy.read(catalog);
+    const latestGroup = kind === 'group' ? groups.find(item => item.id === id) : groups.find(item => item.categories.some(item => item.id === id));
+    const latestCategory = kind === 'category' ? latestGroup?.categories.find(item => item.id === id) : null;
+    if (!latestGroup || (kind === 'category' && !latestCategory)) throw new Error('العنصر انحذف من مكان آخر. حدّث القائمة.');
+    const latestCategoryIds = kind === 'group' ? latestGroup.categories.map(item => item.id) : [id];
+    if (catalog.templates.some(template => latestCategoryIds.includes(template.category))) throw new Error('انضاف تصميم مرتبط بهذا العنصر؛ انقله أو احذفه أولاً.');
+    const nextGroups = kind === 'group'
+      ? groups.filter(item => item.id !== id)
+      : groups.map(item => item.id === latestGroup.id ? {...item, categories:item.categories.filter(category => category.id !== id)} : item);
+    if (!nextGroups.length) throw new Error('لا يمكن حذف آخر صنف في الموقع. أضف صنفاً آخر أولاً.');
+    const nextIds = {...catalog.nextIds};
+    latestCategoryIds.forEach(categoryId => { delete nextIds[categoryId]; });
+    await saveCatalog({...catalog, groups:nextGroups, nextIds}, `Remove ${kind} ${id}`);
+    if (selectedTemplateCategory === id || latestCategoryIds.includes(selectedTemplateCategory)) resetForm();
+    status(`انحذف ${label} من لوحة الإدارة والموقع.`);
+  } catch (error) {
+    if (error.status === 401) {
+      token = '';
+      sessionRemove(TOKEN_SESSION_KEY);
+      $('#login-panel').hidden = false;
+      $('#login-panel').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    status(error.message, true);
+  } finally { setBusy(false); }
+}
 async function addTaxonomy(kind) {
   if (busy || !catalog) return;
   const field = kind === 'group' ? $('#group-name') : $('#category-name');
