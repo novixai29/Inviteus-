@@ -8,7 +8,8 @@
     "openings": 2,
     "stores": 1,
     "food-menus": 1,
-    "drink-menus": 1
+    "drink-menus": 1,
+    "category-aaa": 2
   },
   "templates": [
     {
@@ -812,9 +813,31 @@
       "previewUrl": "https://novixai29.github.io/CONF-10/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "AAA-001",
+      "name": "تصميم الهوية الجامعية",
+      "englishName": "Graduate ID",
+      "category": "category-aaa",
+      "styles": [
+        "luxury",
+        "minimal",
+        "creative"
+      ],
+      "description": "An interactive university ID that transforms a student credential into a graduate invitation",
+      "features": [
+        "photos",
+        "bilingual",
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/GRAD-1/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:23:50.475Z",
+  "updatedAt": "2026-10-04T23:26:34.147Z",
   "groups": [
     {
       "id": "invitations",
