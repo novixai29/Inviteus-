@@ -9,7 +9,7 @@
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
-    "category-aaa": 3
+    "category-aaa": 4
   },
   "templates": [
     {
@@ -855,9 +855,27 @@
       "previewUrl": "https://novixai29.github.io/GRAD-2/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "AAA-003",
+      "name": "اكتمل الرصيد",
+      "englishName": "Degree 100",
+      "category": "category-aaa",
+      "styles": [
+        "luxury"
+      ],
+      "description": "دعوة تخرج تتحول فيها سنوات الدراسة إلى رحلة رصيد تنتهي عند ١٠٠٪.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/GRAD-3/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:27:56.159Z",
+  "updatedAt": "2026-10-04T23:28:44.806Z",
   "groups": [
     {
       "id": "invitations",
