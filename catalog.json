@@ -9,7 +9,7 @@
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
-    "category-aaa": 2
+    "category-aaa": 3
   },
   "templates": [
     {
@@ -835,9 +835,29 @@
       "previewUrl": "https://novixai29.github.io/GRAD-1/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "AAA-002",
+      "name": "كشف التخرج النهائي",
+      "englishName": "Final Transcript",
+      "category": "category-aaa",
+      "styles": [
+        "classic",
+        "creative",
+        "modern"
+      ],
+      "description": "Your academic transcript completes itself before revealing the graduation celebration",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/GRAD-2/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:26:34.147Z",
+  "updatedAt": "2026-10-04T23:27:56.159Z",
   "groups": [
     {
       "id": "invitations",
