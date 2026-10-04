@@ -814,7 +814,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:13:09.216Z",
+  "updatedAt": "2026-10-04T23:13:32.978Z",
   "groups": [
     {
       "id": "invitations",
@@ -849,6 +849,12 @@
           "name": "افتتاحيات",
           "code": "OPN",
           "symbol": "⌑"
+        },
+        {
+          "id": "category-aaa",
+          "name": "تخرج",
+          "code": "AAA",
+          "symbol": "◇"
         }
       ]
     },
