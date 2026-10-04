@@ -9,7 +9,7 @@
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
-    "category-aaa": 10
+    "category-aaa": 11
   },
   "templates": [
     {
@@ -989,9 +989,29 @@
       "previewUrl": "https://novixai29.github.io/GRAD-9/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "AAA-010",
+      "name": "الشهادة",
+      "englishName": "The Diploma",
+      "category": "category-aaa",
+      "styles": [
+        "classic",
+        "minimal",
+        "creative"
+      ],
+      "description": "A quiet academic diploma that transforms into an elegant graduation invitation",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/GRAD-10/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:34:01.497Z",
+  "updatedAt": "2026-10-04T23:34:53.550Z",
   "groups": [
     {
       "id": "invitations",
