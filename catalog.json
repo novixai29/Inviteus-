@@ -814,5 +814,72 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-02T16:46:35.832Z"
+  "updatedAt": "2026-10-04T23:13:09.216Z",
+  "groups": [
+    {
+      "id": "invitations",
+      "name": "تصميم الدعوات",
+      "categories": [
+        {
+          "id": "engagement",
+          "name": "خطوبة",
+          "code": "ENG",
+          "symbol": "◇"
+        },
+        {
+          "id": "henna",
+          "name": "حنة",
+          "code": "HEN",
+          "symbol": "❋"
+        },
+        {
+          "id": "wedding",
+          "name": "زفاف",
+          "code": "WED",
+          "symbol": "∞"
+        },
+        {
+          "id": "conferences",
+          "name": "مؤتمرات",
+          "code": "CON",
+          "symbol": "▤"
+        },
+        {
+          "id": "openings",
+          "name": "افتتاحيات",
+          "code": "OPN",
+          "symbol": "⌑"
+        }
+      ]
+    },
+    {
+      "id": "commerce",
+      "name": "التجارة الإلكترونية",
+      "categories": [
+        {
+          "id": "stores",
+          "name": "متاجر",
+          "code": "STR",
+          "symbol": "▥"
+        },
+        {
+          "id": "food-menus",
+          "name": "قوائم الطعام",
+          "code": "FOD",
+          "symbol": "☷"
+        },
+        {
+          "id": "drink-menus",
+          "name": "قوائم المشروبات",
+          "code": "DRK",
+          "symbol": "♧"
+        }
+      ]
+    },
+    {
+      "id": "group-1",
+      "name": "حفل تخرج",
+      "categories": []
+    }
+  ]
 }
