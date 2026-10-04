@@ -9,7 +9,7 @@
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
-    "category-aaa": 7
+    "category-aaa": 8
   },
   "templates": [
     {
@@ -931,9 +931,28 @@
       "previewUrl": "https://novixai29.github.io/GRAD-6/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "AAA-007",
+      "name": "فهرس الرحلة",
+      "englishName": "The Library Index",
+      "category": "category-aaa",
+      "styles": [
+        "luxury",
+        "minimal"
+      ],
+      "description": "Four university years become four chapters in a modern academic library",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/GRAD-7/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:31:38.593Z",
+  "updatedAt": "2026-10-04T23:32:27.655Z",
   "groups": [
     {
       "id": "invitations",
