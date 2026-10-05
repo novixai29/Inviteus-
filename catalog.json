@@ -896,14 +896,15 @@
     },
     {
       "id": "AAA-005",
-      "name": "الحالة: تخرج",
-      "englishName": "Case Closed",
+      "name": "الملف الأكاديمي الطبي",
+      "englishName": "Academic Case File",
       "category": "category-aaa",
       "styles": [
-        "minimal",
+        "luxury",
+        "creative",
         "modern"
       ],
-      "description": "A refined medical record that closes the university case with one diagnosis: graduation",
+      "description": "دعوة تخرج متخصصة لطلبة المجالات الطبية، مصممة كملف سريري فاخر يستعرض المحاضرات والجولات السريرية والامتحانات والتدريب قبل الوصول إلى التشخيص النهائي: GRADUATION ثم إغلاق الحالة بنجاح",
       "features": [
         "countdown",
         "maps",
@@ -1011,7 +1012,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T00:36:12.294Z",
+  "updatedAt": "2026-10-05T00:59:28.928Z",
   "groups": [
     {
       "id": "invitations",
