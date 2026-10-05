@@ -936,16 +936,16 @@
     },
     {
       "id": "AAA-007",
-      "name": "فهرس الرحلة",
-      "englishName": "The Library Index",
+      "name": "الفصل الجديد",
+      "englishName": "New Chapter",
       "category": "category-aaa",
       "styles": [
         "luxury",
-        "minimal"
+        "minimal",
+        "modern"
       ],
-      "description": "Four university years become four chapters in a modern academic library",
+      "description": "دعوة تخرج بأسلوب مكتبة تحريرية حديثة تحول السنوات الجامعية إلى فصول يمكن التنقل بينها أفقياً، وتنتهي بإغلاق الفصل الأكاديمي وظهور العبارة الرئيسية \"A NEW CHAPTER BEGINS\" قبل كشف تفاصيل الاحتفال",
       "features": [
-        "countdown",
         "maps",
         "calendar"
       ],
@@ -1013,7 +1013,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T01:08:11.229Z",
+  "updatedAt": "2026-10-05T01:31:43.784Z",
   "groups": [
     {
       "id": "invitations",
