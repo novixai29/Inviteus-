@@ -856,17 +856,20 @@
     },
     {
       "id": "AAA-003",
-      "name": "اكتمل الرصيد",
-      "englishName": "Degree 100",
+      "name": "اكتمال الساعات",
+      "englishName": "Credits 100%",
       "category": "category-aaa",
       "styles": [
-        "luxury"
+        "minimal",
+        "creative",
+        "modern"
       ],
-      "description": "دعوة تخرج تتحول فيها سنوات الدراسة إلى رحلة رصيد تنتهي عند ١٠٠٪.",
+      "description": "دعوة تخرج رقمية تجعل عدد الساعات الدراسية هو بطل التجربة؛ يبدأ العداد من الصفر ويتقدم حتى اكتمال جميع Credits والوصول إلى 100%، ثم تنفتح رحلة السنوات الدراسية وصولاً إلى يوم الاحتفال.",
       "features": [
         "countdown",
         "maps",
-        "calendar"
+        "calendar",
+        "darkMode"
       ],
       "previewUrl": "https://novixai29.github.io/GRAD-3/",
       "trending": false,
@@ -1009,7 +1012,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T00:18:59.856Z",
+  "updatedAt": "2026-10-05T00:22:44.249Z",
   "groups": [
     {
       "id": "invitations",
