@@ -975,18 +975,20 @@
     },
     {
       "id": "AAA-009",
-      "name": "بوابة الخريج",
+      "name": "بوابة التخرج",
       "englishName": "Graduate Portal",
       "category": "category-aaa",
       "styles": [
         "minimal",
-        "creative"
+        "creative",
+        "modern"
       ],
-      "description": "بوابة طالب جامعية تتحول بعد إعلان النتيجة إلى دعوة حفل التخرج",
+      "description": "دعوة تخرج حديثة مبنية كواجهة بوابة طالب جامعية؛ تعرض حالة الطالب ومتطلبات الدرجة المكتملة، ثم يسمح زر \"VIEW FINAL RESULT\" بتحميل النتيجة وتحويل الحالة من FINAL YEAR إلى GRADUATED قبل أن تتحول البوابة إلى تفاصيل الاحتفال",
       "features": [
         "countdown",
         "maps",
-        "calendar"
+        "calendar",
+        "darkMode"
       ],
       "previewUrl": "https://novixai29.github.io/GRAD-9/",
       "trending": false,
@@ -1013,7 +1015,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T01:31:43.784Z",
+  "updatedAt": "2026-10-05T02:01:40.541Z",
   "groups": [
     {
       "id": "invitations",
