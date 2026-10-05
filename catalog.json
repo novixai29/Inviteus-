@@ -877,17 +877,16 @@
     },
     {
       "id": "AAA-004",
-      "name": "الفصل التالي",
-      "englishName": "The Next Chapter",
+      "name": "الرسالة الأخيرة",
+      "englishName": "The Final Thesis",
       "category": "category-aaa",
       "styles": [
+        "luxury",
         "minimal",
-        "creative",
         "modern"
       ],
-      "description": "A modern thesis experience whose final chapter becomes the graduation celebration",
+      "description": "تصميم تحريري راقٍ يحول سنوات الدراسة إلى فصول من رسالة أكاديمية؛ يمر الضيف من البداية والطريق والإنجاز حتى الفصل الأخير، قبل أن تتحول الصفحة إلى عبارة \"الفصل القادم يبدأ الآن\" وتكشف تفاصيل الاحتفال",
       "features": [
-        "countdown",
         "maps",
         "calendar"
       ],
@@ -1012,7 +1011,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T00:22:44.249Z",
+  "updatedAt": "2026-10-05T00:36:12.294Z",
   "groups": [
     {
       "id": "invitations",
