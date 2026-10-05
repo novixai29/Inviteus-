@@ -820,17 +820,16 @@
       "englishName": "Graduate ID",
       "category": "category-aaa",
       "styles": [
-        "luxury",
-        "minimal",
-        "creative"
+        "creative",
+        "modern"
       ],
-      "description": "دعوة تخرج تفاعلية تبدأ كهوية طالب جامعية حقيقية، ثم تمر بعملية تحقق ومسح رقمي لتتحول أمام الضيف إلى هوية خريج معتمدة وتكشف بعدها تفاصيل حفل التخرج.",
+      "description": "دعوة تخرج تفاعلية مستوحاة من الهوية الجامعية، تبدأ ببطاقة طالب يتم مسحها رقمياً والتحقق من بياناتها قبل أن تتحول حالة صاحبها من STUDENT إلى GRADUATE. بعدها تتحول البطاقة نفسها إلى واجهة لعرض تفاصيل الحفل والعد التنازلي والموقع",
       "features": [
         "photos",
-        "bilingual",
         "countdown",
         "maps",
-        "calendar"
+        "calendar",
+        "darkMode"
       ],
       "previewUrl": "https://novixai29.github.io/GRAD-1/",
       "trending": false,
@@ -1011,7 +1010,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-04T23:49:53.780Z",
+  "updatedAt": "2026-10-05T00:10:55.801Z",
   "groups": [
     {
       "id": "invitations",
