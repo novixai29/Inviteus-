@@ -1000,13 +1000,12 @@
       "englishName": "The Diploma",
       "category": "category-aaa",
       "styles": [
+        "luxury",
         "classic",
-        "minimal",
-        "creative"
+        "minimal"
       ],
-      "description": "A quiet academic diploma that transforms into an elegant graduation invitation",
+      "description": "دعوة تخرج رسمية وفاخرة تبدأ من ورقة عاجية فارغة تُرسم عليها حدود الشهادة والختم والتوقيع أمام الضيف، قبل أن تتحول صياغة الشهادة الأكاديمية تدريجياً إلى دعوة لمشاركة الخريج فرحة الإنجاز",
       "features": [
-        "countdown",
         "maps",
         "calendar"
       ],
@@ -1015,7 +1014,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T02:01:40.541Z",
+  "updatedAt": "2026-10-05T02:02:14.502Z",
   "groups": [
     {
       "id": "invitations",
