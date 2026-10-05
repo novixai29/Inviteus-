@@ -837,17 +837,16 @@
     },
     {
       "id": "AAA-002",
-      "name": "كشف التخرج النهائي",
-      "englishName": "Final Transcript",
+      "name": "السجل الأكاديمي",
+      "englishName": "Academic Transcript",
       "category": "category-aaa",
       "styles": [
         "classic",
-        "creative",
-        "modern"
+        "minimal",
+        "creative"
       ],
-      "description": "Your academic transcript completes itself before revealing the graduation celebration",
+      "description": "دعوة عربية مستوحاة من السجل الأكاديمي، تستعرض سنوات الدراسة على هيئة صفوف رسمية يتم اعتمادها واحدة بعد أخرى قبل ظهور ختم \"متخرج\". بعدها تتحول الوثيقة بسلاسة إلى تفاصيل احتفال التخرج.",
       "features": [
-        "countdown",
         "maps",
         "calendar"
       ],
@@ -1010,7 +1009,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T00:10:55.801Z",
+  "updatedAt": "2026-10-05T00:18:59.856Z",
   "groups": [
     {
       "id": "invitations",
