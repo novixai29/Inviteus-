@@ -916,18 +916,19 @@
     },
     {
       "id": "AAA-006",
-      "name": "المخطط الأخير",
-      "englishName": "The Final Blueprint",
+      "name": "مخطط المستقبل",
+      "englishName": "Future Blueprint",
       "category": "category-aaa",
       "styles": [
-        "classic",
-        "minimal"
+        "creative",
+        "modern"
       ],
-      "description": "دعوة تخرج هندسية تُبنى أمام الضيف كأنها المخطط النهائي لمشروع المستقبل",
+      "description": "دعوة هندسية تفاعلية تبدأ كمخطط مشروع بعنوان \"المستقبل\"، ثم تُرسم مراحل الأساس والهيكل والتطوير والفحص النهائي قبل إعلان اكتمال المشروع. وفي النهاية تتحول خطوط المخطط نفسها إلى اسم الخريج ومسار يقود إلى موقع الاحتفال",
       "features": [
         "countdown",
         "maps",
-        "calendar"
+        "calendar",
+        "darkMode"
       ],
       "previewUrl": "https://novixai29.github.io/GRAD-6/",
       "trending": false,
@@ -1012,7 +1013,7 @@
       "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T00:59:28.928Z",
+  "updatedAt": "2026-10-05T01:08:11.229Z",
   "groups": [
     {
       "id": "invitations",
