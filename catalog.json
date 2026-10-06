@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 9,
+    "openings": 10,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1157,9 +1157,30 @@
       "mockupUrl": "https://novixai29.github.io/OP7/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "OPN-009",
+      "name": "خلف الواجهة",
+      "englishName": "Behind The Glass",
+      "category": "openings",
+      "styles": [
+        "luxury",
+        "modern"
+      ],
+      "description": "واجهة زجاجية داكنة تتضح تدريجيًا لتكشف هيئة هندسية واسم المعرض. مناسب لمعارض السيارات والمساحات الفاخرة، ويدعم إضافة اسم المدعو وحقل تهنئة عند الطلب.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar",
+        "darkMode"
+      ],
+      "previewUrl": "https://novixai29.github.io/OP8/",
+      "mockupUrl": "https://novixai29.github.io/OP8/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-06T23:15:00.687Z",
+  "updatedAt": "2026-10-06T23:15:07.269Z",
   "groups": [
     {
       "id": "invitations",
