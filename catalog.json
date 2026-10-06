@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 4,
+    "openings": 5,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1053,9 +1053,30 @@
       "mockupUrl": "https://novixai29.github.io/OP2/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "OPN-004",
+      "name": "العنوان الجديد",
+      "englishName": "New Address",
+      "category": "openings",
+      "styles": [
+        "minimal",
+        "creative",
+        "modern"
+      ],
+      "description": "مسار موقع متحرك يمر بالمدينة والشارع قبل الوصول إلى المركز الجديد. مناسب للعيادات والمراكز الطبية، ويمكن إضافة اسم المدعو وحقل تهنئة عند طلب العميل.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/OP3/",
+      "mockupUrl": "https://novixai29.github.io/OP3/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-06T23:14:03.425Z",
+  "updatedAt": "2026-10-06T23:14:10.304Z",
   "groups": [
     {
       "id": "invitations",
