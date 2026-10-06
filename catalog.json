@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 8,
+    "openings": 9,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1136,9 +1136,30 @@
       "mockupUrl": "https://novixai29.github.io/OP6/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "OPN-008",
+      "name": "أول طلب",
+      "englishName": "First Order",
+      "category": "openings",
+      "styles": [
+        "minimal",
+        "creative",
+        "modern"
+      ],
+      "description": "إيصال طلب فاخر يخرج من الطابعة ليكشف الطلب رقم 001 وتفاصيل الافتتاح. مناسب للمطاعم والمقاهي، ويمكن تطويره باسم مدعو شخصي وحقل تهنئة عند الطلب.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/OP7/",
+      "mockupUrl": "https://novixai29.github.io/OP7/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-06T23:14:55.326Z",
+  "updatedAt": "2026-10-06T23:15:00.687Z",
   "groups": [
     {
       "id": "invitations",
