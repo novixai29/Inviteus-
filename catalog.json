@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 3,
+    "openings": 4,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1033,9 +1033,29 @@
       "mockupUrl": "https://novixai29.github.io/OP1/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "OPN-003",
+      "name": "الشريط الأحمر",
+      "englishName": "The Ribbon",
+      "category": "openings",
+      "styles": [
+        "luxury",
+        "modern"
+      ],
+      "description": "شريط افتتاح أحمر فاخر ينقسم بحركة SVG دقيقة لتظهر معلومات الدعوة. مناسب للبوتيك ومتاجر الأزياء، ويدعم مستقبلًا تخصيص اسم المدعو وإضافة حقل تهنئة عند الطلب.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/OP2/",
+      "mockupUrl": "https://novixai29.github.io/OP2/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-06T23:13:34.458Z",
+  "updatedAt": "2026-10-06T23:14:03.425Z",
   "groups": [
     {
       "id": "invitations",
