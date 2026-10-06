@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 5,
+    "openings": 6,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1074,9 +1074,30 @@
       "mockupUrl": "https://novixai29.github.io/OP3/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "OPN-005",
+      "name": "النور الأول",
+      "englishName": "First Light",
+      "category": "openings",
+      "styles": [
+        "luxury",
+        "modern"
+      ],
+      "description": "هوية داكنة فاخرة يكشف فيها خط ضوء معماري اسم المكان وموعد الافتتاح. مناسب للفنادق والمطاعم الراقية، ويدعم إضافة اسم المدعو وحقل تهنئة عند الطلب.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar",
+        "darkMode"
+      ],
+      "previewUrl": "https://novixai29.github.io/OP4/",
+      "mockupUrl": "https://novixai29.github.io/OP4/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-06T23:14:10.304Z",
+  "updatedAt": "2026-10-06T23:14:16.907Z",
   "groups": [
     {
       "id": "invitations",
