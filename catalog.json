@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 6,
+    "openings": 7,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1095,9 +1095,29 @@
       "mockupUrl": "https://novixai29.github.io/OP4/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "OPN-006",
+      "name": "من المخطّط إلى الواقع",
+      "englishName": "From Plan to Place",
+      "category": "openings",
+      "styles": [
+        "creative",
+        "modern"
+      ],
+      "description": "خطوط مخطط هندسي تُرسم تدريجيًا لتتحول إلى مشروع أصبح واقعًا. مناسب للعقارات والمباني والمكاتب المعمارية، ويمكن تخصيص اسم المدعو وإضافة حقل تهنئة عند الطلب.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/OP5/",
+      "mockupUrl": "https://novixai29.github.io/OP5/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-06T23:14:16.907Z",
+  "updatedAt": "2026-10-06T23:14:49.582Z",
   "groups": [
     {
       "id": "invitations",
