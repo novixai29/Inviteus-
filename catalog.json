@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 12,
+    "openings": 11,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1014,7 +1014,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-002",
+      "id": "OPN-001",
       "name": "لحظة الافتتاح",
       "englishName": "Opening Moment",
       "category": "openings",
@@ -1035,7 +1035,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-003",
+      "id": "OPN-002",
       "name": "الشريط الأحمر",
       "englishName": "The Ribbon",
       "category": "openings",
@@ -1055,7 +1055,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-004",
+      "id": "OPN-003",
       "name": "العنوان الجديد",
       "englishName": "New Address",
       "category": "openings",
@@ -1076,7 +1076,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-005",
+      "id": "OPN-004",
       "name": "النور الأول",
       "englishName": "First Light",
       "category": "openings",
@@ -1097,7 +1097,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-006",
+      "id": "OPN-005",
       "name": "من المخطّط إلى الواقع",
       "englishName": "From Plan to Place",
       "category": "openings",
@@ -1117,7 +1117,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-007",
+      "id": "OPN-006",
       "name": "اللافتة",
       "englishName": "The Sign",
       "category": "openings",
@@ -1138,7 +1138,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-008",
+      "id": "OPN-007",
       "name": "أول طلب",
       "englishName": "First Order",
       "category": "openings",
@@ -1159,7 +1159,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-009",
+      "id": "OPN-008",
       "name": "خلف الواجهة",
       "englishName": "Behind The Glass",
       "category": "openings",
@@ -1180,7 +1180,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-010",
+      "id": "OPN-009",
       "name": "المفتاح الأول",
       "englishName": "First Key",
       "category": "openings",
@@ -1201,7 +1201,7 @@
       "newArrival": true
     },
     {
-      "id": "OPN-011",
+      "id": "OPN-010",
       "name": "الآن مفتوح",
       "englishName": "Now Open",
       "category": "openings",
