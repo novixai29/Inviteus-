@@ -5,7 +5,7 @@
     "henna": 11,
     "wedding": 11,
     "conferences": 11,
-    "openings": 2,
+    "openings": 3,
     "stores": 1,
     "food-menus": 1,
     "drink-menus": 1,
@@ -1012,9 +1012,30 @@
       "previewUrl": "https://novixai29.github.io/GRAD-10/",
       "trending": false,
       "newArrival": true
+    },
+    {
+      "id": "OPN-002",
+      "name": "لحظة الافتتاح",
+      "englishName": "Opening Moment",
+      "category": "openings",
+      "styles": [
+        "minimal",
+        "creative",
+        "modern"
+      ],
+      "description": "واجهة متجر رقمية ترتفع كستارة افتتاح لتكشف اسم المشروع وتفاصيل المناسبة. مناسب للمتاجر الفاخرة ومتاجر المفاهيم، ويمكن تطويره لإظهار اسم المدعو وإضافة حقل تهنئة عند الطلب.",
+      "features": [
+        "countdown",
+        "maps",
+        "calendar"
+      ],
+      "previewUrl": "https://novixai29.github.io/OP1/",
+      "mockupUrl": "https://novixai29.github.io/OP1/",
+      "trending": false,
+      "newArrival": true
     }
   ],
-  "updatedAt": "2026-10-05T02:02:14.502Z",
+  "updatedAt": "2026-10-06T23:13:34.458Z",
   "groups": [
     {
       "id": "invitations",
